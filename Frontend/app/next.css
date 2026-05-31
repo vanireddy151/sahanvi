@@ -1,0 +1,42 @@
+.nav-links.next-open {
+  display: flex;
+}
+
+.next-page {
+  min-height: 100vh;
+  background: #fff;
+}
+
+.home-page {
+  position: relative;
+  background:
+    radial-gradient(circle at 82% 6%, rgba(214, 128, 132, 0.46), transparent 38%),
+    linear-gradient(135deg, #9d5d86 0%, #a25b83 42%, #c07783 100%);
+}
+
+.home-page::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: url("/assets/sahanvi-banner-person-2.jpeg");
+  background-size: cover;
+  background-position: center;
+  opacity: 0.14;
+  mix-blend-mode: multiply;
+}
+
+.home-page > * {
+  position: relative;
+  z-index: 1;
+}
+
+.home-page .hero,
+.home-page .product-showcase {
+  background: transparent;
+}
+
+.home-page .product-showcase {
+  background: #f7ebdf;
+}

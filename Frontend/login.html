@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign In | Sahanvi Handloom Sarees</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Great+Vibes&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <script defer src="script.js"></script>
+  </head>
+  <body>
+    <header class="site-header" aria-label="Main navigation">
+      <a class="brand logo-link" href="index.html" aria-label="Sahanvi Handloom Sarees">
+        <img src="assets/Logo-transparent.png" alt="Sahanvi by Swapnavani" />
+      </a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="signup.html">Sign Up</a>
+      </nav>
+    </header>
+
+    <main class="signup-page">
+      <section class="signup-page-panel">
+        <h1>Sign in</h1>
+        <p>Welcome back to Sahanvi</p>
+        <form class="login-form">
+          <label>
+            <span>E-mail</span>
+            <input type="email" name="email" autocomplete="email" required />
+          </label>
+          <label>
+            <span>Password</span>
+            <input type="password" name="password" autocomplete="current-password" required />
+          </label>
+          <p class="member-copy">New customer? <a href="signup.html">Sign up</a></p>
+          <button class="checkout-primary" type="submit">Sign In</button>
+          <p class="auth-status" role="status"></p>
+        </form>
+      </section>
+    </main>
+  </body>
+</html>

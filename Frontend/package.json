@@ -1,0 +1,17 @@
+{
+  "name": "sahanvi-next",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "seed:sarees": "node --env-file=.env.local scripts/seed-sarees.mjs"
+  },
+  "dependencies": {
+    "mongoose": "^8.9.5",
+    "next": "^15.3.3",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  }
+}

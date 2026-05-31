@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About Us | Sahanvi Handloom Sarees</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Great+Vibes&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <script defer src="script.js"></script>
+  </head>
+  <body>
+    <header class="site-header" aria-label="Main navigation">
+      <a class="brand logo-link" href="index.html" aria-label="Sahanvi Handloom Sarees">
+        <img src="assets/Logo-transparent.png" alt="Sahanvi by Swapnavani" />
+      </a>
+
+      <nav class="nav-links" aria-label="Primary">
+        <div class="nav-item dropdown">
+          <button type="button">Heritage Sarees</button>
+          <div class="dropdown-menu">
+            <a href="collection.html?type=Kanjivaram%20Silks">Kanjivaram Silks</a>
+            <a href="collection.html?type=Banaras%20Silks">Banaras Silks</a>
+            <a href="collection.html?type=Gadwal%20Pattu">Gadwal Pattu</a>
+            <a href="collection.html?type=Mysore%20Silk">Mysore Silk</a>
+            <a href="collection.html?type=Paithani%20Silk">Paithani Silk</a>
+            <a href="collection.html?type=Jamdani%20Silk">Jamdani Silk</a>
+            <a href="collection.html?type=Muga%20Silk">Muga Silk</a>
+          </div>
+        </div>
+        <div class="nav-item dropdown">
+          <button type="button">Signature Sarees</button>
+          <div class="dropdown-menu">
+            <a href="collection.html?type=Tussar">Tussar</a>
+            <a href="collection.html?type=Organza">Organza</a>
+            <a href="collection.html?type=Ikkat">Ikkat</a>
+            <a href="collection.html?type=Patola%20Silk">Patola Silk</a>
+            <a href="collection.html?type=Patan%20Patola">Patan Patola</a>
+            <a href="collection.html?type=Chanderi%20Silk">Chanderi Silk</a>
+            <a href="collection.html?type=Kota%20Silk">Kota Silk</a>
+          </div>
+        </div>
+        <div class="nav-item dropdown">
+          <button type="button">Sarees</button>
+          <div class="dropdown-menu">
+            <a href="collection.html?type=Linen%20Silk">Linen Silk</a>
+            <a href="collection.html?type=Kora%20Silk">Kora Silk</a>
+            <a href="collection.html?type=Semi%20Kota">Semi Kota</a>
+            <a href="collection.html?type=Soft%20Silk">Soft Silk</a>
+            <a href="collection.html?type=Uppada%20Silk">Uppada Silk</a>
+          </div>
+        </div>
+        <a href="collection.html?type=Sahanvi%20Vintage">Sahanvi Vintage</a>
+      </nav>
+
+      <div class="header-actions">
+        <button class="currency" type="button">INR <i data-lucide="chevron-down"></i></button>
+        <button class="icon-button" type="button" aria-label="Search">
+          <i data-lucide="search"></i>
+        </button>
+        <button class="icon-button" type="button" aria-label="Wishlist">
+          <i data-lucide="heart"></i>
+        </button>
+        <div class="profile-menu">
+          <button class="icon-button login-button signup-open" type="button" aria-label="Open sign up">
+            <i data-lucide="user"></i>
+          </button>
+          <div class="profile-dropdown">
+            <button class="signup-open" type="button">Sign Up</button>
+            <a href="login.html">Sign In</a>
+          </div>
+        </div>
+        <button class="icon-button cart-button" type="button" aria-label="Cart">
+          <i data-lucide="shopping-cart"></i>
+        </button>
+        <button class="icon-button menu-button" type="button" aria-label="Menu">
+          <i data-lucide="menu"></i>
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <section class="about-hero">
+        <div>
+          <p class="eyebrow">About Sahanvi</p>
+          <h1>Handloom sarees chosen with heritage, grace, and everyday celebration in mind.</h1>
+        </div>
+      </section>
+
+      <section class="about-story">
+        <div class="about-copy">
+          <h2>Our Story</h2>
+          <p>
+            Sahanvi Handloom Sarees brings together timeless Indian weaving traditions and
+            contemporary elegance. Each saree is selected for its craftsmanship, texture, motif,
+            and the story it carries from the loom to your wardrobe.
+          </p>
+          <p>
+            From Kanjivaram silks to Pochampally and Gadwal weaves, our collection celebrates
+            regional artistry while keeping the shopping experience personal, warm, and reliable.
+          </p>
+        </div>
+
+        <div class="about-values" aria-label="What we value">
+          <article>
+            <i data-lucide="sparkles"></i>
+            <h3>Authentic Craft</h3>
+            <p>We focus on sarees with rich weaving character, thoughtful details, and lasting appeal.</p>
+          </article>
+          <article>
+            <i data-lucide="heart-handshake"></i>
+            <h3>Personal Service</h3>
+            <p>We help customers choose pieces for weddings, festivals, gifting, and treasured moments.</p>
+          </article>
+          <article>
+            <i data-lucide="gem"></i>
+            <h3>Elegant Selection</h3>
+            <p>Every collection is curated for color, drape, occasion, and the quiet confidence of tradition.</p>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <div class="checkout-overlay" id="checkoutPrompt" hidden>
+      <section class="checkout-panel" role="dialog" aria-modal="true" aria-labelledby="checkoutTitle">
+        <button class="checkout-close" type="button" aria-label="Close checkout options">
+          <i data-lucide="x"></i>
+        </button>
+        <h2 id="checkoutTitle">Register to Checkout</h2>
+        <p class="checkout-subtitle">Why create an account?</p>
+        <ul class="checkout-benefits">
+          <li><i data-lucide="badge-check"></i>Track order status</li>
+          <li><i data-lucide="badge-check"></i>Track order history</li>
+          <li><i data-lucide="badge-check"></i>Save address</li>
+          <li><i data-lucide="badge-check"></i>Checkout faster</li>
+        </ul>
+        <button class="checkout-primary signup-open" type="button">Sign Up</button>
+        <button class="checkout-signin" type="button">Already registered? Sign in</button>
+        <div class="checkout-divider"><span>Or</span></div>
+        <h3>Checkout as a Guest</h3>
+        <form class="guest-form">
+          <label>
+            <span>Name</span>
+            <input type="text" name="guestName" placeholder="Enter your name" autocomplete="name" required />
+          </label>
+          <label>
+            <span>Phone number</span>
+            <input type="tel" name="guestPhone" placeholder="Enter your phone number" autocomplete="tel" required />
+          </label>
+          <label>
+            <span>Email ID</span>
+            <input type="email" name="guestEmail" placeholder="Enter your email address" autocomplete="email" required />
+          </label>
+          <button class="checkout-primary" type="submit">Continue</button>
+        </form>
+      </section>
+    </div>
+
+    <div class="signup-overlay" id="signupModal" hidden>
+      <section class="signup-panel" role="dialog" aria-modal="true" aria-labelledby="signupTitle">
+        <button class="signup-close" type="button" aria-label="Close sign up">
+          <i data-lucide="x"></i>
+        </button>
+        <h2 id="signupTitle">Sign up</h2>
+        <p>with your social network</p>
+        <div class="social-signup">
+          <button type="button">Facebook</button>
+          <button type="button">Google</button>
+        </div>
+        <div class="checkout-divider"><span>Or</span></div>
+        <form class="signup-form">
+          <label>
+            <span>Name</span>
+            <input type="text" name="name" autocomplete="name" />
+          </label>
+          <label>
+            <span>E-mail</span>
+            <input type="email" name="email" autocomplete="email" />
+          </label>
+          <label>
+            <span>Phone Number</span>
+            <input type="tel" name="phone" autocomplete="tel" />
+          </label>
+          <div class="password-row">
+            <label>
+              <span>Password</span>
+              <input type="password" name="password" autocomplete="new-password" />
+            </label>
+            <label>
+              <span>Re-Type Password</span>
+              <input type="password" name="confirmPassword" autocomplete="new-password" />
+            </label>
+          </div>
+          <p class="member-copy">Already a member? <a href="login.html">Sign in</a></p>
+          <button class="checkout-primary" type="submit">Sign Up</button>
+        </form>
+      </section>
+    </div>
+
+    <footer class="site-footer">
+      <div class="footer-column footer-about">
+        <a class="footer-brand logo-link" href="index.html" aria-label="Sahanvi Handloom Sarees">
+          <img src="assets/Logo-transparent.png" alt="Sahanvi by Swapnavani" />
+        </a>
+        <p>
+          Weavers of heritage and elegance. Every saree carries a thread of tradition,
+          handcrafted for women who value authenticity.
+        </p>
+        <div class="social-links" aria-label="Social links">
+          <a href="#" aria-label="Instagram"><i data-lucide="instagram"></i></a>
+          <a href="#" aria-label="Facebook"><i data-lucide="facebook"></i></a>
+          <a href="#" aria-label="X"><span>X</span></a>
+          <a href="#" aria-label="Pinterest"><span>P</span></a>
+        </div>
+        <p class="follow-note">Follow for saree styling inspiration</p>
+      </div>
+
+      <div class="footer-column">
+        <h2>Explore</h2>
+        <a href="#">New Arrivals</a>
+        <a href="collection.html?type=Kanjivaram%20Silks">Kanjivaram Silks</a>
+        <a href="#">Pochampally</a>
+        <a href="#">Gadwal</a>
+        <a href="#">Wedding Sarees</a>
+        <a href="about.html">About Us</a>
+      </div>
+
+      <div class="footer-column">
+        <h2>Support</h2>
+        <a href="#">Shipping &amp; Payments</a>
+        <a href="privacy-policy.html">Privacy Policy</a>
+        <a href="terms-conditions.html">Terms &amp; Conditions</a>
+        <a href="return-exchange-policy.html">Return &amp; Exchange Policy</a>
+      </div>
+
+      <div class="footer-column footer-contact">
+        <h2>Address</h2>
+        <p>
+          Flat-406 Vaishnovi TNR<br />
+          Vasavi Colony, Saroor Nagar,<br />
+          Hyderabad, Telangana
+        </p>
+        <h2>Contact</h2>
+        <p>
+          Tel: +91 9704888933<br />
+          +91 9949779227<br />
+          Whatsapp: +91 9791019822<br />
+          Email: orders@sahanvihandlooms.com
+        </p>
+        <p>Open: Mon-Sat, 9:30 am - 7:30 pm</p>
+      </div>
+    </footer>
+  </body>
+</html>

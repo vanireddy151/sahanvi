@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 150" role="img" aria-labelledby="title desc">
+  <title id="title">Sahanvi by Swapnavani</title>
+  <desc id="desc">Sahanvi wordmark with a small floral motif above the name</desc>
+  <rect width="360" height="150" fill="none"/>
+  <g fill="none" stroke="#241912" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M180 13c10 14 11 27 1 39-11-11-12-24-1-39z" stroke-width="2"/>
+    <path d="M151 31c18 0 30 7 35 21-15 4-27-3-35-21z" stroke-width="2"/>
+    <path d="M209 31c-18 0-30 7-35 21 15 4 27-3 35-21z" stroke-width="2"/>
+    <path d="M146 62c16-9 30-8 40 2-11 11-25 10-40-2z" stroke-width="2"/>
+    <path d="M214 62c-16-9-30-8-40 2 11 11 25 10 40-2z" stroke-width="2"/>
+    <circle cx="180" cy="58" r="8" stroke-width="2"/>
+    <path d="M180 44v28M166 58h28M170 48l20 20M190 48l-20 20" stroke-width="1.4"/>
+    <circle cx="180" cy="58" r="2.5" fill="#241912" stroke="none"/>
+  </g>
+  <text
+    x="180"
+    y="105"
+    text-anchor="middle"
+    fill="#241912"
+    font-family="Georgia, 'Times New Roman', serif"
+    font-size="76"
+    font-weight="700">Sahanvi</text>
+  <text
+    x="180"
+    y="134"
+    text-anchor="middle"
+    fill="#241912"
+    font-family="Arial, Helvetica, sans-serif"
+    font-size="19"
+    font-weight="700">by Swapnavani</text>
+</svg>

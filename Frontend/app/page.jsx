@@ -1,0 +1,70 @@
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import ProductCard from "./components/ProductCard";
+
+const products = [
+  ["Cream Kanjivaram Silk Saree S763878", "₹21,020", "/assets/sahanvi-banner-person.jpeg"],
+  ["Silver Gadwal Pattu Saree S842176", "₹18,950", "/assets/sahanvi-banner-person-2.jpeg"],
+  ["Pink Pochampally Silk Saree S529410", "₹16,780", "/assets/sahanvi-banner-person.jpeg"],
+  ["Royal Organza Silk Saree S684302", "₹14,520", "/assets/sahanvi-banner-person-2.jpeg"]
+];
+
+export default function HomePage() {
+  return (
+    <div className="next-page home-page">
+      <Header />
+      <main>
+        <section className="hero editorial-hero">
+          <img className="hero-flower-mark" src="/assets/sahanvi-flower-transparent.png" alt="" />
+          <div className="hero-text">
+            <h1>Every thread<br />tells a story.<br />Every motif carries a legacy.</h1>
+            <a className="hero-button" href="#collections">Explore Collection</a>
+          </div>
+          <div className="hero-media">
+            <img className="hero-back-image active" src="/assets/sahanvi-banner-person.jpeg" alt="Sahanvi saree" />
+            <button className="hero-video-card" type="button">
+              <video className="hero-video" muted playsInline controls preload="metadata">
+                <source src="/assets/sahanvi-story-video.mov" type="video/quicktime" />
+              </video>
+              <span className="video-sheen"></span>
+              <span className="play-button">▶</span>
+            </button>
+          </div>
+        </section>
+
+        <section className="collections" id="collections">
+          <div className="collections-header">
+            <div>
+              <h2>Our Collections</h2>
+              <p>Welcome to the world of elegance and craftsmanship</p>
+            </div>
+          </div>
+          <div className="collection-gallery">
+            {products.concat(products).map(([name], index) => (
+              <a className="collection-card" href="/Kanjivaram%20Silks" key={`${name}-${index}`}>
+                <div className="collection-image">
+                  <img src={index % 2 ? "/assets/sahanvi-banner-person-2.jpeg" : "/assets/sahanvi-banner-person.jpeg"} alt={name} />
+                </div>
+                <h3>{name.replace(/ S\d+$/, "")}</h3>
+                <p>{name.match(/S\d+$/)?.[0]}</p>
+              </a>
+            ))}
+          </div>
+        </section>
+
+        <section className="product-showcase">
+          <div className="section-heading">
+            <h2>New Arrivals</h2>
+            <p>Handpicked sarees with timeless weaves and graceful details</p>
+          </div>
+          <div className="product-grid">
+            {products.map(([name, price, image]) => (
+              <ProductCard key={name} name={name} price={price} image={image} />
+            ))}
+          </div>
+        </section>
+      </main>
+      <Footer />
+    </div>
+  );
+}
