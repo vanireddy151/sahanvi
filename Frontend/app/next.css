@@ -37,6 +37,14 @@
   background: transparent;
 }
 
+.home-page .product-showcase {
+  background:
+    linear-gradient(rgba(41, 41, 41, 0.88), rgba(41, 41, 41, 0.88)),
+    var(--home-bg-image);
+  background-size: cover;
+  background-position: center;
+}
+
 .home-page .product-showcase .section-heading h2,
 .home-page .product-showcase .section-heading p,
 .home-page .product-showcase .product-card-title,
