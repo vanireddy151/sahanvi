@@ -1,13 +1,7 @@
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import ProductCard from "./components/ProductCard";
-
-const products = [
-  ["Cream Kanjivaram Silk Saree S763878", "₹21,020", "/assets/sahanvi-banner-person.jpeg"],
-  ["Silver Gadwal Pattu Saree S842176", "₹18,950", "/assets/sahanvi-banner-person-2.jpeg"],
-  ["Pink Pochampally Silk Saree S529410", "₹16,780", "/assets/sahanvi-banner-person.jpeg"],
-  ["Royal Organza Silk Saree S684302", "₹14,520", "/assets/sahanvi-banner-person-2.jpeg"]
-];
+import { collectionItems, products } from "./data/products";
 
 export default function HomePage() {
   return (
@@ -18,7 +12,7 @@ export default function HomePage() {
           <img className="hero-flower-mark" src="/assets/sahanvi-flower-transparent.png" alt="" />
           <div className="hero-text">
             <h1>Every thread<br />tells a story.<br />Every motif carries a legacy.</h1>
-            <a className="hero-button" href="#collections">Explore Collection</a>
+            <a className="hero-button" href="/collections">Explore Collection</a>
           </div>
           <div className="hero-media">
             <img className="hero-back-image active" src="/assets/sahanvi-banner-person.jpeg" alt="Sahanvi saree" />
@@ -40,7 +34,7 @@ export default function HomePage() {
             </div>
           </div>
           <div className="collection-gallery">
-            {products.concat(products).map(([name], index) => (
+            {collectionItems.map(([name], index) => (
               <a className="collection-card" href="/Kanjivaram%20Silks" key={`${name}-${index}`}>
                 <div className="collection-image">
                   <img src={index % 2 ? "/assets/sahanvi-banner-person-2.jpeg" : "/assets/sahanvi-banner-person.jpeg"} alt={name} />
@@ -52,7 +46,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className="product-showcase">
+        <section className="product-showcase" id="new-arrivals">
           <div className="section-heading">
             <h2>New Arrivals</h2>
             <p>Handpicked sarees with timeless weaves and graceful details</p>

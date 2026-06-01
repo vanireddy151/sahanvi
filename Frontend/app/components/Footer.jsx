@@ -11,7 +11,7 @@ export default function Footer() {
       </div>
       <div className="footer-column">
         <h2>Explore</h2>
-        <Link href="/">New Arrivals</Link>
+        <Link href="/new-arrivals">New Arrivals</Link>
         <Link href="/Kanjivaram%20Silks">Kanjivaram Silks</Link>
         <Link href="/Pochampally">Pochampally</Link>
         <Link href="/Gadwal%20Pattu">Gadwal</Link>
