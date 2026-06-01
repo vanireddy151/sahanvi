@@ -41,8 +41,9 @@
   background:
     linear-gradient(rgba(41, 41, 41, 0.88), rgba(41, 41, 41, 0.88)),
     var(--home-bg-image);
-  background-size: cover;
+  background-size: cover, cover;
   background-position: center;
+  box-shadow: 0 160px 0 #292929;
 }
 
 .home-page .product-showcase .section-heading h2,
