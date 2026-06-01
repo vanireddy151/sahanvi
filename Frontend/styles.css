@@ -468,9 +468,9 @@ button {
   min-height: 150px;
   display: grid;
   gap: 34px;
-  padding: 50px 28px 48px;
+  padding: 50px clamp(32px, 4vw, 64px) 56px;
   background: #fff;
-  width: min(100%, 1630px);
+  width: min(calc(100% - 56px), 1760px);
   margin: 0 auto;
 }
 
@@ -666,9 +666,9 @@ button {
 }
 
 .product-showcase {
-  padding: 18px 28px 70px;
+  padding: 42px clamp(32px, 4vw, 64px) 76px;
   background: #fff;
-  width: min(100%, 1630px);
+  width: min(calc(100% - 56px), 1760px);
   margin: 0 auto;
   scroll-margin-top: 96px;
 }
