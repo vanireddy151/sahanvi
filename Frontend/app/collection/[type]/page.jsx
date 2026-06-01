@@ -1,6 +1,7 @@
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import ProductCard from "../../components/ProductCard";
+import { media } from "../../data/media";
 
 const descriptions = {
   "Kanjivaram Silks": "At Sahanvi, we treat every Kanjivaram silk saree as a piece of tradition. Our artisans weave each saree in pure silk with rich zari, bringing South Indian heritage to life.",
@@ -21,7 +22,7 @@ export default async function CollectionPage({ params }) {
             <h1 className="collection-title">{type}</h1>
             <p className="collection-description">{description}</p>
           </div>
-          <img className="collection-hero-image" src="/assets/sahanvi-banner-person-2.jpeg" alt={type} />
+          <img className="collection-hero-image" src={media.bannerPerson2} alt={type} />
         </section>
         <section className="collection-products">
           <div className="collection-tabs">
@@ -37,7 +38,7 @@ export default async function CollectionPage({ params }) {
                 key={code}
                 name={`${type} Saree ${code}`}
                 price={["₹21,020", "₹18,950", "₹16,780", "₹14,520"][index]}
-                image={index % 2 ? "/assets/sahanvi-banner-person-2.jpeg" : "/assets/sahanvi-banner-person.jpeg"}
+                image={index % 2 ? media.bannerPerson2 : media.bannerPerson}
               />
             ))}
           </div>

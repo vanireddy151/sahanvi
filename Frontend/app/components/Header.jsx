@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { media } from "../data/media";
 
 const menus = {
   "Heritage Sarees": ["Kanjivaram Silks", "Banaras Silks", "Gadwal Pattu", "Mysore Silk", "Paithani Silk", "Jamdani Silk", "Muga Silk"],
@@ -23,7 +24,7 @@ export default function Header() {
   return (
     <header className="site-header">
       <Link className="brand logo-link" href="/">
-        <img src="/assets/Logo-transparent.png" alt="Sahanvi by Swapnavani" />
+        <img src={media.logo} alt="Sahanvi by Swapnavani" />
       </Link>
 
       <nav className={`nav-links ${menuOpen ? "next-open" : ""}`}>

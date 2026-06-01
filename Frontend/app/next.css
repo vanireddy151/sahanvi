@@ -20,7 +20,7 @@
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  background-image: url("/assets/sahanvi-banner-person-2.jpeg");
+  background-image: var(--home-bg-image);
   background-size: cover;
   background-position: center;
   opacity: 0.14;

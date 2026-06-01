@@ -1,11 +1,12 @@
 import Link from "next/link";
+import { media } from "../data/media";
 
 export default function Footer() {
   return (
     <footer className="site-footer">
       <div className="footer-column footer-about">
         <Link className="footer-brand logo-link" href="/">
-          <img src="/assets/Logo-transparent.png" alt="Sahanvi by Swapnavani" />
+          <img src={media.logo} alt="Sahanvi by Swapnavani" />
         </Link>
         <p>Weavers of heritage and elegance. Every saree carries a thread of tradition, handcrafted for women who value authenticity.</p>
       </div>

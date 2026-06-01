@@ -1,24 +1,25 @@
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import ProductCard from "./components/ProductCard";
+import { media } from "./data/media";
 import { collectionItems, products } from "./data/products";
 
 export default function HomePage() {
   return (
-    <div className="next-page home-page">
+    <div className="next-page home-page" style={{ "--home-bg-image": `url("${media.bannerPerson2}")` }}>
       <Header />
       <main>
         <section className="hero editorial-hero">
-          <img className="hero-flower-mark" src="/assets/sahanvi-flower-transparent.png" alt="" />
+          <img className="hero-flower-mark" src={media.flower} alt="" />
           <div className="hero-text">
             <h1>Every thread<br />tells a story.<br />Every motif carries a legacy.</h1>
             <a className="hero-button" href="/collections">Explore Collection</a>
           </div>
           <div className="hero-media">
-            <img className="hero-back-image active" src="/assets/sahanvi-banner-person.jpeg" alt="Sahanvi saree" />
+            <img className="hero-back-image active" src={media.bannerPerson} alt="Sahanvi saree" />
             <button className="hero-video-card" type="button">
               <video className="hero-video" muted playsInline controls preload="metadata">
-                <source src="/assets/sahanvi-story-video.mov" type="video/quicktime" />
+                <source src={media.storyVideo} type="video/mp4" />
               </video>
               <span className="video-sheen"></span>
               <span className="play-button">▶</span>
@@ -37,7 +38,7 @@ export default function HomePage() {
             {collectionItems.map(([name], index) => (
               <a className="collection-card" href="/Kanjivaram%20Silks" key={`${name}-${index}`}>
                 <div className="collection-image">
-                  <img src={index % 2 ? "/assets/sahanvi-banner-person-2.jpeg" : "/assets/sahanvi-banner-person.jpeg"} alt={name} />
+                  <img src={index % 2 ? media.bannerPerson2 : media.bannerPerson} alt={name} />
                 </div>
                 <h3>{name.replace(/ S\d+$/, "")}</h3>
                 <p>{name.match(/S\d+$/)?.[0]}</p>

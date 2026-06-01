@@ -1,6 +1,7 @@
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import ProductCard from "../components/ProductCard";
+import { media } from "../data/media";
 import { products } from "../data/products";
 
 export default function NewArrivalsPage() {
@@ -14,7 +15,7 @@ export default function NewArrivalsPage() {
             <h1>New Arrivals</h1>
             <p>Handpicked sarees with timeless weaves, graceful details, and elegant festive appeal.</p>
           </div>
-          <img src="/assets/sahanvi-banner-person.jpeg" alt="Sahanvi new arrivals" />
+          <img src={media.bannerPerson} alt="Sahanvi new arrivals" />
         </section>
 
         <section className="listing-section listing-section-cream">

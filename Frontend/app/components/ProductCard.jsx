@@ -1,8 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import { media } from "../data/media";
 
-export default function ProductCard({ image = "/assets/sahanvi-banner-person.jpeg", name, price = "₹21,020" }) {
+export default function ProductCard({ image = media.bannerPerson, name, price = "₹21,020" }) {
   const [isOpen, setIsOpen] = useState(false);
   const code = name.match(/S\d+$/)?.[0] || "";
   const sareeName = name.replace(/\sS\d+$/, "");

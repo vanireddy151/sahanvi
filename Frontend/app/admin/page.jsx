@@ -32,7 +32,7 @@ export default function AdminPage() {
         <main className="admin-page">
           <section className="admin-hero">
             <p className="eyebrow">Sahanvi Admin</p>
-            <h1>Upload sarees with category, type, code, image, and price.</h1>
+            <h1>Upload sarees with category, type, code, Cloudinary image URL, and price.</h1>
           </section>
           <section className="admin-panel">
             <form className="admin-form" onSubmit={submit}>
@@ -42,7 +42,7 @@ export default function AdminPage() {
                 <label><span>Saree Name</span><input name="name" required /></label>
                 <label><span>Code</span><input name="code" required /></label>
                 <label><span>Price</span><input name="price" type="number" required /></label>
-                <label><span>Saree Image</span><input name="image" type="file" accept="image/*" required /></label>
+                <label><span>Cloudinary Image URL</span><input name="imageUrl" type="url" placeholder="https://res.cloudinary.com/..." required /></label>
               </div>
               <label><span>Description</span><textarea name="description" rows="4"></textarea></label>
               <button className="checkout-primary" type="submit">Upload Saree</button>
