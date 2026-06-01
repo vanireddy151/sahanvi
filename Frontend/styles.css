@@ -468,10 +468,11 @@ button {
   min-height: 150px;
   display: grid;
   gap: 34px;
-  padding: 50px clamp(32px, 4vw, 64px) 56px;
-  background: #fff;
-  width: min(calc(100% - 56px), 1760px);
-  margin: 0 auto;
+  padding: 58px clamp(42px, 7vw, 132px) 62px;
+  background: #f3f3f3;
+  width: 100%;
+  margin: 0;
+  border-top: 1px solid rgba(74, 44, 24, 0.12);
 }
 
 .collections-header {
@@ -666,10 +667,11 @@ button {
 }
 
 .product-showcase {
-  padding: 42px clamp(32px, 4vw, 64px) 76px;
-  background: #fff;
-  width: min(calc(100% - 56px), 1760px);
-  margin: 0 auto;
+  padding: 58px clamp(42px, 7vw, 132px) 76px;
+  background: #f3f3f3;
+  width: 100%;
+  margin: 0;
+  border-top: 1px solid rgba(74, 44, 24, 0.12);
   scroll-margin-top: 96px;
 }
 
