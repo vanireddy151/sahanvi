@@ -36,3 +36,10 @@
 .home-page .product-showcase {
   background: transparent;
 }
+
+.home-page .product-showcase .section-heading h2,
+.home-page .product-showcase .section-heading p,
+.home-page .product-showcase .product-card-title,
+.home-page .product-showcase .product-price {
+  color: #000;
+}
