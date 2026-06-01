@@ -1,6 +1,7 @@
 "use client";
 
 import Header from "../components/Header";
+import { apiUrl } from "../lib/api";
 
 export default function SignupPage() {
   async function submit(event) {
@@ -10,7 +11,7 @@ export default function SignupPage() {
       alert("Passwords do not match.");
       return;
     }
-    const response = await fetch("/api/auth/register", {
+    const response = await fetch(apiUrl("/api/auth/register"), {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data)

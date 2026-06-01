@@ -180,7 +180,7 @@ window.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    fetch("http://localhost:5000/api/auth/register", {
+    fetch("https://sahanvi-2.onrender.com/api/auth/register", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -371,7 +371,7 @@ window.addEventListener("DOMContentLoaded", () => {
     event.preventDefault();
     const formData = new FormData(loginForm);
 
-    fetch("http://localhost:5000/api/auth/login", {
+    fetch("https://sahanvi-2.onrender.com/api/auth/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -518,7 +518,7 @@ window.addEventListener("DOMContentLoaded", () => {
     }
 
     try {
-      const response = await fetch("http://localhost:5000/api/sarees", {
+      const response = await fetch("https://sahanvi-2.onrender.com/api/sarees", {
         method: "POST",
         body: formData
       });
@@ -571,7 +571,7 @@ window.addEventListener("DOMContentLoaded", () => {
     }
 
     try {
-      const response = await fetch("http://localhost:5000/api/inquiries", {
+      const response = await fetch("https://sahanvi-2.onrender.com/api/inquiries", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(inquiry)
@@ -626,7 +626,7 @@ window.addEventListener("DOMContentLoaded", () => {
     }
 
     try {
-      const response = await fetch("http://localhost:5000/api/inquiries");
+      const response = await fetch("https://sahanvi-2.onrender.com/api/inquiries");
       if (!response.ok) {
         throw new Error("Backend offline");
       }

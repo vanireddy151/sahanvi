@@ -1,12 +1,13 @@
 "use client";
 
 import Header from "../components/Header";
+import { apiUrl } from "../lib/api";
 
 export default function LoginPage() {
   async function submit(event) {
     event.preventDefault();
     const data = Object.fromEntries(new FormData(event.currentTarget).entries());
-    const response = await fetch("/api/auth/login", {
+    const response = await fetch(apiUrl("/api/auth/login"), {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data)

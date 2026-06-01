@@ -1,6 +1,7 @@
 "use client";
 
 import Header from "../components/Header";
+import { apiUrl } from "../lib/api";
 import { useEffect, useState } from "react";
 
 export default function AdminPage() {
@@ -15,7 +16,7 @@ export default function AdminPage() {
   async function submit(event) {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
-    const response = await fetch("/api/sarees", { method: "POST", body: formData });
+    const response = await fetch(apiUrl("/api/sarees"), { method: "POST", body: formData });
     alert(response.ok ? "Saree uploaded." : "Upload failed.");
   }
 
