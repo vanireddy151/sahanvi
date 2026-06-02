@@ -19,6 +19,9 @@ const bodyColours = [
 ];
 
 const filterGroups = ["Material", "Design", "Border", "Blouse", "Zari Colour", "Weave", "Pallu Colour"];
+const collectionChips = ["Wedding Ready", "Pure Silk", "Festive Drapes", "Zari Border", "Most Loved"];
+const serviceHighlights = ["Authentic handloom-inspired drapes", "Fall & pico support", "Secure checkout", "Carefully packed"];
+const productCodes = ["S763878", "S842176", "S529410", "S684302", "S743218", "S905117", "S438920", "S682410"];
 
 export default async function CollectionPage({ params }) {
   const type = decodeURIComponent((await params).type);
@@ -30,14 +33,28 @@ export default async function CollectionPage({ params }) {
       <main className="collection-page">
         <section className="collection-hero">
           <div className="collection-copy">
+            <p className="collection-kicker">Sahanvi Collection</p>
             <h1 className="collection-title">{type}</h1>
             <p className="collection-description">{description}</p>
+            <div className="collection-hero-actions">
+              <a href="#collection-products">Shop Now</a>
+              <span>8 curated sarees</span>
+            </div>
           </div>
           <img className="collection-hero-image" src={media.bannerPerson2} alt={type} />
         </section>
-        <section className="collection-products">
+        <section className="collection-products" id="collection-products">
+          <div className="collection-chip-row" aria-label="Collection highlights">
+            {collectionChips.map((chip) => (
+              <button className="collection-chip" type="button" key={chip}>{chip}</button>
+            ))}
+          </div>
           <div className="collection-shop-layout">
             <aside className="collection-filters" aria-label={`${type} filters`}>
+              <div className="filter-heading">
+                <h2>Filters</h2>
+                <button type="button">Clear All</button>
+              </div>
               <div className="filter-price">
                 <input type="range" min="14860" max="43240" defaultValue="43240" aria-label="Price range" />
                 <p>Price: ₹14,860 - ₹43,240</p>
@@ -70,6 +87,21 @@ export default async function CollectionPage({ params }) {
             </aside>
 
             <div className="collection-results">
+              <div className="collection-toolbar">
+                <div>
+                  <p>{productCodes.length} sarees found</p>
+                  <h2>{type} for every occasion</h2>
+                </div>
+                <label>
+                  <span>Sort</span>
+                  <select defaultValue="newest">
+                    <option value="newest">Newest First</option>
+                    <option value="price-low">Price: Low to High</option>
+                    <option value="price-high">Price: High to Low</option>
+                    <option value="popular">Most Loved</option>
+                  </select>
+                </label>
+              </div>
               <div className="collection-tabs">
                 <button className="active" type="button">By Design</button>
                 <button type="button">By Colour</button>
@@ -78,13 +110,21 @@ export default async function CollectionPage({ params }) {
                 <button type="button">By Weave</button>
               </div>
               <div className="product-grid collection-product-grid">
-                {["S763878", "S842176", "S529410", "S684302"].map((code, index) => (
+                {productCodes.map((code, index) => (
                   <ProductCard
                     key={code}
                     name={`${type} Saree ${code}`}
-                    price={["₹21,020", "₹18,950", "₹16,780", "₹14,520"][index]}
+                    price={["₹21,020", "₹18,950", "₹16,780", "₹14,520", "₹23,400", "₹19,760", "₹28,900", "₹17,650"][index]}
                     image={index % 2 ? media.bannerPerson2 : media.bannerPerson}
                   />
+                ))}
+              </div>
+              <div className="collection-service-strip">
+                {serviceHighlights.map((item) => (
+                  <div key={item}>
+                    <span>✓</span>
+                    <p>{item}</p>
+                  </div>
                 ))}
               </div>
             </div>
