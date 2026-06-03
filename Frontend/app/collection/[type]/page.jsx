@@ -38,17 +38,23 @@ const bodyColours = [
   ["Blue", "#0808f7"],
   ["Brown", "#b02f2f"],
   ["Burgundy", "#8d0025"],
-  ["Cream", "#fffbd1"]
+  ["Cream", "#fffbd1"],
+  ["Green", "#18763d"],
+  ["Purple", "#6d3a8f"],
+  ["Pink", "#e89ab7"],
+  ["Red", "#bc1f2d"],
+  ["Grey", "#8d8d8d"],
+  ["Off White", "#fff7e8"]
 ];
 
 const filterGroups = {
-  Material: ["Pure Silk", "Tussar Silk", "Organza", "Linen Silk", "Kora Silk", "Soft Silk"],
-  Design: ["Traditional Motifs", "Floral", "Checks", "Temple Border", "Buttas", "Contemporary"],
-  Border: ["Zari Border", "Contrast Border", "Small Border", "Big Border", "Plain Border"],
-  Blouse: ["With Blouse", "Contrast Blouse", "Running Blouse", "Blouse Detachment"],
-  "Zari Colour": ["Gold Zari", "Silver Zari", "Antique Zari", "Copper Zari"],
-  Weave: ["Handloom", "Ikkat", "Jamdani", "Jacquard", "Pattu Weave"],
-  "Pallu Colour": ["Contrast Pallu", "Self Pallu", "Gold Pallu", "Printed Pallu"]
+  Material: ["Kanjeevaram Silk", "Pure Zari Kanjeevaram", "2 Gram Kanjeevaram", "Kanjeevaram Linen", "Kanjeevaram Organza", "Tussar Silk", "Kora Silk", "Kota Organza", "Soft Silk Tissue"],
+  Design: ["Checked", "Floral Printed", "Buttas", "Embroidery", "Tissue Brocade", "Bandhini Print", "Shibori", "Kalamkari", "Ajrakh", "Printed Kanjeevaram"],
+  Border: ["Borderless", "Self Border", "Contrast Border", "Korvai Border", "Rettapet Border", "Paithani Border", "Striped Border", "Gold & Silver Zari Border"],
+  Blouse: ["With Blouse 0.80 Mtrs", "Running Blouse", "Contrast Blouse", "Kalamkari Blouse", "Ikat Blouse", "Blouse Stitching", "Blouse Detachment"],
+  "Zari Colour": ["Pure Gold Zari", "Gold Zari", "Silver Zari", "Gold & Silver Zari", "Antique Zari", "No Zari"],
+  Weave: ["Handwoven", "Kanjeevaram", "Korvai", "Ikat", "Jamdani", "Brocade", "Tissue", "Crushed"],
+  "Pallu Colour": ["Self Pallu", "Contrast Pallu", "Gold Pallu", "Printed Pallu", "Paithani Pallu", "Zari Woven Pallu"]
 };
 const collectionChips = ["Wedding Ready", "Pure Silk", "Festive Drapes", "Zari Border", "Most Loved"];
 const serviceHighlights = ["Authentic handloom-inspired drapes", "Fall & pico support", "Secure checkout", "Carefully packed"];
@@ -164,7 +170,6 @@ export default async function CollectionPage({ params }) {
           <div className="collection-service-strip">
             {serviceHighlights.map((item) => (
               <div key={item}>
-                <span>✓</span>
                 <p>{item}</p>
               </div>
             ))}

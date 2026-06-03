@@ -21,19 +21,30 @@ export default function CartPage() {
     }
 
     const delivery = Object.fromEntries(new FormData(event.currentTarget).entries());
+    const customerProfile = {
+      ...auth.user,
+      name: delivery.name,
+      email: delivery.email,
+      phone: delivery.phone,
+      address: delivery.address,
+      role: auth.user.role || "customer"
+    };
     const order = {
       id: `SH-${Date.now()}`,
       createdAt: new Date().toISOString(),
-      customer: auth.user,
+      customer: customerProfile,
       delivery,
       items: cart,
       status: "Pending confirmation"
     };
     const orders = JSON.parse(localStorage.getItem("sahanvi-orders") || "[]");
+    localStorage.setItem("sahanvi-auth", JSON.stringify({ ...auth, user: customerProfile }));
+    localStorage.setItem("sahanvi-customer-profile", JSON.stringify(customerProfile));
     localStorage.setItem("sahanvi-orders", JSON.stringify([order, ...orders]));
     localStorage.setItem("sahanvi-cart", "[]");
     setCart([]);
-    alert("Order details saved. Sahanvi team will contact you for confirmation.");
+    alert("Order placed. You can review it in your profile.");
+    window.location.href = "/profile";
   }
 
   return (

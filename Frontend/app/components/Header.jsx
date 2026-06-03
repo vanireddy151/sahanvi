@@ -47,6 +47,7 @@ export default function Header() {
         <div className="profile-menu">
           <Link className="icon-button login-button" href="/signup" aria-label="Profile">♙</Link>
           <div className="profile-dropdown">
+            <Link href="/profile">My Profile</Link>
             <Link href="/signup">Sign Up</Link>
             <Link href="/login">Sign In</Link>
             {isAdmin && <Link href="/admin">Admin Panel</Link>}

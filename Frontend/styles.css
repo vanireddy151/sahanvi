@@ -1166,6 +1166,246 @@ button {
   font-size: 19px;
 }
 
+.profile-page {
+  background: #f8f4ef;
+}
+
+.profile-hero,
+.profile-empty {
+  padding: clamp(46px, 6vw, 86px) clamp(24px, 7vw, 120px) 28px;
+}
+
+.profile-hero h1,
+.profile-empty h1 {
+  margin: 0 0 12px;
+  color: #1d1714;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(42px, 5vw, 70px);
+  line-height: 1;
+}
+
+.profile-hero p,
+.profile-empty p {
+  max-width: 760px;
+  margin: 0;
+  color: #4c403a;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(20px, 2vw, 26px);
+  line-height: 1.35;
+}
+
+.profile-empty .hero-button {
+  margin-top: 28px;
+}
+
+.profile-layout {
+  display: grid;
+  grid-template-columns: minmax(280px, 360px) minmax(0, 1fr);
+  gap: clamp(24px, 4vw, 56px);
+  padding: 20px clamp(24px, 7vw, 120px) clamp(56px, 8vw, 100px);
+}
+
+.profile-card,
+.order-listing,
+.order-card,
+.profile-empty-order {
+  border: 1px solid #e1d5ca;
+  background: #fff;
+}
+
+.profile-card,
+.order-listing {
+  align-self: start;
+  padding: clamp(20px, 3vw, 30px);
+}
+
+.profile-card {
+  position: sticky;
+  top: 92px;
+}
+
+.profile-card h2,
+.order-listing-head h2 {
+  margin: 0;
+  color: #251811;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(30px, 3vw, 40px);
+  line-height: 1;
+}
+
+.profile-card dl {
+  display: grid;
+  gap: 16px;
+  margin: 24px 0 0;
+}
+
+.profile-card dt {
+  color: #8a7b71;
+  font: 700 12px/1.2 Inter, Arial, sans-serif;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.profile-card dd {
+  margin: 5px 0 0;
+  color: #2a1b13;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 21px;
+  line-height: 1.25;
+}
+
+.order-listing {
+  display: grid;
+  gap: 18px;
+}
+
+.order-listing-head,
+.order-card-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.order-listing-head span,
+.order-card-head span {
+  border-radius: 999px;
+  padding: 8px 13px;
+  color: #4b2a1a;
+  background: #f8efe6;
+  font: 700 13px/1 Inter, Arial, sans-serif;
+}
+
+.order-card {
+  padding: clamp(16px, 2vw, 22px);
+}
+
+.order-card-head p {
+  margin: 0 0 4px;
+  color: #8a7b71;
+  font: 700 12px/1.2 Inter, Arial, sans-serif;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.order-card-head h3 {
+  margin: 0;
+  color: #201715;
+  font: 800 18px/1.2 Inter, Arial, sans-serif;
+}
+
+.order-items {
+  display: grid;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.order-item {
+  display: grid;
+  grid-template-columns: 82px 1fr;
+  gap: 14px;
+  align-items: center;
+  padding: 12px;
+  background: #fffaf5;
+}
+
+.order-item img {
+  width: 82px;
+  height: 102px;
+  display: block;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.order-item strong,
+.order-item span {
+  display: block;
+}
+
+.order-item strong {
+  color: #2a1b13;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 23px;
+  line-height: 1.05;
+}
+
+.order-item span {
+  margin-top: 4px;
+  color: #050505;
+  font: 700 14px/1.2 Inter, Arial, sans-serif;
+}
+
+.order-delivery {
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px solid #eee5dd;
+}
+
+.order-delivery h4 {
+  margin: 0 0 6px;
+  color: #2a1b13;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 22px;
+}
+
+.order-delivery p,
+.return-status p {
+  margin: 0;
+  color: #51463f;
+  font: 15px/1.5 Inter, Arial, sans-serif;
+}
+
+.return-toggle {
+  min-height: 42px;
+  border: 1px solid #4b2a1a;
+  margin-top: 18px;
+  padding: 10px 18px;
+  color: #4b2a1a;
+  background: #fff;
+  cursor: pointer;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.return-form {
+  display: grid;
+  gap: 14px;
+  margin-top: 18px;
+  padding: 16px;
+  background: #f8efe6;
+}
+
+.return-form label {
+  display: grid;
+  gap: 7px;
+  color: #201715;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 18px;
+}
+
+.return-form select,
+.return-form textarea {
+  border: 1px solid #d8cabe;
+  padding: 10px 12px;
+  background: #fff;
+  font: 15px/1.4 Inter, Arial, sans-serif;
+}
+
+.return-status {
+  margin-top: 18px;
+  padding: 14px 16px;
+  background: #f8efe6;
+  border-left: 4px solid #5a2f1d;
+}
+
+.return-status strong {
+  display: block;
+  margin-bottom: 5px;
+  color: #4b2a1a;
+  font: 800 14px/1.2 Inter, Arial, sans-serif;
+}
+
 .listing-page {
   background: #fff;
 }
@@ -1652,41 +1892,26 @@ button {
 
 .collection-service-strip {
   display: flex;
-  gap: 0;
+  gap: 14px;
   margin-top: 46px;
+  padding: 0 0 10px;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
-  background: #dfd5cd;
-  border: 1px solid #dfd5cd;
+  background: transparent;
+  border: 0;
 }
 
 .collection-service-strip div {
   flex: 0 0 min(360px, 80vw);
-  min-height: 86px;
+  min-height: 72px;
   display: grid;
   align-content: center;
   justify-items: center;
-  gap: 8px;
-  padding: 16px;
+  padding: 18px 20px;
   background: #f8efe6;
   text-align: center;
   scroll-snap-align: start;
-  border-right: 1px solid #dfd5cd;
-}
-
-.collection-service-strip div:last-child {
-  border-right: 0;
-}
-
-.collection-service-strip span {
-  width: 28px;
-  height: 28px;
-  display: grid;
-  place-items: center;
-  border-radius: 50%;
-  color: #fff;
-  background: #4a2c18;
-  font: 700 15px/1 Inter, Arial, sans-serif;
+  border: 1px solid #dfd5cd;
 }
 
 .collection-service-strip p {
@@ -2320,11 +2545,25 @@ button {
   font-size: 18px;
 }
 
-.signup-form input {
+.signup-form input,
+.signup-form textarea {
   height: 48px;
   border: 1px solid #ddd8d3;
   padding: 0 14px;
   font: 16px Inter, Arial, sans-serif;
+}
+
+.signup-form textarea {
+  height: auto;
+  min-height: 98px;
+  padding: 12px 14px;
+  resize: vertical;
+  line-height: 1.45;
+}
+
+.signup-form small {
+  color: #8a7d74;
+  font: 13px/1.2 Inter, Arial, sans-serif;
 }
 
 .password-row {
@@ -2662,8 +2901,13 @@ button {
     grid-template-columns: 1fr;
   }
 
-  .cart-details {
+  .cart-details,
+  .profile-card {
     position: static;
+  }
+
+  .profile-layout {
+    grid-template-columns: 1fr;
   }
 
   .collection-hero {
@@ -2905,6 +3149,15 @@ button {
 
   .cart-layout {
     padding-inline: 18px;
+  }
+
+  .profile-layout {
+    padding-inline: 18px;
+  }
+
+  .order-listing-head,
+  .order-card-head {
+    flex-direction: column;
   }
 
   .admin-panel {
