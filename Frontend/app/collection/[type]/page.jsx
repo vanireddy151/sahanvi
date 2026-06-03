@@ -41,7 +41,15 @@ const bodyColours = [
   ["Cream", "#fffbd1"]
 ];
 
-const filterGroups = ["Material", "Design", "Border", "Blouse", "Zari Colour", "Weave", "Pallu Colour"];
+const filterGroups = {
+  Material: ["Pure Silk", "Tussar Silk", "Organza", "Linen Silk", "Kora Silk", "Soft Silk"],
+  Design: ["Traditional Motifs", "Floral", "Checks", "Temple Border", "Buttas", "Contemporary"],
+  Border: ["Zari Border", "Contrast Border", "Small Border", "Big Border", "Plain Border"],
+  Blouse: ["With Blouse", "Contrast Blouse", "Running Blouse", "Blouse Detachment"],
+  "Zari Colour": ["Gold Zari", "Silver Zari", "Antique Zari", "Copper Zari"],
+  Weave: ["Handloom", "Ikkat", "Jamdani", "Jacquard", "Pattu Weave"],
+  "Pallu Colour": ["Contrast Pallu", "Self Pallu", "Gold Pallu", "Printed Pallu"]
+};
 const collectionChips = ["Wedding Ready", "Pure Silk", "Festive Drapes", "Zari Border", "Most Loved"];
 const serviceHighlights = ["Authentic handloom-inspired drapes", "Fall & pico support", "Secure checkout", "Carefully packed"];
 const productCodes = ["S763878", "S842176", "S529410", "S684302", "S743218", "S905117", "S438920", "S682410"];
@@ -103,10 +111,17 @@ export default async function CollectionPage({ params }) {
                 <button className="show-more-filter" type="button">Show More</button>
               </details>
 
-              {filterGroups.map((group) => (
+              {Object.entries(filterGroups).map(([group, options]) => (
                 <details className="filter-panel filter-panel-compact" key={group}>
                   <summary>{group}</summary>
-                  <div className="filter-placeholder">Available options will appear here.</div>
+                  <div className="filter-option-list">
+                    {options.map((option) => (
+                      <label key={option}>
+                        <input type="checkbox" />
+                        <span>{option}</span>
+                      </label>
+                    ))}
+                  </div>
                 </details>
               ))}
             </aside>
