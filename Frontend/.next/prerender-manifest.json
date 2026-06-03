@@ -1,11 +1,1 @@
-{
-  "version": 4,
-  "routes": {},
-  "dynamicRoutes": {},
-  "notFoundRoutes": [],
-  "preview": {
-    "previewModeId": "9793e865435a8b6dd3d3f2605c71f3d8",
-    "previewModeSigningKey": "c7832d8349bdbfa66ec189bff02407d45a1868631926562e22e532fa87a6924e",
-    "previewModeEncryptionKey": "3c6200e34c8c5078e391834c927dcca01cb093168ba3bd01dba03ae14ac702d5"
-  }
-}
+{"version":4,"routes":{"/Kanjivaram Silks":{},"/Banaras Silks":{},"/Gadwal Pattu":{},"/Mysore Silk":{},"/Paithani Silk":{},"/Jamdani Silk":{},"/Muga Silk":{},"/Tussar":{},"/Organza":{},"/Ikkat":{},"/Patola Silk":{},"/Patan Patola":{},"/Chanderi Silk":{},"/Kota Silk":{},"/Linen Silk":{},"/Kora Silk":{},"/Semi Kota":{},"/Soft Silk":{},"/Uppada Silk":{},"/Sahanvi Vintage":{}},"dynamicRoutes":{"/[type]":{"dataRoute":null,"dataRouteRegex":null,"fallback":null,"fallbackRevalidate":false,"fallbackSourceRoute":"/[type]","routeRegex":"^\\/([^/]+?)(?:\\/)?$","allowHeader":[]}},"notFoundRoutes":[],"preview":{"previewModeId":"9793e865435a8b6dd3d3f2605c71f3d8","previewModeSigningKey":"c7832d8349bdbfa66ec189bff02407d45a1868631926562e22e532fa87a6924e","previewModeEncryptionKey":"3c6200e34c8c5078e391834c927dcca01cb093168ba3bd01dba03ae14ac702d5"}}

@@ -3,6 +3,8 @@ import Footer from "../components/Footer";
 import { media } from "../data/media";
 import { collectionItems } from "../data/products";
 
+const categoryLinks = ["Kanjivaram Silks", "Gadwal Pattu", "Pochampally", "Organza"];
+
 export default function CollectionsPage() {
   return (
     <div className="next-page">
@@ -20,7 +22,7 @@ export default function CollectionsPage() {
         <section className="listing-section">
           <div className="collection-gallery">
             {collectionItems.map(([name], index) => (
-              <a className="collection-card listing-card" href="/Kanjivaram%20Silks" key={`${name}-${index}`}>
+              <a className="collection-card listing-card" href={`/${encodeURIComponent(categoryLinks[index % categoryLinks.length])}`} key={`${name}-${index}`}>
                 <div className="collection-image">
                   <img src={index % 2 ? media.bannerPerson2 : media.bannerPerson} alt={name} />
                 </div>

@@ -20,6 +20,7 @@ export default function Footer() {
       </div>
       <div className="footer-column">
         <h2>Support</h2>
+        <Link href="/shipping-payments">Shipping & Payments</Link>
         <Link href="/privacy-policy">Privacy Policy</Link>
         <Link href="/terms-conditions">Terms & Conditions</Link>
         <Link href="/return-exchange-policy">Return & Exchange Policy</Link>
@@ -28,7 +29,7 @@ export default function Footer() {
         <h2>Address</h2>
         <p>Flat-406 Vaishnovi TNR<br />Vasavi Colony, Saroor Nagar,<br />Hyderabad, Telangana</p>
         <h2>Contact</h2>
-        <p>Tel: +91 9704888933<br />+91 9949779227<br />Email: orders@sahanvihandlooms.com</p>
+        <p>Tel: +91 9704888933<br />+91 9949779227<br />Email: orders@sahanvi.com</p>
       </div>
     </footer>
   );

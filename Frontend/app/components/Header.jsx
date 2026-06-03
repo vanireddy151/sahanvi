@@ -3,12 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { media } from "../data/media";
-
-const menus = {
-  "Heritage Sarees": ["Kanjivaram Silks", "Banaras Silks", "Gadwal Pattu", "Mysore Silk", "Paithani Silk", "Jamdani Silk", "Muga Silk"],
-  "Signature Sarees": ["Tussar", "Organza", "Ikkat", "Patola Silk", "Patan Patola", "Chanderi Silk", "Kota Silk"],
-  Sarees: ["Linen Silk", "Kora Silk", "Semi Kota", "Soft Silk", "Uppada Silk"]
-};
+import { menus } from "../data/navigation";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -57,7 +52,7 @@ export default function Header() {
             {isAdmin && <Link href="/admin">Admin Panel</Link>}
           </div>
         </div>
-        <button className="icon-button cart-button" type="button" aria-label="Cart">♧</button>
+        <Link className="icon-button cart-button" href="/cart" aria-label="Cart">♧</Link>
         <button className="icon-button menu-button" type="button" aria-label="Menu" onClick={() => setMenuOpen(!menuOpen)}>
           ☰
         </button>
