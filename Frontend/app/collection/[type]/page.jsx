@@ -167,13 +167,6 @@ export default async function CollectionPage({ params }) {
               </div>
             </div>
           </div>
-          <div className="collection-service-strip">
-            {serviceHighlights.map((item) => (
-              <div key={item}>
-                <p>{item}</p>
-              </div>
-            ))}
-          </div>
         </section>
       </main>
       <Footer />

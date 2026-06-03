@@ -40,7 +40,7 @@ button {
   background: #f8f4ef;
   position: sticky;
   top: 0;
-  z-index: 10;
+  z-index: 1000;
   box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05);
 }
 
@@ -70,6 +70,8 @@ button {
   letter-spacing: 0;
   white-space: nowrap;
   padding-right: clamp(12px, 3vw, 56px);
+  position: relative;
+  z-index: 1001;
 }
 
 .nav-links a,
@@ -82,11 +84,22 @@ button {
 
 .nav-links button {
   border: 0;
-  padding: 0;
+  padding: 10px 2px;
   color: inherit;
   background: transparent;
   cursor: pointer;
   font: inherit;
+}
+
+.nav-links > a {
+  padding: 10px 2px;
+}
+
+.nav-links button:hover,
+.nav-links button:focus,
+.nav-links > a:hover,
+.nav-links > a:focus {
+  color: #6a3a22;
 }
 
 .nav-links svg,
@@ -98,6 +111,7 @@ button {
 
 .nav-item {
   position: relative;
+  z-index: 1002;
 }
 
 .dropdown::after {
@@ -106,37 +120,51 @@ button {
   left: -14px;
   right: -14px;
   top: 100%;
-  height: 14px;
+  height: 18px;
 }
 
 .dropdown-menu {
   position: absolute;
-  top: calc(100% + 12px);
+  top: calc(100% + 8px);
   left: 50%;
-  z-index: 30;
-  min-width: 180px;
+  z-index: 1200;
+  min-width: 280px;
   max-height: min(70vh, 430px);
   overflow-y: auto;
   visibility: hidden;
   opacity: 0;
   transform: translate(-50%, 8px);
-  padding: 10px 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(130px, 1fr));
+  gap: 6px;
+  padding: 14px;
   color: #2d211a;
-  background: #fff;
-  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.14);
+  background: #fffdf9;
+  border: 1px solid #eee3dc;
+  border-radius: 10px;
+  box-shadow: 0 24px 58px rgba(0, 0, 0, 0.22);
   transition: opacity 140ms ease, transform 140ms ease, visibility 140ms ease;
 }
 
+.nav-item:nth-child(3) .dropdown-menu {
+  min-width: 230px;
+  grid-template-columns: 1fr;
+}
+
 .dropdown-menu a {
-  display: block;
-  padding: 10px 18px;
+  display: flex;
+  align-items: center;
+  min-height: 42px;
+  border-radius: 7px;
+  padding: 10px 12px;
   font-size: 17px;
+  line-height: 1.15;
   white-space: nowrap;
 }
 
 .dropdown-menu a:hover,
 .dropdown-menu a:focus {
-  color: #b06d32;
+  color: #4b2a1a;
   background: #f8f2ec;
 }
 
@@ -162,7 +190,7 @@ button {
   position: absolute;
   top: calc(100% + 12px);
   right: 0;
-  z-index: 16;
+  z-index: 1200;
   min-width: 170px;
   display: none;
   padding: 10px 0;
@@ -218,7 +246,21 @@ button {
 .whatsapp svg {
   width: 21px;
   height: 21px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
   stroke-width: 2;
+}
+
+.icon-button {
+  color: #241912;
+}
+
+.icon-button:hover,
+.icon-button:focus {
+  color: #6a3a22;
+  background: #efe7df;
 }
 
 .menu-button {
@@ -2835,13 +2877,27 @@ button {
   .dropdown-menu {
     position: static;
     min-width: 0;
+    max-height: none;
     visibility: visible;
     opacity: 1;
     display: none;
+    grid-template-columns: 1fr;
+    gap: 0;
     transform: none;
-    padding: 0 0 10px 14px;
+    margin: 0 0 8px;
+    padding: 8px 0 10px 14px;
+    border: 0;
+    border-radius: 0;
     box-shadow: none;
+    background: #fff8f1;
     transition: none;
+  }
+
+  .dropdown-menu a {
+    min-height: 38px;
+    border-radius: 6px;
+    padding: 9px 12px;
+    font-size: 18px;
   }
 
   .dropdown:hover .dropdown-menu,
