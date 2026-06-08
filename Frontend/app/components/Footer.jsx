@@ -24,6 +24,7 @@ export default function Footer() {
         <Link href="/privacy-policy">Privacy Policy</Link>
         <Link href="/terms-conditions">Terms & Conditions</Link>
         <Link href="/return-exchange-policy">Return & Exchange Policy</Link>
+        <Link href="/contact">Contact Support</Link>
       </div>
       <div className="footer-column footer-contact">
         <h2>Address</h2>

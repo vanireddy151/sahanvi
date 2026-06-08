@@ -27,6 +27,13 @@ export default function ProductCard({ image = media.bannerPerson, name, price = 
     localStorage.setItem("sahanvi-cart", JSON.stringify(nextCart));
   }
 
+  function addItemToWishlist() {
+    const existingWishlist = JSON.parse(localStorage.getItem("sahanvi-wishlist") || "[]");
+    const nextWishlist = [...existingWishlist.filter((item) => item.code !== code), cartItem];
+    localStorage.setItem("sahanvi-wishlist", JSON.stringify(nextWishlist));
+    alert("Saved to wishlist.");
+  }
+
   function startCartCheckout() {
     const auth = getAuth();
     if (auth?.user) {
@@ -116,8 +123,21 @@ export default function ProductCard({ image = media.bannerPerson, name, price = 
               <p className="product-modal-code">{code}</p>
               <p className="product-modal-price">{price}</p>
               <p className="product-modal-note">Handpicked saree with graceful detailing and timeless handloom-inspired elegance.</p>
+              <dl className="product-detail-list">
+                <div><dt>Fabric</dt><dd>Silk blend with handloom-inspired finish</dd></div>
+                <div><dt>Occasion</dt><dd>Wedding, festive, gifting, and elegant celebrations</dd></div>
+                <div><dt>Includes</dt><dd>Saree with blouse piece where applicable</dd></div>
+                <div><dt>Care</dt><dd>Dry clean recommended</dd></div>
+              </dl>
+              <div className="product-service-points">
+                <span>Secure checkout</span>
+                <span>Carefully packed</span>
+                <span>Return request support</span>
+              </div>
               <div className="product-modal-actions">
                 <button type="button" onClick={startCartCheckout}>Add to Cart</button>
+                <button type="button" onClick={addItemToWishlist}>Save Wishlist</button>
+                <a href="/cart">View Cart</a>
               </div>
             </div>
           </div>

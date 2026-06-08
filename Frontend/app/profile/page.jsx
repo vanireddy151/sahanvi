@@ -26,11 +26,13 @@ export default function ProfilePage() {
 
   function submitReturn(event, orderId) {
     event.preventDefault();
+    const order = orders.find((item) => item.id === orderId);
     const request = {
       id: `RT-${Date.now()}`,
       orderId,
       createdAt: new Date().toISOString(),
       ...Object.fromEntries(new FormData(event.currentTarget).entries()),
+      pickupAddress: order?.delivery?.address || "",
       status: "Return request submitted"
     };
     const requests = JSON.parse(localStorage.getItem("sahanvi-return-requests") || "[]");
@@ -83,9 +85,9 @@ export default function ProfilePage() {
             </dl>
           </aside>
 
-          <section className="order-listing">
+          <section className="order-listing" id="orders">
             <div className="order-listing-head">
-              <h2>Order Listing</h2>
+              <h2>My Orders</h2>
               <span>{orders.length} order{orders.length === 1 ? "" : "s"}</span>
             </div>
 
@@ -127,6 +129,7 @@ export default function ProfilePage() {
                   <div className="return-status">
                     <strong>{order.returnRequest.status}</strong>
                     <p>{order.returnRequest.reasonType}: {order.returnRequest.reason}</p>
+                    <p>Pickup Address: {order.returnRequest.pickupAddress || order.delivery?.address}</p>
                   </div>
                 ) : (
                   <button className="return-toggle" type="button" onClick={() => setReturnOpen(returnOpen === order.id ? "" : order.id)}>
@@ -136,6 +139,10 @@ export default function ProfilePage() {
 
                 {returnOpen === order.id ? (
                   <form className="return-form" onSubmit={(event) => submitReturn(event, order.id)}>
+                    <div className="return-pickup-note">
+                      <strong>Return Pickup Address</strong>
+                      <p>{order.delivery?.address}</p>
+                    </div>
                     <label>
                       <span>Reason Type</span>
                       <select name="reasonType" required>

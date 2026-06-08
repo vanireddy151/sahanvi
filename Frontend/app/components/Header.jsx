@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { media } from "../data/media";
 import { menus } from "../data/navigation";
 
@@ -42,8 +42,30 @@ export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [openMenu, setOpenMenu] = useState("");
   const [isAdmin, setIsAdmin] = useState(false);
+  const closeTimer = useRef(null);
+
+  function clearDropdownClose() {
+    if (closeTimer.current) {
+      clearTimeout(closeTimer.current);
+      closeTimer.current = null;
+    }
+  }
+
+  function openDropdown(name) {
+    clearDropdownClose();
+    setOpenMenu(name);
+  }
+
+  function scheduleDropdownClose() {
+    clearDropdownClose();
+    closeTimer.current = setTimeout(() => {
+      setOpenMenu("");
+      closeTimer.current = null;
+    }, 650);
+  }
 
   function closeMenus() {
+    clearDropdownClose();
     setMenuOpen(false);
     setOpenMenu("");
   }
@@ -52,6 +74,7 @@ export default function Header() {
     const auth = JSON.parse(localStorage.getItem("sahanvi-auth") || "null");
     const phone = String(auth?.user?.phone || "").replace(/\D/g, "");
     setIsAdmin(auth?.user?.role === "admin" || ["9704888933", "9949779227"].includes(phone));
+    return () => clearDropdownClose();
   }, []);
 
   return (
@@ -62,11 +85,23 @@ export default function Header() {
 
       <nav className={`nav-links ${menuOpen ? "next-open" : ""}`}>
         {Object.entries(menus).map(([name, items]) => (
-          <div className={`nav-item dropdown ${openMenu === name ? "is-open" : ""}`} key={name}>
-            <button type="button" onClick={() => setOpenMenu(openMenu === name ? "" : name)}>
+          <div
+            className={`nav-item dropdown ${openMenu === name ? "is-open" : ""}`}
+            key={name}
+            onFocus={() => openDropdown(name)}
+            onMouseEnter={() => openDropdown(name)}
+            onMouseLeave={scheduleDropdownClose}
+          >
+            <button
+              type="button"
+              onClick={() => {
+                clearDropdownClose();
+                setOpenMenu(openMenu === name ? "" : name);
+              }}
+            >
               {name}
             </button>
-            <div className="dropdown-menu">
+            <div className="dropdown-menu" onMouseEnter={() => openDropdown(name)} onMouseLeave={scheduleDropdownClose}>
               {items.map((item) => (
                 <Link key={item} href={`/${encodeURIComponent(item)}`} onClick={closeMenus}>
                   {item}
@@ -80,12 +115,13 @@ export default function Header() {
 
       <div className="header-actions">
         <button className="currency" type="button">INR</button>
-        <button className="icon-button" type="button" aria-label="Search"><Icon name="search" /></button>
-        <button className="icon-button" type="button" aria-label="Wishlist"><Icon name="heart" /></button>
+        <Link className="icon-button" href="/search" aria-label="Search"><Icon name="search" /></Link>
+        <Link className="icon-button" href="/wishlist" aria-label="Wishlist"><Icon name="heart" /></Link>
         <div className="profile-menu">
           <Link className="icon-button login-button" href="/signup" aria-label="Profile"><Icon name="user" /></Link>
           <div className="profile-dropdown">
             <Link href="/profile">My Profile</Link>
+            <Link href="/profile#orders">My Orders</Link>
             <Link href="/signup">Sign Up</Link>
             <Link href="/login">Sign In</Link>
             {isAdmin && <Link href="/admin">Admin Panel</Link>}

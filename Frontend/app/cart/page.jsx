@@ -4,6 +4,10 @@ import { useEffect, useState } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 
+function priceNumber(value) {
+  return Number(String(value || "").replace(/[^\d.]/g, "")) || 0;
+}
+
 export default function CartPage() {
   const [auth, setAuth] = useState(null);
   const [cart, setCart] = useState([]);
@@ -12,6 +16,14 @@ export default function CartPage() {
     setAuth(JSON.parse(localStorage.getItem("sahanvi-auth") || "null"));
     setCart(JSON.parse(localStorage.getItem("sahanvi-cart") || "[]"));
   }, []);
+
+  const subtotal = cart.reduce((sum, item) => sum + priceNumber(item.price), 0);
+
+  function removeItem(code) {
+    const nextCart = cart.filter((item) => item.code !== code);
+    setCart(nextCart);
+    localStorage.setItem("sahanvi-cart", JSON.stringify(nextCart));
+  }
 
   function placeOrder(event) {
     event.preventDefault();
@@ -72,6 +84,9 @@ export default function CartPage() {
                   <h2>{item.name}</h2>
                   <p>{item.code}</p>
                   <strong>{item.price}</strong>
+                  <button className="text-action" type="button" onClick={() => removeItem(item.code)}>
+                    Remove
+                  </button>
                 </div>
               </article>
             ))}
@@ -79,6 +94,11 @@ export default function CartPage() {
 
           <aside className="cart-details">
             <h2>Delivery Details</h2>
+            <div className="order-summary-box">
+              <div><span>Items</span><strong>{cart.length}</strong></div>
+              <div><span>Subtotal</span><strong>₹{subtotal.toLocaleString("en-IN")}</strong></div>
+              <p>Final payment and shipping confirmation will be shared by the Sahanvi team.</p>
+            </div>
             {!auth?.user ? (
               <div className="cart-login-prompt">
                 <p>Please sign up or sign in before placing the order.</p>
@@ -91,6 +111,7 @@ export default function CartPage() {
                 <label><span>Email</span><input name="email" type="email" defaultValue={auth.user.email || ""} required /></label>
                 <label><span>Phone Number</span><input name="phone" type="tel" defaultValue={auth.user.phone || ""} required /></label>
                 <label><span>Delivery Address</span><textarea name="address" rows="5" defaultValue={auth.user.address || ""} placeholder="House/flat, street, city, state, pincode" required></textarea></label>
+                <p className="checkout-note">This delivery address will also be used as the pickup address if a return request is approved.</p>
                 <button className="checkout-primary" type="submit" disabled={!cart.length}>Place Order</button>
               </form>
             )}

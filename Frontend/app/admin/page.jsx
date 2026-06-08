@@ -28,6 +28,7 @@ export default function AdminPage() {
   const [sarees, setSarees] = useState([]);
   const [orders, setOrders] = useState([]);
   const [returns, setReturns] = useState([]);
+  const [inquiries, setInquiries] = useState([]);
   const [status, setStatus] = useState("");
 
   useEffect(() => {
@@ -37,6 +38,7 @@ export default function AdminPage() {
     setSarees(JSON.parse(localStorage.getItem("sahanvi-admin-sarees") || "[]"));
     setOrders(JSON.parse(localStorage.getItem("sahanvi-orders") || "[]"));
     setReturns(JSON.parse(localStorage.getItem("sahanvi-return-requests") || "[]"));
+    setInquiries(JSON.parse(localStorage.getItem("sahanvi-inquiries") || "[]"));
     setAuthReady(true);
   }, []);
 
@@ -194,7 +196,8 @@ export default function AdminPage() {
             {[
               ["upload", "Upload"],
               ["sold", "Sold Out"],
-              ["available", "Available Stock"]
+              ["available", "Available Stock"],
+              ["inquiries", "Inquiries"]
             ].map(([key, label]) => (
               <button
                 aria-pressed={activeTab === key}
@@ -308,6 +311,7 @@ export default function AdminPage() {
               <div className="admin-empty">No sold sarees yet. Sold items will appear here after customers place orders.</div>
             ) : soldItems.map((item, index) => (
               <article className="admin-order-card" key={`${item.orderId}-${item.code || index}`}>
+                {item.image ? <img src={item.image} alt={item.name || "Sold saree"} /> : null}
                 <div>
                   <h3>{item.name || "Sahanvi Saree"}</h3>
                   <p>{item.code || item.orderId} · Order {item.orderId}</p>
@@ -318,6 +322,29 @@ export default function AdminPage() {
                   <strong>{item.status}</strong>
                   <span>Sold</span>
                   <span>₹{priceNumber(item.price).toLocaleString("en-IN")}</span>
+                </div>
+              </article>
+            ))}
+          </section> : null}
+
+          {activeTab === "inquiries" ? <section className="admin-orders">
+            <div className="admin-section-heading">
+              <h2>Customer Inquiries</h2>
+              <p>{inquiries.length} message{inquiries.length === 1 ? "" : "s"} submitted from the website.</p>
+            </div>
+            {!inquiries.length ? (
+              <div className="admin-empty">No customer inquiries yet.</div>
+            ) : inquiries.map((inquiry) => (
+              <article className="admin-order-card" key={inquiry.id}>
+                <div>
+                  <h3>{inquiry.subject}</h3>
+                  <p>{inquiry.name} · {inquiry.phone}</p>
+                  <p>{inquiry.email}</p>
+                  <p>{inquiry.message}</p>
+                </div>
+                <div>
+                  <strong>{inquiry.status}</strong>
+                  <span>{new Date(inquiry.createdAt).toLocaleDateString("en-IN")}</span>
                 </div>
               </article>
             ))}
