@@ -22,6 +22,7 @@ function priceNumber(value) {
 export default function AdminPage() {
   const [allowed, setAllowed] = useState(false);
   const [authReady, setAuthReady] = useState(false);
+  const [activeTab, setActiveTab] = useState("upload");
   const [form, setForm] = useState(emptyForm);
   const [editingId, setEditingId] = useState("");
   const [sarees, setSarees] = useState([]);
@@ -52,14 +53,41 @@ export default function AdminPage() {
     };
   }, [sarees, orders, returns]);
 
-  const groupedSarees = useMemo(() => {
-    return sarees.reduce((groups, saree) => {
+  const soldCodes = useMemo(() => {
+    return new Set(
+      orders
+        .flatMap((order) => order.items || [])
+        .map((item) => item.code)
+        .filter(Boolean)
+    );
+  }, [orders]);
+
+  const availableSarees = useMemo(() => {
+    return sarees.filter((saree) => !soldCodes.has(saree.code));
+  }, [sarees, soldCodes]);
+
+  const soldItems = useMemo(() => {
+    return orders.flatMap((order) =>
+      (order.items || []).map((item) => ({
+        ...item,
+        orderId: order.id,
+        customer: order.customer,
+        delivery: order.delivery,
+        status: order.status
+      }))
+    );
+  }, [orders]);
+
+  function groupByType(items) {
+    return items.reduce((groups, saree) => {
       const key = `${saree.category} / ${saree.type}`;
       groups[key] = groups[key] || [];
       groups[key].push(saree);
       return groups;
     }, {});
-  }, [sarees]);
+  }
+
+  const groupedSarees = useMemo(() => groupByType(availableSarees), [availableSarees]);
 
   const typeCounts = useMemo(() => {
     return sarees.reduce((counts, saree) => {
@@ -94,6 +122,7 @@ export default function AdminPage() {
     setSarees(nextSarees);
     localStorage.setItem("sahanvi-admin-sarees", JSON.stringify(nextSarees));
     setStatus(editingId ? "Saree details updated." : "Saree uploaded and listed in admin.");
+    setActiveTab("available");
 
     try {
       const formData = new FormData();
@@ -118,6 +147,7 @@ export default function AdminPage() {
       imageUrl: saree.imageUrl,
       description: saree.description
     });
+    setActiveTab("upload");
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
@@ -160,7 +190,25 @@ export default function AdminPage() {
             <article><span>{stats.returns}</span><p>Return requests</p></article>
           </section>
 
-          <section className="admin-panel">
+          <nav className="admin-tabs" aria-label="Admin panel sections">
+            {[
+              ["upload", "Upload"],
+              ["sold", "Sold Out"],
+              ["available", "Available Stock"]
+            ].map(([key, label]) => (
+              <button
+                aria-pressed={activeTab === key}
+                className={activeTab === key ? "active" : ""}
+                key={key}
+                type="button"
+                onClick={() => setActiveTab(key)}
+              >
+                {label}
+              </button>
+            ))}
+          </nav>
+
+          {activeTab === "upload" ? <section className="admin-panel">
             <form className="admin-form" onSubmit={submit}>
               <h2>{editingId ? "Edit Saree" : "Upload Saree"}</h2>
               <div className="form-grid">
@@ -219,14 +267,14 @@ export default function AdminPage() {
                 </div>
               </div>
             </aside>
-          </section>
+          </section> : null}
 
-          <section className="admin-inventory">
+          {activeTab === "available" ? <section className="admin-inventory">
             <div className="admin-section-heading">
-              <h2>Uploaded Sarees</h2>
-              <p>Grouped by category and saree type, with edit controls.</p>
+              <h2>Available Stock</h2>
+              <p>{availableSarees.length} saree(s) currently available, grouped by category and saree type.</p>
             </div>
-            {!sarees.length ? (
+            {!availableSarees.length ? (
               <div className="admin-empty">No sarees uploaded yet. Add the first saree using the form above.</div>
             ) : Object.entries(groupedSarees).map(([group, items]) => (
               <div className="admin-inventory-group" key={group}>
@@ -249,30 +297,31 @@ export default function AdminPage() {
                 </div>
               </div>
             ))}
-          </section>
+          </section> : null}
 
-          <section className="admin-orders">
+          {activeTab === "sold" ? <section className="admin-orders">
             <div className="admin-section-heading">
-              <h2>Selling Information</h2>
-              <p>Customer orders placed from the website.</p>
+              <h2>Sold Out</h2>
+              <p>{soldItems.length} sold saree(s) from customer orders.</p>
             </div>
-            {!orders.length ? (
-              <div className="admin-empty">No orders placed yet.</div>
-            ) : orders.map((order) => (
-              <article className="admin-order-card" key={order.id}>
+            {!soldItems.length ? (
+              <div className="admin-empty">No sold sarees yet. Sold items will appear here after customers place orders.</div>
+            ) : soldItems.map((item, index) => (
+              <article className="admin-order-card" key={`${item.orderId}-${item.code || index}`}>
                 <div>
-                  <h3>{order.id}</h3>
-                  <p>{order.customer?.name} · {order.customer?.phone}</p>
-                  <p>{order.delivery?.address}</p>
+                  <h3>{item.name || "Sahanvi Saree"}</h3>
+                  <p>{item.code || item.orderId} · Order {item.orderId}</p>
+                  <p>{item.customer?.name} · {item.customer?.phone}</p>
+                  <p>{item.delivery?.address}</p>
                 </div>
                 <div>
-                  <strong>{order.status}</strong>
-                  <span>{(order.items || []).length} saree(s)</span>
-                  <span>₹{(order.items || []).reduce((sum, item) => sum + priceNumber(item.price), 0).toLocaleString("en-IN")}</span>
+                  <strong>{item.status}</strong>
+                  <span>Sold</span>
+                  <span>₹{priceNumber(item.price).toLocaleString("en-IN")}</span>
                 </div>
               </article>
             ))}
-          </section>
+          </section> : null}
         </main>
       )}
     </div>

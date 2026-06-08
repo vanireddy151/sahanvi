@@ -2125,6 +2125,35 @@ button {
   font: 14px/1.45 Inter, Arial, sans-serif;
 }
 
+.admin-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 28px clamp(24px, 7vw, 110px) 0;
+  background: #fff;
+}
+
+.admin-tabs button {
+  min-width: 150px;
+  border: 1px solid #e1d5ca;
+  padding: 13px 22px;
+  color: #5a2f1d;
+  background: #fffdf9;
+  cursor: pointer;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 22px;
+  font-weight: 700;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.admin-tabs button:hover,
+.admin-tabs button.active,
+.admin-tabs button[aria-pressed="true"] {
+  border-color: #5a2f1d;
+  color: #fff;
+  background: #5a2f1d;
+}
+
 .admin-preview {
   display: grid;
   gap: 18px;
@@ -3452,6 +3481,26 @@ button {
 
   .admin-panel {
     padding: 34px 22px 54px;
+  }
+
+  .admin-tabs {
+    padding-inline: 22px;
+  }
+
+  .admin-tabs button {
+    flex: 1 1 100%;
+  }
+
+  .admin-saree-row,
+  .admin-order-card {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-row-actions,
+  .admin-order-card strong,
+  .admin-order-card span {
+    justify-content: flex-start;
+    text-align: left;
   }
 
   .inquiry-section {
