@@ -4942,9 +4942,11 @@ button {
   }
 
   .home-page .hero-video-card {
-    left: 42%;
-    width: min(26vw, 390px);
-    max-width: 390px;
+    left: 45%;
+    width: min(32vw, 540px);
+    max-width: 540px;
+    height: min(78vh, 760px);
+    aspect-ratio: auto;
     transform: translate(-50%, -50%);
     background: transparent;
     box-shadow: 0 34px 80px rgba(20, 10, 8, 0.28);
@@ -4953,7 +4955,7 @@ button {
 
 @media (min-width: 1281px) {
   .home-page .hero-video-card {
-    left: 38%;
+    left: 44%;
   }
 }
 
