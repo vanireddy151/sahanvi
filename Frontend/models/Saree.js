@@ -13,6 +13,13 @@ const sareeSchema = new mongoose.Schema(
     price: { type: Number, required: true, min: 0 },
     imageUrl: { type: String, required: true },
     description: { type: String, trim: true, default: "" },
+    material: { type: [String], default: [] },
+    design: { type: [String], default: [] },
+    border: { type: [String], default: [] },
+    blouse: { type: [String], default: [] },
+    zariColour: { type: [String], default: [] },
+    weave: { type: [String], default: [] },
+    palluColour: { type: [String], default: [] },
     isNewArrival: { type: Boolean, default: true }
   },
   { timestamps: true }

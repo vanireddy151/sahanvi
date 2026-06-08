@@ -12,11 +12,37 @@ const emptyForm = {
   code: "",
   price: "",
   imageUrl: "",
-  description: ""
+  description: "",
+  material: [],
+  design: [],
+  border: [],
+  blouse: [],
+  zariColour: [],
+  weave: [],
+  palluColour: []
 };
+
+const stockDetailFields = [
+  ["material", "Material", ["Kanjeevaram Silk", "Pure Zari Kanjeevaram", "2 Gram Kanjeevaram", "Kanjeevaram Linen", "Kanjeevaram Organza", "Tussar Silk", "Kora Silk", "Kota Organza", "Soft Silk Tissue"]],
+  ["design", "Design", ["Checked", "Floral Printed", "Buttas", "Embroidery", "Tissue Brocade", "Bandhini Print", "Shibori", "Kalamkari", "Ajrakh", "Printed Kanjeevaram"]],
+  ["border", "Border", ["Borderless", "Self Border", "Contrast Border", "Korvai Border", "Rettapet Border", "Paithani Border", "Striped Border", "Gold & Silver Zari Border"]],
+  ["blouse", "Blouse", ["With Blouse 0.80 Mtrs", "Running Blouse", "Contrast Blouse", "Kalamkari Blouse", "Ikat Blouse", "Blouse Stitching", "Blouse Detachment"]],
+  ["zariColour", "Zari Colour", ["Pure Gold Zari", "Gold Zari", "Silver Zari", "Gold & Silver Zari", "Antique Zari", "No Zari"]],
+  ["weave", "Weave", ["Handwoven", "Kanjeevaram", "Korvai", "Ikat", "Jamdani", "Brocade", "Tissue", "Crushed"]],
+  ["palluColour", "Pallu Colour", ["Self Pallu", "Contrast Pallu", "Gold Pallu", "Printed Pallu", "Paithani Pallu", "Zari Woven Pallu"]]
+];
 
 function priceNumber(value) {
   return Number(String(value || "").replace(/[^\d.]/g, "")) || 0;
+}
+
+function toArray(value) {
+  if (Array.isArray(value)) return value.filter(Boolean);
+  if (!value) return [];
+  return String(value)
+    .split(",")
+    .map((item) => item.trim())
+    .filter(Boolean);
 }
 
 export default function AdminPage() {
@@ -109,6 +135,17 @@ export default function AdminPage() {
     setForm((current) => ({ ...current, [name]: value }));
   }
 
+  function toggleStockDetail(name, option) {
+    setForm((current) => {
+      const selected = toArray(current[name]);
+      const next = selected.includes(option)
+        ? selected.filter((value) => value !== option)
+        : [...selected, option];
+
+      return { ...current, [name]: next };
+    });
+  }
+
   async function submit(event) {
     event.preventDefault();
     const nextSaree = {
@@ -128,7 +165,9 @@ export default function AdminPage() {
 
     try {
       const formData = new FormData();
-      Object.entries(nextSaree).forEach(([key, value]) => formData.append(key, value));
+      Object.entries(nextSaree).forEach(([key, value]) => {
+        formData.append(key, Array.isArray(value) ? JSON.stringify(value) : value);
+      });
       await fetch(apiUrl("/api/sarees"), { method: "POST", body: formData });
     } catch {
       setStatus("Saved in admin. Backend upload will sync when server is available.");
@@ -147,7 +186,14 @@ export default function AdminPage() {
       code: saree.code,
       price: saree.price,
       imageUrl: saree.imageUrl,
-      description: saree.description
+      description: saree.description,
+      material: toArray(saree.material),
+      design: toArray(saree.design),
+      border: toArray(saree.border),
+      blouse: toArray(saree.blouse),
+      zariColour: toArray(saree.zariColour),
+      weave: toArray(saree.weave),
+      palluColour: toArray(saree.palluColour)
     });
     setActiveTab("upload");
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -234,6 +280,31 @@ export default function AdminPage() {
                 <label><span>Code</span><input name="code" value={form.code} onChange={updateField} placeholder="S123456" required /></label>
                 <label><span>Price</span><input name="price" value={form.price} onChange={updateField} placeholder="21020" required /></label>
                 <label><span>Cloudinary Image URL</span><input name="imageUrl" type="url" value={form.imageUrl} onChange={updateField} placeholder="https://res.cloudinary.com/..." required /></label>
+              </div>
+              <div className="admin-stock-details">
+                <div>
+                  <h3>Stock Filter Details</h3>
+                  <p>Add only the details available for this saree. Customer filter sections stay hidden until uploaded stock has values here.</p>
+                </div>
+                <div className="admin-option-grid">
+                  {stockDetailFields.map(([name, label, options]) => (
+                    <fieldset className="admin-option-group" key={name}>
+                      <legend>{label}</legend>
+                      <div>
+                        {options.map((option) => (
+                          <label key={option}>
+                            <input
+                              type="checkbox"
+                              checked={toArray(form[name]).includes(option)}
+                              onChange={() => toggleStockDetail(name, option)}
+                            />
+                            <span>{option}</span>
+                          </label>
+                        ))}
+                      </div>
+                    </fieldset>
+                  ))}
+                </div>
               </div>
               <label><span>Description</span><textarea name="description" rows="4" value={form.description} onChange={updateField}></textarea></label>
               <div className="admin-form-actions">
