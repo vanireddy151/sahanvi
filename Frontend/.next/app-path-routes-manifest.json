@@ -17,8 +17,8 @@
   "/return-exchange-policy/page": "/return-exchange-policy",
   "/search/page": "/search",
   "/shipping-payments/page": "/shipping-payments",
-  "/signup/page": "/signup",
   "/terms-conditions/page": "/terms-conditions",
+  "/signup/page": "/signup",
   "/wishlist/page": "/wishlist",
   "/[type]/page": "/[type]",
   "/collection/[type]/page": "/collection/[type]"
