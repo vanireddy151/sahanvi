@@ -198,7 +198,7 @@ export default function CartPage() {
                   <label><span>Email</span><input name="email" type="email" defaultValue={auth.user.email || ""} required /></label>
                   <label><span>Phone</span><input name="phone" type="tel" defaultValue={auth.user.phone || ""} required /></label>
                   <label><span>Address</span><textarea name="address" rows="4" defaultValue={auth.user.address || ""} placeholder="House/flat, street, city, state, pincode" required></textarea></label>
-                  <button className="checkout-primary" type="submit" disabled={!cart.length}>Place Order</button>
+                  <button className="checkout-primary" type="submit" disabled={!cart.length}>Pay Now</button>
                   {paymentStatus ? <p className="payment-status">{paymentStatus}</p> : null}
                 </form>
               )}
