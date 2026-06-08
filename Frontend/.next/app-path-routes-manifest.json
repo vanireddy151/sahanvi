@@ -3,6 +3,7 @@
   "/api/auth/login/route": "/api/auth/login",
   "/api/auth/register/route": "/api/auth/register",
   "/api/inquiries/route": "/api/inquiries",
+  "/api/payments/razorpay-order/route": "/api/payments/razorpay-order",
   "/api/sarees/route": "/api/sarees",
   "/about/page": "/about",
   "/admin/page": "/admin",
@@ -18,8 +19,8 @@
   "/search/page": "/search",
   "/shipping-payments/page": "/shipping-payments",
   "/signup/page": "/signup",
-  "/terms-conditions/page": "/terms-conditions",
   "/wishlist/page": "/wishlist",
+  "/terms-conditions/page": "/terms-conditions",
   "/[type]/page": "/[type]",
   "/collection/[type]/page": "/collection/[type]"
 }

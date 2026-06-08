@@ -12,7 +12,7 @@
       "static/chunks/4bd1b696-c023c6e3521b1417.js",
       "static/chunks/493-38dd501cd76b5ad2.js",
       "static/chunks/main-app-bab598d7bd3e09cd.js",
-      "static/css/c093fc56aa2eb5e0.css",
+      "static/css/3e4703545920b693.css",
       "static/chunks/app/layout-e1c35c8b9e7d1905.js"
     ],
     "/api/auth/login/route": [
@@ -20,28 +20,35 @@
       "static/chunks/4bd1b696-c023c6e3521b1417.js",
       "static/chunks/493-38dd501cd76b5ad2.js",
       "static/chunks/main-app-bab598d7bd3e09cd.js",
-      "static/chunks/app/api/auth/login/route-c12679dfac8aa068.js"
+      "static/chunks/app/api/auth/login/route-3e8e08de66576439.js"
     ],
     "/api/auth/register/route": [
       "static/chunks/webpack-71dd55181f4d1035.js",
       "static/chunks/4bd1b696-c023c6e3521b1417.js",
       "static/chunks/493-38dd501cd76b5ad2.js",
       "static/chunks/main-app-bab598d7bd3e09cd.js",
-      "static/chunks/app/api/auth/register/route-c12679dfac8aa068.js"
+      "static/chunks/app/api/auth/register/route-3e8e08de66576439.js"
     ],
     "/api/inquiries/route": [
       "static/chunks/webpack-71dd55181f4d1035.js",
       "static/chunks/4bd1b696-c023c6e3521b1417.js",
       "static/chunks/493-38dd501cd76b5ad2.js",
       "static/chunks/main-app-bab598d7bd3e09cd.js",
-      "static/chunks/app/api/inquiries/route-c12679dfac8aa068.js"
+      "static/chunks/app/api/inquiries/route-3e8e08de66576439.js"
+    ],
+    "/api/payments/razorpay-order/route": [
+      "static/chunks/webpack-71dd55181f4d1035.js",
+      "static/chunks/4bd1b696-c023c6e3521b1417.js",
+      "static/chunks/493-38dd501cd76b5ad2.js",
+      "static/chunks/main-app-bab598d7bd3e09cd.js",
+      "static/chunks/app/api/payments/razorpay-order/route-3e8e08de66576439.js"
     ],
     "/api/sarees/route": [
       "static/chunks/webpack-71dd55181f4d1035.js",
       "static/chunks/4bd1b696-c023c6e3521b1417.js",
       "static/chunks/493-38dd501cd76b5ad2.js",
       "static/chunks/main-app-bab598d7bd3e09cd.js",
-      "static/chunks/app/api/sarees/route-c12679dfac8aa068.js"
+      "static/chunks/app/api/sarees/route-3e8e08de66576439.js"
     ],
     "/about/page": [
       "static/chunks/webpack-71dd55181f4d1035.js",
@@ -65,7 +72,7 @@
       "static/chunks/493-38dd501cd76b5ad2.js",
       "static/chunks/main-app-bab598d7bd3e09cd.js",
       "static/chunks/619-ba102abea3e3d0e4.js",
-      "static/chunks/app/cart/page-fa9d574b38ee60e4.js"
+      "static/chunks/app/cart/page-a30fa61285b43f88.js"
     ],
     "/collections/page": [
       "static/chunks/webpack-71dd55181f4d1035.js",
@@ -159,14 +166,6 @@
       "static/chunks/619-ba102abea3e3d0e4.js",
       "static/chunks/app/signup/page-0e476d07f590a9a1.js"
     ],
-    "/terms-conditions/page": [
-      "static/chunks/webpack-71dd55181f4d1035.js",
-      "static/chunks/4bd1b696-c023c6e3521b1417.js",
-      "static/chunks/493-38dd501cd76b5ad2.js",
-      "static/chunks/main-app-bab598d7bd3e09cd.js",
-      "static/chunks/619-ba102abea3e3d0e4.js",
-      "static/chunks/app/terms-conditions/page-e3989d4bf15da48c.js"
-    ],
     "/wishlist/page": [
       "static/chunks/webpack-71dd55181f4d1035.js",
       "static/chunks/4bd1b696-c023c6e3521b1417.js",
@@ -175,6 +174,14 @@
       "static/chunks/619-ba102abea3e3d0e4.js",
       "static/chunks/29-f5411d77a6d393d3.js",
       "static/chunks/app/wishlist/page-783404922299e876.js"
+    ],
+    "/terms-conditions/page": [
+      "static/chunks/webpack-71dd55181f4d1035.js",
+      "static/chunks/4bd1b696-c023c6e3521b1417.js",
+      "static/chunks/493-38dd501cd76b5ad2.js",
+      "static/chunks/main-app-bab598d7bd3e09cd.js",
+      "static/chunks/619-ba102abea3e3d0e4.js",
+      "static/chunks/app/terms-conditions/page-e3989d4bf15da48c.js"
     ],
     "/[type]/page": [
       "static/chunks/webpack-71dd55181f4d1035.js",

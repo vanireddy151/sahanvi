@@ -11,6 +11,7 @@ function priceNumber(value) {
 export default function CartPage() {
   const [auth, setAuth] = useState(null);
   const [cart, setCart] = useState([]);
+  const [paymentStatus, setPaymentStatus] = useState("");
 
   useEffect(() => {
     setAuth(JSON.parse(localStorage.getItem("sahanvi-auth") || "null"));
@@ -25,14 +26,22 @@ export default function CartPage() {
     localStorage.setItem("sahanvi-cart", JSON.stringify(nextCart));
   }
 
-  function placeOrder(event) {
-    event.preventDefault();
-    if (!auth?.user) {
-      window.location.href = "/signup";
-      return;
-    }
+  function loadRazorpayCheckout() {
+    return new Promise((resolve, reject) => {
+      if (window.Razorpay) {
+        resolve(true);
+        return;
+      }
 
-    const delivery = Object.fromEntries(new FormData(event.currentTarget).entries());
+      const script = document.createElement("script");
+      script.src = "https://checkout.razorpay.com/v1/checkout.js";
+      script.onload = () => resolve(true);
+      script.onerror = () => reject(new Error("Unable to load Razorpay checkout."));
+      document.body.appendChild(script);
+    });
+  }
+
+  function savePaidOrder(delivery, payment) {
     const customerProfile = {
       ...auth.user,
       name: delivery.name,
@@ -47,7 +56,10 @@ export default function CartPage() {
       customer: customerProfile,
       delivery,
       items: cart,
-      status: "Pending confirmation"
+      subtotal,
+      status: "Payment received",
+      paymentStatus: "Paid",
+      payment
     };
     const orders = JSON.parse(localStorage.getItem("sahanvi-orders") || "[]");
     localStorage.setItem("sahanvi-auth", JSON.stringify({ ...auth, user: customerProfile }));
@@ -55,8 +67,75 @@ export default function CartPage() {
     localStorage.setItem("sahanvi-orders", JSON.stringify([order, ...orders]));
     localStorage.setItem("sahanvi-cart", "[]");
     setCart([]);
-    alert("Order placed. You can review it in your profile.");
+    alert("Payment successful. Your order is saved in your profile.");
     window.location.href = "/profile";
+  }
+
+  async function placeOrder(event) {
+    event.preventDefault();
+    if (!auth?.user) {
+      window.location.href = "/signup";
+      return;
+    }
+    if (!cart.length) return;
+
+    const delivery = Object.fromEntries(new FormData(event.currentTarget).entries());
+    setPaymentStatus("Opening secure payment...");
+
+    try {
+      await loadRazorpayCheckout();
+      const response = await fetch("/api/payments/razorpay-order", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          amount: subtotal,
+          receipt: `SH-${Date.now()}`,
+          notes: {
+            customerName: delivery.name,
+            customerPhone: delivery.phone,
+            customerEmail: delivery.email
+          }
+        })
+      });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || "Unable to create payment order.");
+
+      const checkout = new window.Razorpay({
+        key: data.keyId,
+        amount: data.order.amount,
+        currency: data.order.currency,
+        name: "Sahanvi Handloom Sarees",
+        description: "Saree order payment",
+        order_id: data.order.id,
+        prefill: {
+          name: delivery.name,
+          email: delivery.email,
+          contact: delivery.phone
+        },
+        notes: {
+          deliveryAddress: delivery.address
+        },
+        theme: {
+          color: "#5a2f1d"
+        },
+        handler(paymentResponse) {
+          savePaidOrder(delivery, {
+            razorpayOrderId: paymentResponse.razorpay_order_id,
+            razorpayPaymentId: paymentResponse.razorpay_payment_id,
+            razorpaySignature: paymentResponse.razorpay_signature
+          });
+        },
+        modal: {
+          ondismiss() {
+            setPaymentStatus("Payment was not completed.");
+          }
+        }
+      });
+
+      checkout.open();
+    } catch (error) {
+      setPaymentStatus(error.message || "Payment could not be started.");
+    }
   }
 
   return (
@@ -105,7 +184,7 @@ export default function CartPage() {
               <div className="order-summary-box">
                 <div><span>Items</span><strong>{cart.length}</strong></div>
                 <div><span>Subtotal</span><strong>₹{subtotal.toLocaleString("en-IN")}</strong></div>
-                <p>Payment and shipping confirmation will be shared by the Sahanvi team.</p>
+                <p>Secure online payment is powered by Razorpay.</p>
               </div>
               {!auth?.user ? (
                 <div className="cart-login-prompt">
@@ -120,6 +199,7 @@ export default function CartPage() {
                   <label><span>Phone</span><input name="phone" type="tel" defaultValue={auth.user.phone || ""} required /></label>
                   <label><span>Address</span><textarea name="address" rows="4" defaultValue={auth.user.address || ""} placeholder="House/flat, street, city, state, pincode" required></textarea></label>
                   <button className="checkout-primary" type="submit" disabled={!cart.length}>Place Order</button>
+                  {paymentStatus ? <p className="payment-status">{paymentStatus}</p> : null}
                 </form>
               )}
             </aside>

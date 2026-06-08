@@ -3,6 +3,7 @@
   "/api/auth/login/route": "app/api/auth/login/route.js",
   "/api/auth/register/route": "app/api/auth/register/route.js",
   "/api/inquiries/route": "app/api/inquiries/route.js",
+  "/api/payments/razorpay-order/route": "app/api/payments/razorpay-order/route.js",
   "/api/sarees/route": "app/api/sarees/route.js",
   "/about/page": "app/about/page.js",
   "/admin/page": "app/admin/page.js",
@@ -18,8 +19,8 @@
   "/search/page": "app/search/page.js",
   "/shipping-payments/page": "app/shipping-payments/page.js",
   "/signup/page": "app/signup/page.js",
-  "/terms-conditions/page": "app/terms-conditions/page.js",
   "/wishlist/page": "app/wishlist/page.js",
+  "/terms-conditions/page": "app/terms-conditions/page.js",
   "/[type]/page": "app/[type]/page.js",
   "/collection/[type]/page": "app/collection/[type]/page.js"
 }
