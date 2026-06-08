@@ -38,6 +38,23 @@
 }
 
 .home-page .product-showcase {
+  position: relative;
+  isolation: isolate;
+  max-width: none;
+  background:
+    linear-gradient(rgba(41, 41, 41, 0.88), rgba(41, 41, 41, 0.88)),
+    var(--home-bg-image);
+  background-size: cover, cover;
+  background-position: center;
+  box-shadow: 0 160px 0 #292929;
+}
+
+.home-page .product-showcase::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 calc(50% - 50vw);
+  z-index: -1;
+  width: 100vw;
   background:
     linear-gradient(rgba(41, 41, 41, 0.88), rgba(41, 41, 41, 0.88)),
     var(--home-bg-image);

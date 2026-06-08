@@ -15,6 +15,7 @@ const descriptions = {
   "Gadwal Pattu": "Shop Gadwal Pattu sarees with rich borders, graceful drape, and a heritage feel made for special occasions.",
   "Mysore Silk": "Choose Mysore silk sarees for soft sheen, refined texture, and a timeless South Indian silk look.",
   "Paithani Silk": "Explore Paithani silk sarees with ornate pallus, traditional motifs, and heirloom-inspired artistry.",
+  "Paithani Yellow": "Explore Paithani Yellow sarees with radiant festive colour, ornate borders, and graceful heirloom-inspired detailing.",
   "Jamdani Silk": "Discover Jamdani silk sarees with delicate woven motifs, airy elegance, and understated festive charm.",
   "Muga Silk": "Shop Muga silk sarees admired for natural golden sheen, durability, and graceful heritage appeal.",
   Tussar: "Discover Tussar sarees with earthy texture, refined sheen, and effortless everyday sophistication.",
@@ -29,12 +30,19 @@ const descriptions = {
   "Semi Kota": "Choose Semi Kota sarees for light drape, easy styling, and graceful festive versatility.",
   "Soft Silk": "Explore Soft Silk sarees with smooth drape, gentle lustre, and occasion-ready richness.",
   "Uppada Silk": "Discover Uppada silk sarees with elegant texture, delicate patterns, and graceful handcrafted appeal.",
+  Kalamkari: "Explore Kalamkari sarees with story-rich hand-painted and printed artistry, expressive motifs, and timeless craft charm.",
   "Sahanvi Vintage": "Explore Sahanvi Vintage sarees curated for heirloom charm, rich tradition, and timeless artistry."
+};
+
+const heroImages = {
+  Kalamkari: media.kalamkariSaree,
+  "Paithani Yellow": media.paithaniYellowSaree
 };
 
 export default async function CollectionPage({ params }) {
   const type = decodeURIComponent((await params).type);
   const description = descriptions[type] || `Explore ${type} sarees crafted with rich tradition, elegant drapes, and timeless artistry.`;
+  const heroImage = heroImages[type] || media.bannerPerson;
 
   return (
     <div className="next-page">
@@ -51,7 +59,7 @@ export default async function CollectionPage({ params }) {
             </div>
           </div>
           <div className="collection-hero-media">
-            <img className="collection-hero-image" src={media.bannerPerson} alt={type} />
+            <img className="collection-hero-image" src={heroImage} alt={type} />
           </div>
         </section>
         <CollectionShop type={type} />

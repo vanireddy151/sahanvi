@@ -45,6 +45,20 @@ function toArray(value) {
     .filter(Boolean);
 }
 
+function normalizeSaree(saree) {
+  return {
+    ...saree,
+    id: saree.id || saree._id || `SR-${saree.code || Date.now()}`,
+    material: toArray(saree.material),
+    design: toArray(saree.design),
+    border: toArray(saree.border),
+    blouse: toArray(saree.blouse),
+    zariColour: toArray(saree.zariColour),
+    weave: toArray(saree.weave),
+    palluColour: toArray(saree.palluColour)
+  };
+}
+
 export default function AdminPage() {
   const [allowed, setAllowed] = useState(false);
   const [authReady, setAuthReady] = useState(false);
@@ -61,11 +75,22 @@ export default function AdminPage() {
     const auth = JSON.parse(localStorage.getItem("sahanvi-auth") || "null");
     const phone = String(auth?.user?.phone || "").replace(/\D/g, "");
     setAllowed(auth?.user?.role === "admin" || ["9704888933", "9949779227"].includes(phone));
-    setSarees(JSON.parse(localStorage.getItem("sahanvi-admin-sarees") || "[]"));
+    setSarees(JSON.parse(localStorage.getItem("sahanvi-admin-sarees") || "[]").map(normalizeSaree));
     setOrders(JSON.parse(localStorage.getItem("sahanvi-orders") || "[]"));
     setReturns(JSON.parse(localStorage.getItem("sahanvi-return-requests") || "[]"));
     setInquiries(JSON.parse(localStorage.getItem("sahanvi-inquiries") || "[]"));
     setAuthReady(true);
+
+    fetch(apiUrl("/api/sarees"))
+      .then((response) => response.ok ? response.json() : [])
+      .then((items) => {
+        if (Array.isArray(items) && items.length) {
+          const normalized = items.map(normalizeSaree);
+          setSarees(normalized);
+          localStorage.setItem("sahanvi-admin-sarees", JSON.stringify(normalized));
+        }
+      })
+      .catch(() => {});
   }, []);
 
   const typeOptions = form.category === "Sahanvi Vintage" ? ["Sahanvi Vintage"] : menus[form.category] || [];
@@ -154,46 +179,55 @@ export default function AdminPage() {
       uploadedAt: editingId ? sarees.find((item) => item.id === editingId)?.uploadedAt : new Date().toISOString(),
       updatedAt: new Date().toISOString()
     };
-    const nextSarees = editingId
-      ? sarees.map((item) => (item.id === editingId ? nextSaree : item))
-      : [nextSaree, ...sarees];
-
-    setSarees(nextSarees);
-    localStorage.setItem("sahanvi-admin-sarees", JSON.stringify(nextSarees));
-    setStatus(editingId ? "Saree details updated." : "Saree uploaded and listed in admin.");
-    setActiveTab("available");
+    let savedSaree = normalizeSaree(nextSaree);
 
     try {
       const formData = new FormData();
       Object.entries(nextSaree).forEach(([key, value]) => {
         formData.append(key, Array.isArray(value) ? JSON.stringify(value) : value);
       });
-      await fetch(apiUrl("/api/sarees"), { method: "POST", body: formData });
+      const response = await fetch(apiUrl("/api/sarees"), {
+        method: editingId ? "PUT" : "POST",
+        body: formData
+      });
+
+      if (response.ok) {
+        savedSaree = normalizeSaree(await response.json());
+      }
     } catch {
       setStatus("Saved in admin. Backend upload will sync when server is available.");
     }
 
+    const nextSarees = editingId
+      ? sarees.map((item) => (item.id === editingId ? savedSaree : item))
+      : [savedSaree, ...sarees];
+
+    setSarees(nextSarees);
+    localStorage.setItem("sahanvi-admin-sarees", JSON.stringify(nextSarees));
+    setStatus(editingId ? "Saree details updated." : "Saree uploaded and listed in admin.");
+    setActiveTab("available");
     setEditingId("");
     setForm(emptyForm);
   }
 
   function editSaree(saree) {
-    setEditingId(saree.id);
+    const normalized = normalizeSaree(saree);
+    setEditingId(normalized.id);
     setForm({
-      category: saree.category,
-      type: saree.type,
-      name: saree.name,
-      code: saree.code,
-      price: saree.price,
-      imageUrl: saree.imageUrl,
-      description: saree.description,
-      material: toArray(saree.material),
-      design: toArray(saree.design),
-      border: toArray(saree.border),
-      blouse: toArray(saree.blouse),
-      zariColour: toArray(saree.zariColour),
-      weave: toArray(saree.weave),
-      palluColour: toArray(saree.palluColour)
+      category: normalized.category,
+      type: normalized.type,
+      name: normalized.name,
+      code: normalized.code,
+      price: normalized.price,
+      imageUrl: normalized.imageUrl,
+      description: normalized.description,
+      material: normalized.material,
+      design: normalized.design,
+      border: normalized.border,
+      blouse: normalized.blouse,
+      zariColour: normalized.zariColour,
+      weave: normalized.weave,
+      palluColour: normalized.palluColour
     });
     setActiveTab("upload");
     window.scrollTo({ top: 0, behavior: "smooth" });

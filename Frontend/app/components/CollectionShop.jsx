@@ -12,6 +12,7 @@ const bodyColours = [
   ["Brown", "#7b2f1d"],
   ["Burgundy", "#8d0025"],
   ["Cream", "#fffbd1"],
+  ["Yellow", "#f4c400"],
   ["Green", "#18763d"],
   ["Purple", "#6d3a8f"],
   ["Pink", "#e89ab7"],
@@ -85,7 +86,7 @@ export default function CollectionShop({ type }) {
 
   const stockProducts = useMemo(() => {
     return uploadedSarees
-      .filter((saree) => saree.type === type || saree.category === type)
+      .filter((saree) => type === "New Arrivals" ? saree.isNewArrival !== false : saree.type === type || saree.category === type)
       .map((saree) => ({
         name: saree.name || `${type} Saree ${saree.code || ""}`.trim(),
         code: saree.code || "",
@@ -109,6 +110,12 @@ export default function CollectionShop({ type }) {
 
     return productTemplates.map((product) => ({
       ...product,
+      image: type === "Kalamkari"
+        ? media.kalamkariSaree
+        : type === "Paithani Yellow"
+          ? media.paithaniYellowSaree
+          : product.image,
+      colour: type === "Paithani Yellow" ? "Yellow" : product.colour,
       name: `${type} Saree ${product.code}`
     }));
   }, [stockProducts, type]);

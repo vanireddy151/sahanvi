@@ -65,57 +65,65 @@ export default function CartPage() {
       <main className="cart-page">
         <section className="cart-hero">
           <p className="listing-kicker">Sahanvi Checkout</p>
-          <h1>Your Cart</h1>
-          <p>Review your sarees and add the delivery details required to place the order.</p>
+          <h1>Cart & Delivery</h1>
+          <p>Check your sarees and add delivery details in one place.</p>
         </section>
 
         <section className="cart-layout">
-          <div className="cart-items">
-            {!cart.length ? (
-              <div className="empty-cart">
-                <h2>Your cart is empty</h2>
-                <p>Choose a saree from New Arrivals or Collections to continue.</p>
-                <a className="hero-button" href="/new-arrivals">Shop New Arrivals</a>
+          <div className="cart-checkout-sheet">
+            <div className="cart-items">
+              <div className="cart-section-title">
+                <h2>Selected Sarees</h2>
+                <p>{cart.length ? `${cart.length} item${cart.length === 1 ? "" : "s"} ready for checkout` : "No sarees added yet"}</p>
               </div>
-            ) : cart.map((item) => (
-              <article className="cart-line-item" key={item.code || item.name}>
-                <img src={item.image} alt={item.name} />
-                <div>
-                  <h2>{item.name}</h2>
-                  <p>{item.code}</p>
-                  <strong>{item.price}</strong>
-                  <button className="text-action" type="button" onClick={() => removeItem(item.code)}>
-                    Remove
-                  </button>
+              {!cart.length ? (
+                <div className="empty-cart">
+                  <h3>Your cart is empty</h3>
+                  <p>Choose a saree to continue checkout.</p>
+                  <a className="hero-button" href="/new-arrivals">Shop New Arrivals</a>
                 </div>
-              </article>
-            ))}
-          </div>
-
-          <aside className="cart-details">
-            <h2>Delivery Details</h2>
-            <div className="order-summary-box">
-              <div><span>Items</span><strong>{cart.length}</strong></div>
-              <div><span>Subtotal</span><strong>₹{subtotal.toLocaleString("en-IN")}</strong></div>
-              <p>Final payment and shipping confirmation will be shared by the Sahanvi team.</p>
+              ) : cart.map((item) => (
+                <article className="cart-line-item" key={item.code || item.name}>
+                  <img src={item.image} alt={item.name} />
+                  <div>
+                    <h3>{item.name}</h3>
+                    <p>{item.code}</p>
+                    <strong>{item.price}</strong>
+                    <button className="text-action" type="button" onClick={() => removeItem(item.code)}>
+                      Remove
+                    </button>
+                  </div>
+                </article>
+              ))}
             </div>
-            {!auth?.user ? (
-              <div className="cart-login-prompt">
-                <p>Please sign up or sign in before placing the order.</p>
-                <a className="checkout-primary" href="/signup">Sign Up</a>
-                <a href="/login">Already registered? Sign in</a>
+
+            <aside className="cart-details">
+              <div className="cart-section-title">
+                <h2>Delivery Details</h2>
+                <p>We use this address for delivery and approved returns.</p>
               </div>
-            ) : (
-              <form className="otp-form" onSubmit={placeOrder}>
-                <label><span>Full Name</span><input name="name" defaultValue={auth.user.name || ""} required /></label>
-                <label><span>Email</span><input name="email" type="email" defaultValue={auth.user.email || ""} required /></label>
-                <label><span>Phone Number</span><input name="phone" type="tel" defaultValue={auth.user.phone || ""} required /></label>
-                <label><span>Delivery Address</span><textarea name="address" rows="5" defaultValue={auth.user.address || ""} placeholder="House/flat, street, city, state, pincode" required></textarea></label>
-                <p className="checkout-note">This delivery address will also be used as the pickup address if a return request is approved.</p>
-                <button className="checkout-primary" type="submit" disabled={!cart.length}>Place Order</button>
-              </form>
-            )}
-          </aside>
+              <div className="order-summary-box">
+                <div><span>Items</span><strong>{cart.length}</strong></div>
+                <div><span>Subtotal</span><strong>₹{subtotal.toLocaleString("en-IN")}</strong></div>
+                <p>Payment and shipping confirmation will be shared by the Sahanvi team.</p>
+              </div>
+              {!auth?.user ? (
+                <div className="cart-login-prompt">
+                  <p>Sign up or sign in to place the order.</p>
+                  <a className="checkout-primary" href="/signup">Sign Up with OTP</a>
+                  <a href="/login">Already registered? Sign in</a>
+                </div>
+              ) : (
+                <form className="otp-form" onSubmit={placeOrder}>
+                  <label><span>Name</span><input name="name" defaultValue={auth.user.name || ""} required /></label>
+                  <label><span>Email</span><input name="email" type="email" defaultValue={auth.user.email || ""} required /></label>
+                  <label><span>Phone</span><input name="phone" type="tel" defaultValue={auth.user.phone || ""} required /></label>
+                  <label><span>Address</span><textarea name="address" rows="4" defaultValue={auth.user.address || ""} placeholder="House/flat, street, city, state, pincode" required></textarea></label>
+                  <button className="checkout-primary" type="submit" disabled={!cart.length}>Place Order</button>
+                </form>
+              )}
+            </aside>
+          </div>
         </section>
       </main>
       <Footer />
