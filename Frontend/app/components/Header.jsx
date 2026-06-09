@@ -88,6 +88,22 @@ export default function Header() {
     setOpenMenu("");
   }
 
+  function toggleDropdown(name, target) {
+    clearDropdownClose();
+
+    if (!isDesktop) {
+      setOpenMenu((current) => (current === name ? "" : name));
+      return;
+    }
+
+    if (openMenu === name) {
+      setOpenMenu("");
+      return;
+    }
+
+    openDropdown(name, target);
+  }
+
   useEffect(() => {
     setMounted(true);
     const syncMode = () => setIsDesktop(window.innerWidth > 960);
@@ -137,27 +153,33 @@ export default function Header() {
             <div
               className={`nav-item dropdown ${openMenu === name ? "is-open" : ""}`}
               key={name}
-              onFocus={(event) => openDropdown(name, event.currentTarget)}
-              onMouseEnter={(event) => openDropdown(name, event.currentTarget)}
-              onMouseLeave={scheduleDropdownClose}
+              onFocus={(event) => {
+                if (isDesktop) openDropdown(name, event.currentTarget);
+              }}
+              onMouseEnter={(event) => {
+                if (isDesktop) openDropdown(name, event.currentTarget);
+              }}
+              onMouseLeave={() => {
+                if (isDesktop) scheduleDropdownClose();
+              }}
             >
               <button
                 type="button"
+                aria-expanded={openMenu === name}
                 onClick={(event) => {
-                  if (openMenu === name) {
-                    clearDropdownClose();
-                    setOpenMenu("");
-                    return;
-                  }
-                  openDropdown(name, event.currentTarget.parentElement);
+                  toggleDropdown(name, event.currentTarget.parentElement);
                 }}
               >
                 {name}
               </button>
               <div
                 className="dropdown-menu inline-dropdown-menu"
-                onMouseEnter={() => openDropdown(name)}
-                onMouseLeave={scheduleDropdownClose}
+                onMouseEnter={() => {
+                  if (isDesktop) openDropdown(name);
+                }}
+                onMouseLeave={() => {
+                  if (isDesktop) scheduleDropdownClose();
+                }}
               >
                 {items.map((item) => (
                   <Link key={item} href={`/${encodeURIComponent(item)}`} onClick={closeMenus}>
