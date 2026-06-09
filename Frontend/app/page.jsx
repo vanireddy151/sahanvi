@@ -1,5 +1,6 @@
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import HeroVideo from "./components/HeroVideo";
 import ProductCard from "./components/ProductCard";
 import { media } from "./data/media";
 import { collectionItems, products } from "./data/products";
@@ -19,12 +20,7 @@ export default function HomePage() {
           </div>
           <div className="hero-media">
             <img className="hero-back-image active" src={media.bannerPerson} alt="Sahanvi saree" />
-            <div className="hero-video-card" aria-label="Sahanvi story video">
-              <video className="hero-video" muted playsInline autoPlay loop preload="metadata">
-                <source src={media.storyVideo} type="video/mp4" />
-              </video>
-              <span className="video-sheen"></span>
-            </div>
+            <HeroVideo src={media.storyVideo} />
           </div>
         </section>
 
