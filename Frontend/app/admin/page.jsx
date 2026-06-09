@@ -19,7 +19,8 @@ const emptyForm = {
   blouse: [],
   zariColour: [],
   weave: [],
-  palluColour: []
+  palluColour: [],
+  availability: "available"
 };
 
 const stockDetailFields = [
@@ -55,7 +56,8 @@ function normalizeSaree(saree) {
     blouse: toArray(saree.blouse),
     zariColour: toArray(saree.zariColour),
     weave: toArray(saree.weave),
-    palluColour: toArray(saree.palluColour)
+    palluColour: toArray(saree.palluColour),
+    availability: saree.availability || "available"
   };
 }
 
@@ -116,11 +118,14 @@ export default function AdminPage() {
   }, [orders]);
 
   const availableSarees = useMemo(() => {
-    return sarees.filter((saree) => !soldCodes.has(saree.code));
+    return sarees.filter((saree) =>
+      !soldCodes.has(saree.code) &&
+      String(saree.availability || "available").toLowerCase() === "available"
+    );
   }, [sarees, soldCodes]);
 
   const soldItems = useMemo(() => {
-    return orders.flatMap((order) =>
+    const orderedItems = orders.flatMap((order) =>
       (order.items || []).map((item) => ({
         ...item,
         orderId: order.id,
@@ -129,7 +134,20 @@ export default function AdminPage() {
         status: order.status
       }))
     );
-  }, [orders]);
+    const manuallySold = sarees
+      .filter((saree) =>
+        String(saree.availability || "").toLowerCase() === "sold" &&
+        !soldCodes.has(saree.code)
+      )
+      .map((saree) => ({
+        ...saree,
+        image: saree.imageUrl,
+        status: "Marked sold in admin",
+        orderId: "Manual"
+      }));
+
+    return [...orderedItems, ...manuallySold];
+  }, [orders, sarees, soldCodes]);
 
   function groupByType(items) {
     return items.reduce((groups, saree) => {
@@ -227,7 +245,8 @@ export default function AdminPage() {
       blouse: normalized.blouse,
       zariColour: normalized.zariColour,
       weave: normalized.weave,
-      palluColour: normalized.palluColour
+      palluColour: normalized.palluColour,
+      availability: normalized.availability || "available"
     });
     setActiveTab("upload");
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -314,6 +333,14 @@ export default function AdminPage() {
                 <label><span>Code</span><input name="code" value={form.code} onChange={updateField} placeholder="S123456" required /></label>
                 <label><span>Price</span><input name="price" value={form.price} onChange={updateField} placeholder="21020" required /></label>
                 <label><span>Cloudinary Image URL</span><input name="imageUrl" type="url" value={form.imageUrl} onChange={updateField} placeholder="https://res.cloudinary.com/..." required /></label>
+                <label>
+                  <span>Availability</span>
+                  <select name="availability" value={form.availability} onChange={updateField}>
+                    <option value="available">Available - show to customers</option>
+                    <option value="sold">Sold - hide from list</option>
+                    <option value="hidden">Hidden - do not show</option>
+                  </select>
+                </label>
               </div>
               <div className="admin-stock-details">
                 <div>
@@ -395,6 +422,7 @@ export default function AdminPage() {
                         <strong>{saree.name}</strong>
                         <p>{saree.code} · ₹{priceNumber(saree.price).toLocaleString("en-IN")}</p>
                         <small>{saree.description || "No description added"}</small>
+                        <small>Availability: {saree.availability || "available"}</small>
                       </div>
                       <div className="admin-row-actions">
                         <button type="button" onClick={() => editSaree(saree)}>Edit</button>

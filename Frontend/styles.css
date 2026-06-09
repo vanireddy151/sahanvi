@@ -5516,3 +5516,294 @@ button {
     height: 32px;
   }
 }
+
+/* Shared saree subpage responsiveness */
+@media (max-width: 1180px) {
+  .collection-page .collection-hero {
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 0.54fr);
+    gap: 30px;
+    padding-inline: clamp(28px, 5vw, 64px);
+  }
+
+  .collection-page .collection-title {
+    font-size: clamp(38px, 5vw, 54px);
+  }
+
+  .collection-page .collection-description {
+    max-width: 640px;
+    font-size: clamp(18px, 2vw, 21px);
+  }
+
+  .collection-page .collection-hero-media {
+    width: min(100%, 330px);
+    min-height: clamp(460px, 58vh, 560px);
+  }
+
+  .collection-page .collection-hero-media::before {
+    inset: -8px -10px -8px -14px;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 960px) {
+  .collection-page .collection-hero {
+    min-height: auto;
+    grid-template-columns: minmax(0, 1fr) minmax(240px, 290px);
+    align-items: center;
+    justify-items: stretch;
+    text-align: left;
+    padding: 46px 28px 54px;
+  }
+
+  .collection-page .collection-copy {
+    width: 100%;
+  }
+
+  .collection-page .collection-hero-actions {
+    justify-content: flex-start;
+  }
+
+  .collection-page .collection-hero-media {
+    width: min(100%, 270px);
+    min-height: 430px;
+  }
+
+  .collection-page .collection-shop-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .collection-page .collection-filters {
+    position: static;
+    width: 100%;
+  }
+
+  .collection-page .collection-product-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .collection-page {
+    overflow-x: hidden;
+  }
+
+  .collection-page .collection-hero {
+    min-height: auto;
+    grid-template-columns: 1fr;
+    justify-items: start;
+    text-align: left;
+    gap: 22px;
+    padding: 28px 18px 36px;
+  }
+
+  .collection-page .collection-copy {
+    width: 100%;
+  }
+
+  .collection-page .collection-kicker {
+    margin-bottom: 8px;
+    font-size: 10px;
+    letter-spacing: 1.8px;
+  }
+
+  .collection-page .collection-title {
+    font-size: clamp(30px, 10vw, 42px);
+    line-height: 1;
+  }
+
+  .collection-page .collection-description {
+    max-width: 100%;
+    font-size: 16px;
+    line-height: 1.35;
+  }
+
+  .collection-page .collection-hero-actions {
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 12px;
+    margin-top: 20px;
+  }
+
+  .collection-page .collection-hero-actions a,
+  .collection-page .collection-hero-actions button {
+    min-height: 40px;
+    padding: 9px 20px;
+    font-size: 16px;
+  }
+
+  .collection-page .collection-hero-actions span {
+    font-size: 13px;
+  }
+
+  .collection-page .collection-hero-media {
+    justify-self: center;
+    width: min(76vw, 260px);
+    min-height: 0;
+    height: clamp(360px, 55vh, 460px);
+    transform: none;
+  }
+
+  .collection-page .collection-hero-media::before {
+    inset: -6px -8px;
+    border-radius: 14px;
+  }
+
+  .collection-page .collection-hero-image {
+    object-fit: cover;
+    object-position: center top;
+  }
+
+  .collection-page .collection-products {
+    padding: 22px 12px 46px;
+  }
+
+  .collection-page .collection-chip-row,
+  .collection-page .collection-tabs,
+  .collection-page .collection-tab-option-row {
+    margin-inline: -12px;
+    padding-inline: 12px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .collection-page .collection-chip-row::-webkit-scrollbar,
+  .collection-page .collection-tabs::-webkit-scrollbar,
+  .collection-page .collection-tab-option-row::-webkit-scrollbar {
+    display: none;
+  }
+
+  .collection-page .collection-chip {
+    padding: 8px 14px;
+    font-size: 15px;
+    white-space: nowrap;
+  }
+
+  .collection-page .collection-shop-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 22px;
+    min-width: 0;
+    width: 100%;
+  }
+
+  .collection-page .collection-filters {
+    position: static;
+    width: 100%;
+    max-height: none;
+    min-width: 0;
+  }
+
+  .collection-page .collection-results,
+  .collection-page .collection-toolbar,
+  .collection-page .collection-product-grid {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .collection-page .filter-heading {
+    padding: 14px 16px;
+  }
+
+  .collection-page .filter-heading h2 {
+    font-size: 24px;
+  }
+
+  .collection-page .filter-price,
+  .collection-page .filter-panel summary,
+  .collection-page .filter-placeholder,
+  .collection-page .filter-option-list {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .collection-page .filter-search {
+    margin-left: 16px;
+    margin-right: 16px;
+  }
+
+  .collection-page .colour-filter-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px 8px;
+    padding-inline: 16px;
+  }
+
+  .collection-page .collection-toolbar {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .collection-page .collection-toolbar h2 {
+    font-size: clamp(28px, 9vw, 38px);
+    line-height: 1.05;
+  }
+
+  .collection-page .collection-toolbar-controls {
+    width: 100%;
+    min-width: 0;
+    grid-template-columns: 1fr;
+  }
+
+  .collection-page .collection-search,
+  .collection-page .collection-toolbar label {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .collection-page .collection-tabs {
+    gap: 18px;
+    margin-bottom: 18px;
+  }
+
+  .collection-page .collection-tabs button {
+    flex: 0 0 auto;
+    padding: 0 0 10px;
+    font-size: 19px;
+    white-space: nowrap;
+  }
+
+  .collection-page .collection-tab-option {
+    flex: 0 0 auto;
+    white-space: nowrap;
+  }
+
+  .collection-page .collection-product-grid {
+    grid-template-columns: 1fr;
+    gap: 26px;
+  }
+
+  .collection-page .product-image {
+    aspect-ratio: 1 / 0.9;
+  }
+
+  .collection-page .product-card-title {
+    margin-top: 12px;
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 420px) {
+  .collection-page .collection-hero {
+    padding: 22px 16px 32px;
+  }
+
+  .collection-page .collection-title {
+    font-size: clamp(28px, 10vw, 36px);
+  }
+
+  .collection-page .collection-description {
+    font-size: 15px;
+  }
+
+  .collection-page .collection-hero-media {
+    width: min(78vw, 238px);
+    height: 360px;
+  }
+
+  .collection-page .collection-hero-actions {
+    flex-direction: column;
+  }
+
+  .collection-page .product-card-title {
+    font-size: 18px;
+  }
+}

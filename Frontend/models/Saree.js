@@ -20,6 +20,11 @@ const sareeSchema = new mongoose.Schema(
     zariColour: { type: [String], default: [] },
     weave: { type: [String], default: [] },
     palluColour: { type: [String], default: [] },
+    availability: {
+      type: String,
+      enum: ["available", "sold", "hidden"],
+      default: "available"
+    },
     isNewArrival: { type: Boolean, default: true }
   },
   { timestamps: true }

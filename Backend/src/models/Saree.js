@@ -38,9 +38,42 @@ const sareeSchema = new mongoose.Schema(
       trim: true,
       default: ""
     },
+    material: {
+      type: [String],
+      default: []
+    },
+    design: {
+      type: [String],
+      default: []
+    },
+    border: {
+      type: [String],
+      default: []
+    },
+    blouse: {
+      type: [String],
+      default: []
+    },
+    zariColour: {
+      type: [String],
+      default: []
+    },
+    weave: {
+      type: [String],
+      default: []
+    },
+    palluColour: {
+      type: [String],
+      default: []
+    },
     isNewArrival: {
       type: Boolean,
       default: true
+    },
+    availability: {
+      type: String,
+      enum: ["available", "sold", "hidden"],
+      default: "available"
     }
   },
   { timestamps: true }

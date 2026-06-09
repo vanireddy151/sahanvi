@@ -83,7 +83,6 @@ export default function ProductCard({ image = media.bannerPerson, name, price = 
         <button className="product-card-trigger" type="button" onClick={() => setIsOpen(true)}>
           <span className="product-image">
             <img src={image} alt={sareeName} />
-            <span className="wishlist-button" aria-hidden="true">♡</span>
             <span className="product-badge">New Arrival</span>
           </span>
           <span className="product-card-title">{sareeName} {code}</span>

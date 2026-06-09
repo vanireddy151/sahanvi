@@ -87,6 +87,7 @@ export default function CollectionShop({ type }) {
   const stockProducts = useMemo(() => {
     return uploadedSarees
       .filter((saree) => type === "New Arrivals" ? saree.isNewArrival !== false : saree.type === type || saree.category === type)
+      .filter((saree) => !["sold", "hidden"].includes(String(saree.availability || "available").toLowerCase()))
       .map((saree) => ({
         name: saree.name || `${type} Saree ${saree.code || ""}`.trim(),
         code: saree.code || "",

@@ -5,6 +5,20 @@ const Saree = require("../models/Saree");
 
 const router = express.Router();
 
+function parseList(value) {
+  if (!value) return [];
+  try {
+    const parsed = JSON.parse(value);
+    if (Array.isArray(parsed)) return parsed.filter(Boolean);
+  } catch {
+    return String(value)
+      .split(",")
+      .map((item) => item.trim())
+      .filter(Boolean);
+  }
+  return [];
+}
+
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, path.join(__dirname, "../../uploads"));
@@ -41,7 +55,7 @@ router.get("/", async (req, res, next) => {
 
 router.post("/", upload.single("image"), async (req, res, next) => {
   try {
-    if (!req.file) {
+    if (!req.file && !req.body.imageUrl) {
       res.status(400).json({ message: "Saree image is required." });
       return;
     }
@@ -52,12 +66,65 @@ router.post("/", upload.single("image"), async (req, res, next) => {
       name: req.body.name,
       code: req.body.code,
       price: Number(req.body.price),
-      imageUrl: `/uploads/${req.file.filename}`,
+      imageUrl: req.body.imageUrl || `/uploads/${req.file.filename}`,
       description: req.body.description,
-      isNewArrival: req.body.isNewArrival !== "false"
+      material: parseList(req.body.material),
+      design: parseList(req.body.design),
+      border: parseList(req.body.border),
+      blouse: parseList(req.body.blouse),
+      zariColour: parseList(req.body.zariColour),
+      weave: parseList(req.body.weave),
+      palluColour: parseList(req.body.palluColour),
+      isNewArrival: req.body.isNewArrival !== "false",
+      availability: req.body.availability || "available"
     });
 
     res.status(201).json(saree);
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.put("/", upload.single("image"), async (req, res, next) => {
+  try {
+    const id = req.body.id || req.body._id;
+    const code = req.body.code;
+    const update = {
+      category: req.body.category,
+      type: req.body.type,
+      name: req.body.name,
+      code,
+      price: Number(req.body.price),
+      imageUrl: req.body.imageUrl || (req.file ? `/uploads/${req.file.filename}` : undefined),
+      description: req.body.description,
+      material: parseList(req.body.material),
+      design: parseList(req.body.design),
+      border: parseList(req.body.border),
+      blouse: parseList(req.body.blouse),
+      zariColour: parseList(req.body.zariColour),
+      weave: parseList(req.body.weave),
+      palluColour: parseList(req.body.palluColour),
+      isNewArrival: req.body.isNewArrival !== "false",
+      availability: req.body.availability || "available"
+    };
+
+    Object.keys(update).forEach((key) => update[key] === undefined && delete update[key]);
+
+    const query = id && /^[a-f\d]{24}$/i.test(String(id))
+      ? { _id: id }
+      : { code };
+
+    const saree = await Saree.findOneAndUpdate(query, update, {
+      new: true,
+      runValidators: true
+    });
+
+    if (!saree) {
+      res.status(404).json({ message: "Saree not found" });
+      return;
+    }
+
+    res.json(saree);
   } catch (error) {
     next(error);
   }

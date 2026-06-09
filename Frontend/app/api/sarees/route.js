@@ -40,7 +40,8 @@ export async function POST(request) {
     blouse: parseList(formData.get("blouse")),
     zariColour: parseList(formData.get("zariColour")),
     weave: parseList(formData.get("weave")),
-    palluColour: parseList(formData.get("palluColour"))
+    palluColour: parseList(formData.get("palluColour")),
+    availability: formData.get("availability") || "available"
   });
   return NextResponse.json(saree, { status: 201 });
 }
@@ -64,7 +65,8 @@ export async function PUT(request) {
     blouse: parseList(formData.get("blouse")),
     zariColour: parseList(formData.get("zariColour")),
     weave: parseList(formData.get("weave")),
-    palluColour: parseList(formData.get("palluColour"))
+    palluColour: parseList(formData.get("palluColour")),
+    availability: formData.get("availability") || "available"
   };
 
   const query = id && /^[a-f\d]{24}$/i.test(String(id))
