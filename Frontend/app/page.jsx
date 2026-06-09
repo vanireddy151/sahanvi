@@ -19,13 +19,12 @@ export default function HomePage() {
           </div>
           <div className="hero-media">
             <img className="hero-back-image active" src={media.bannerPerson} alt="Sahanvi saree" />
-            <button className="hero-video-card" type="button">
-              <video className="hero-video" muted playsInline controls preload="metadata">
+            <div className="hero-video-card" aria-label="Sahanvi story video">
+              <video className="hero-video" muted playsInline autoPlay loop preload="metadata">
                 <source src={media.storyVideo} type="video/mp4" />
               </video>
               <span className="video-sheen"></span>
-              <span className="play-button">▶</span>
-            </button>
+            </div>
           </div>
         </section>
 

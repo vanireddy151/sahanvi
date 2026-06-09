@@ -6,7 +6,6 @@ import { media } from "../data/media";
 export default function ProductCard({ image = media.bannerPerson, name, price = "₹21,020" }) {
   const [isOpen, setIsOpen] = useState(false);
   const [checkoutOpen, setCheckoutOpen] = useState(false);
-  const [orderOpen, setOrderOpen] = useState(false);
   const [otpSent, setOtpSent] = useState(false);
   const [otp, setOtp] = useState("");
   const code = name.match(/S\d+$/)?.[0] || "";
@@ -27,6 +26,10 @@ export default function ProductCard({ image = media.bannerPerson, name, price = 
     localStorage.setItem("sahanvi-cart", JSON.stringify(nextCart));
   }
 
+  function savePendingCartItem() {
+    localStorage.setItem("sahanvi-pending-cart-item", JSON.stringify(cartItem));
+  }
+
   function addItemToWishlist() {
     const existingWishlist = JSON.parse(localStorage.getItem("sahanvi-wishlist") || "[]");
     const nextWishlist = [...existingWishlist.filter((item) => item.code !== code), cartItem];
@@ -38,10 +41,11 @@ export default function ProductCard({ image = media.bannerPerson, name, price = 
     const auth = getAuth();
     if (auth?.user) {
       addItemToCart();
-      setOrderOpen(true);
+      window.location.href = "/cart";
       return;
     }
 
+    savePendingCartItem();
     setCheckoutOpen(true);
   }
 
@@ -65,33 +69,12 @@ export default function ProductCard({ image = media.bannerPerson, name, price = 
 
     const customer = JSON.parse(localStorage.getItem("sahanvi-pending-customer") || "{}");
     localStorage.setItem("sahanvi-auth", JSON.stringify({ user: { ...customer, role: "customer" } }));
+    localStorage.setItem("sahanvi-customer-profile", JSON.stringify({ ...customer, role: "customer" }));
     addItemToCart();
     localStorage.removeItem("sahanvi-pending-customer");
+    localStorage.removeItem("sahanvi-pending-cart-item");
     localStorage.removeItem("sahanvi-demo-otp");
-    setCheckoutOpen(false);
-    setOrderOpen(true);
-  }
-
-  function placeOrder(event) {
-    event.preventDefault();
-    const formData = new FormData(event.currentTarget);
-    const delivery = Object.fromEntries(formData.entries());
-    const auth = getAuth();
-    const order = {
-      id: `SH-${Date.now()}`,
-      createdAt: new Date().toISOString(),
-      customer: auth?.user || {},
-      delivery,
-      items: [cartItem],
-      status: "Pending confirmation"
-    };
-    const existingOrders = JSON.parse(localStorage.getItem("sahanvi-orders") || "[]");
-    localStorage.setItem("sahanvi-orders", JSON.stringify([order, ...existingOrders]));
-    localStorage.setItem("sahanvi-cart", JSON.stringify([]));
-    setOrderOpen(false);
-    setCheckoutOpen(false);
-    setIsOpen(false);
-    alert("Order details saved. Sahanvi team will contact you for confirmation.");
+    window.location.href = "/cart";
   }
 
   return (
@@ -158,7 +141,7 @@ export default function ProductCard({ image = media.bannerPerson, name, price = 
                 <label><span>Email</span><input name="email" type="email" required /></label>
                 <label><span>Mobile Number</span><input name="phone" type="tel" pattern="[0-9]{10}" placeholder="10 digit mobile number" required /></label>
                 <label><span>Delivery Address <small>(optional now)</small></span><textarea name="address" rows="3" placeholder="You can add this later while ordering"></textarea></label>
-                <p className="member-copy">Already registered? <a href="/login">Sign in</a></p>
+                <p className="member-copy">Already registered? <a href="/login?returnTo=/cart" onClick={savePendingCartItem}>Sign in with mobile</a></p>
                 <button className="checkout-primary" type="submit">Send OTP</button>
               </form>
             ) : (
@@ -167,32 +150,6 @@ export default function ProductCard({ image = media.bannerPerson, name, price = 
                 <button className="checkout-primary" type="submit">Verify & Continue</button>
               </form>
             )}
-          </div>
-        </div>
-      ) : null}
-
-      {orderOpen ? (
-        <div className="checkout-modal" role="dialog" aria-modal="true" aria-label="Delivery details">
-          <button className="product-modal-backdrop" type="button" aria-label="Close order details" onClick={() => setOrderOpen(false)} />
-          <div className="checkout-modal-panel order-modal-panel">
-            <button className="product-modal-close" type="button" aria-label="Close order details" onClick={() => setOrderOpen(false)}>×</button>
-            <p className="product-modal-kicker">Cart Details</p>
-            <h2>Delivery information</h2>
-            <div className="cart-summary">
-              <img src={image} alt={sareeName} />
-              <div>
-                <strong>{sareeName}</strong>
-                <span>{code}</span>
-                <span>{price}</span>
-              </div>
-            </div>
-            <form className="otp-form" onSubmit={placeOrder}>
-              <label><span>Full Name</span><input name="name" defaultValue={getAuth()?.user?.name || ""} required /></label>
-              <label><span>Email</span><input name="email" type="email" defaultValue={getAuth()?.user?.email || ""} required /></label>
-              <label><span>Phone Number</span><input name="phone" type="tel" defaultValue={getAuth()?.user?.phone || ""} required /></label>
-              <label><span>Delivery Address</span><textarea name="address" rows="4" defaultValue={getAuth()?.user?.address || ""} placeholder="House/flat, street, city, state, pincode" required></textarea></label>
-              <button className="checkout-primary" type="submit">Place Order</button>
-            </form>
           </div>
         </div>
       ) : null}

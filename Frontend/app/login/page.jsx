@@ -9,6 +9,17 @@ function normalizePhone(phone) {
   return String(phone || "").replace(/\D/g, "").slice(-10);
 }
 
+function movePendingItemToCart() {
+  const pendingItem = JSON.parse(localStorage.getItem("sahanvi-pending-cart-item") || "null");
+  if (!pendingItem) return false;
+
+  const existingCart = JSON.parse(localStorage.getItem("sahanvi-cart") || "[]");
+  const nextCart = [...existingCart.filter((item) => item.code !== pendingItem.code), pendingItem];
+  localStorage.setItem("sahanvi-cart", JSON.stringify(nextCart));
+  localStorage.removeItem("sahanvi-pending-cart-item");
+  return true;
+}
+
 export default function LoginPage() {
   const [otpSent, setOtpSent] = useState(false);
   const [phone, setPhone] = useState("");
@@ -46,7 +57,9 @@ export default function LoginPage() {
     localStorage.setItem("sahanvi-auth", JSON.stringify({ user }));
     localStorage.setItem("sahanvi-customer-profile", JSON.stringify(user));
     localStorage.removeItem("sahanvi-demo-otp");
-    window.location.href = user.role === "admin" ? "/admin" : "/profile";
+    const hasPendingCart = movePendingItemToCart();
+    const returnTo = new URLSearchParams(window.location.search).get("returnTo");
+    window.location.href = returnTo || (hasPendingCart ? "/cart" : user.role === "admin" ? "/admin" : "/profile");
   }
 
   return (

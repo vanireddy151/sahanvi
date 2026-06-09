@@ -4982,10 +4982,10 @@ button {
   }
 
   .collection-hero-media::before {
-    top: -30px;
-    right: -42px;
-    bottom: -30px;
-    left: -62px;
+    top: -8px;
+    right: -11px;
+    bottom: -8px;
+    left: -16px;
   }
 
   .collection-hero-image {
