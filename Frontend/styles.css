@@ -5294,8 +5294,9 @@ button {
 /* Sahanvi checkout colour refresh */
 .cart-page {
   background:
-    radial-gradient(circle at top left, rgba(157, 93, 134, 0.1), transparent 34%),
-    linear-gradient(135deg, #f4ede4 0%, #fbf7f1 52%, #efe1d4 100%);
+    radial-gradient(circle at 0 8%, rgba(173, 91, 129, 0.1), transparent 28%),
+    radial-gradient(circle at 100% 30%, rgba(90, 47, 29, 0.07), transparent 32%),
+    linear-gradient(180deg, #fffdf9 0%, #ffffff 46%, #fbf6f0 100%);
   color: #2a170f;
 }
 
@@ -5309,9 +5310,9 @@ button {
 }
 
 .cart-checkout-sheet {
-  border-color: rgba(90, 47, 29, 0.24);
-  background: rgba(255, 252, 247, 0.94);
-  box-shadow: 0 28px 80px rgba(90, 47, 29, 0.12);
+  border-color: rgba(90, 47, 29, 0.18);
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 26px 70px rgba(90, 47, 29, 0.1);
 }
 
 .cart-section-title h2,
@@ -5329,8 +5330,8 @@ button {
 
 .cart-checkout-sheet .empty-cart,
 .cart-checkout-sheet .order-summary-box {
-  border-color: rgba(90, 47, 29, 0.18);
-  background: #fff7ee;
+  border-color: rgba(90, 47, 29, 0.14);
+  background: linear-gradient(135deg, #fffaf5 0%, #ffffff 100%);
 }
 
 .cart-checkout-sheet .order-summary-box div {
@@ -5343,8 +5344,8 @@ button {
 
 .cart-checkout-sheet .otp-form input,
 .cart-checkout-sheet .otp-form textarea {
-  border-color: rgba(90, 47, 29, 0.28);
-  background: #fffaf4;
+  border-color: rgba(90, 47, 29, 0.2);
+  background: #ffffff;
   color: #2b170f;
 }
 
