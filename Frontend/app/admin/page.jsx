@@ -76,7 +76,7 @@ export default function AdminPage() {
   useEffect(() => {
     const auth = JSON.parse(localStorage.getItem("sahanvi-auth") || "null");
     const phone = String(auth?.user?.phone || "").replace(/\D/g, "");
-    setAllowed(auth?.user?.role === "admin" || ["9704888933", "9949779227"].includes(phone));
+    setAllowed(auth?.user?.role === "admin" || ["9704888933", "9949779227", "9014011885"].includes(phone));
     setSarees(JSON.parse(localStorage.getItem("sahanvi-admin-sarees") || "[]").map(normalizeSaree));
     setOrders(JSON.parse(localStorage.getItem("sahanvi-orders") || "[]"));
     setReturns(JSON.parse(localStorage.getItem("sahanvi-return-requests") || "[]"));

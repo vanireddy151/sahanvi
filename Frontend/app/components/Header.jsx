@@ -96,7 +96,7 @@ export default function Header() {
 
     const auth = JSON.parse(localStorage.getItem("sahanvi-auth") || "null");
     const phone = String(auth?.user?.phone || "").replace(/\D/g, "");
-    setIsAdmin(auth?.user?.role === "admin" || ["9704888933", "9949779227"].includes(phone));
+    setIsAdmin(auth?.user?.role === "admin" || ["9704888933", "9949779227", "9014011885"].includes(phone));
 
     return () => {
       window.removeEventListener("resize", syncMode);

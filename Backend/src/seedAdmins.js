@@ -16,6 +16,12 @@ const adminConfigs = [
     email: process.env.ADMIN_2_EMAIL,
     phone: process.env.ADMIN_2_PHONE,
     password: process.env.ADMIN_2_PASSWORD
+  },
+  {
+    name: process.env.ADMIN_3_NAME,
+    email: process.env.ADMIN_3_EMAIL,
+    phone: process.env.ADMIN_3_PHONE,
+    password: process.env.ADMIN_3_PASSWORD
   }
 ].filter((admin) => admin.name && admin.email && admin.password);
 

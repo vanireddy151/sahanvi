@@ -12,6 +12,10 @@ const returnReasons = [
   "Other"
 ];
 
+function priceNumber(value) {
+  return Number(String(value || "").replace(/[^\d.]/g, "")) || 0;
+}
+
 export default function ProfilePage() {
   const [auth, setAuth] = useState(null);
   const [orders, setOrders] = useState([]);
@@ -64,6 +68,10 @@ export default function ProfilePage() {
     );
   }
 
+  const orderItems = orders.flatMap((order) => order.items || []);
+  const orderValue = orderItems.reduce((sum, item) => sum + priceNumber(item.price), 0);
+  const returnCount = orders.filter((order) => order.returnRequest).length;
+
   return (
     <div className="next-page">
       <Header />
@@ -72,6 +80,24 @@ export default function ProfilePage() {
           <p className="listing-kicker">Customer Profile</p>
           <h1>Welcome, {auth.user.name || "Customer"}</h1>
           <p>Track your orders, delivery information, and return requests in one place.</p>
+          <div className="profile-summary">
+            <article>
+              <span>{orders.length}</span>
+              <p>Orders</p>
+            </article>
+            <article>
+              <span>{orderItems.length}</span>
+              <p>Sarees</p>
+            </article>
+            <article>
+              <span>₹{orderValue.toLocaleString("en-IN")}</span>
+              <p>Order Value</p>
+            </article>
+            <article>
+              <span>{returnCount}</span>
+              <p>Returns</p>
+            </article>
+          </div>
         </section>
 
         <section className="profile-layout">

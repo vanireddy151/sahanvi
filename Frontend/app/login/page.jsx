@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Header from "../components/Header";
 
-const adminPhones = ["9704888933", "9949779227"];
+const adminPhones = ["9704888933", "9949779227", "9014011885"];
 
 function normalizePhone(phone) {
   return String(phone || "").replace(/\D/g, "").slice(-10);
