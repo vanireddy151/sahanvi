@@ -11,8 +11,22 @@ const emptyForm = {
   name: "",
   code: "",
   price: "",
+  stock: "1",
   imageUrl: "",
+  palluImageUrl: "",
+  borderImageUrl: "",
+  bodyImageUrl: "",
   description: "",
+  fabric: "",
+  style: "",
+  zariType: "",
+  occasion: "",
+  length: "6.3 meters with blouse",
+  blouseStatus: "Unstitched",
+  vendorId: "",
+  vendorName: "",
+  fallPico: false,
+  customBlouseStitching: false,
   material: [],
   design: [],
   border: [],
@@ -50,6 +64,20 @@ function normalizeSaree(saree) {
   return {
     ...saree,
     id: saree.id || saree._id || `SR-${saree.code || Date.now()}`,
+    stock: saree.stock ?? 1,
+    palluImageUrl: saree.palluImageUrl || "",
+    borderImageUrl: saree.borderImageUrl || "",
+    bodyImageUrl: saree.bodyImageUrl || "",
+    fabric: saree.fabric || "",
+    style: saree.style || "",
+    zariType: saree.zariType || "",
+    occasion: saree.occasion || "",
+    length: saree.length || "6.3 meters with blouse",
+    blouseStatus: saree.blouseStatus || "Unstitched",
+    vendorId: saree.vendorId || "",
+    vendorName: saree.vendorName || "",
+    fallPico: Boolean(saree.fallPico),
+    customBlouseStitching: Boolean(saree.customBlouseStitching),
     material: toArray(saree.material),
     design: toArray(saree.design),
     border: toArray(saree.border),
@@ -131,7 +159,7 @@ export default function AdminPage() {
         orderId: order.id,
         customer: order.customer,
         delivery: order.delivery,
-        status: order.status
+        status: "Sold"
       }))
     );
     const manuallySold = sarees
@@ -142,7 +170,7 @@ export default function AdminPage() {
       .map((saree) => ({
         ...saree,
         image: saree.imageUrl,
-        status: "Marked sold in admin",
+        status: "Sold",
         orderId: "Manual"
       }));
 
@@ -169,13 +197,13 @@ export default function AdminPage() {
   }, [sarees]);
 
   function updateField(event) {
-    const { name, value } = event.target;
+    const { name, value, type, checked } = event.target;
     if (name === "category") {
       const nextType = value === "Sahanvi Vintage" ? "Sahanvi Vintage" : menus[value]?.[0] || "";
       setForm((current) => ({ ...current, category: value, type: nextType }));
       return;
     }
-    setForm((current) => ({ ...current, [name]: value }));
+    setForm((current) => ({ ...current, [name]: type === "checkbox" ? checked : value }));
   }
 
   function toggleStockDetail(name, option) {
@@ -237,8 +265,22 @@ export default function AdminPage() {
       name: normalized.name,
       code: normalized.code,
       price: normalized.price,
+      stock: normalized.stock ?? 1,
       imageUrl: normalized.imageUrl,
+      palluImageUrl: normalized.palluImageUrl,
+      borderImageUrl: normalized.borderImageUrl,
+      bodyImageUrl: normalized.bodyImageUrl,
       description: normalized.description,
+      fabric: normalized.fabric,
+      style: normalized.style,
+      zariType: normalized.zariType,
+      occasion: normalized.occasion,
+      length: normalized.length,
+      blouseStatus: normalized.blouseStatus,
+      vendorId: normalized.vendorId,
+      vendorName: normalized.vendorName,
+      fallPico: normalized.fallPico,
+      customBlouseStitching: normalized.customBlouseStitching,
       material: normalized.material,
       design: normalized.design,
       border: normalized.border,
@@ -332,7 +374,33 @@ export default function AdminPage() {
                 <label><span>Saree Name</span><input name="name" value={form.name} onChange={updateField} required /></label>
                 <label><span>Code</span><input name="code" value={form.code} onChange={updateField} placeholder="S123456" required /></label>
                 <label><span>Price</span><input name="price" value={form.price} onChange={updateField} placeholder="21020" required /></label>
+                <label><span>Stock</span><input name="stock" type="number" min="0" value={form.stock} onChange={updateField} required /></label>
                 <label><span>Cloudinary Image URL</span><input name="imageUrl" type="url" value={form.imageUrl} onChange={updateField} placeholder="https://res.cloudinary.com/..." required /></label>
+                <label><span>Pallu Close-up URL</span><input name="palluImageUrl" type="url" value={form.palluImageUrl} onChange={updateField} placeholder="https://res.cloudinary.com/..." /></label>
+                <label><span>Border Close-up URL</span><input name="borderImageUrl" type="url" value={form.borderImageUrl} onChange={updateField} placeholder="https://res.cloudinary.com/..." /></label>
+                <label><span>Body Close-up URL</span><input name="bodyImageUrl" type="url" value={form.bodyImageUrl} onChange={updateField} placeholder="https://res.cloudinary.com/..." /></label>
+                <label><span>Fabric</span><input name="fabric" value={form.fabric} onChange={updateField} placeholder="Silk, Cotton, Organza" /></label>
+                <label><span>Weave / Style</span><input name="style" value={form.style} onChange={updateField} placeholder="Banarasi, Kanjeevaram, Chikankari" /></label>
+                <label><span>Zari Type</span><input name="zariType" value={form.zariType} onChange={updateField} placeholder="Pure Gold, Tested, Silver" /></label>
+                <label><span>Occasion</span><input name="occasion" value={form.occasion} onChange={updateField} placeholder="Bridal, Casual, Festive" /></label>
+                <label>
+                  <span>Length</span>
+                  <select name="length" value={form.length} onChange={updateField}>
+                    <option>5.5 meters</option>
+                    <option>6.3 meters with blouse</option>
+                    <option>Custom length</option>
+                  </select>
+                </label>
+                <label>
+                  <span>Blouse Status</span>
+                  <select name="blouseStatus" value={form.blouseStatus} onChange={updateField}>
+                    <option>Unstitched</option>
+                    <option>Stitched</option>
+                    <option>No Blouse</option>
+                  </select>
+                </label>
+                <label><span>Vendor / Artisan ID</span><input name="vendorId" value={form.vendorId} onChange={updateField} placeholder="Cluster or vendor ID" /></label>
+                <label><span>Vendor / Artisan Name</span><input name="vendorName" value={form.vendorName} onChange={updateField} placeholder="Weaver cluster or vendor name" /></label>
                 <label>
                   <span>Availability</span>
                   <select name="availability" value={form.availability} onChange={updateField}>
@@ -340,6 +408,16 @@ export default function AdminPage() {
                     <option value="sold">Sold - hide from list</option>
                     <option value="hidden">Hidden - do not show</option>
                   </select>
+                </label>
+              </div>
+              <div className="admin-service-options">
+                <label>
+                  <input type="checkbox" name="fallPico" checked={form.fallPico} onChange={updateField} />
+                  <span>Saree Fall & Edging (Pico) available</span>
+                </label>
+                <label>
+                  <input type="checkbox" name="customBlouseStitching" checked={form.customBlouseStitching} onChange={updateField} />
+                  <span>Custom blouse stitching available</span>
                 </label>
               </div>
               <div className="admin-stock-details">
@@ -421,6 +499,8 @@ export default function AdminPage() {
                       <div>
                         <strong>{saree.name}</strong>
                         <p>{saree.code} · ₹{priceNumber(saree.price).toLocaleString("en-IN")}</p>
+                        <small>Stock: {saree.stock ?? 1} · Fabric: {saree.fabric || "Not added"} · Blouse: {saree.blouseStatus || "Not added"}</small>
+                        <small>Vendor: {saree.vendorName || saree.vendorId || "Not linked"}</small>
                         <small>{saree.description || "No description added"}</small>
                         <small>Availability: {saree.availability || "available"}</small>
                       </div>

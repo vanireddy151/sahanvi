@@ -23,6 +23,10 @@ function parseList(value) {
   return [];
 }
 
+function parseBoolean(value) {
+  return value === true || value === "true" || value === "on";
+}
+
 export async function POST(request) {
   await connectDB();
   const formData = await request.formData();
@@ -32,8 +36,22 @@ export async function POST(request) {
     name: formData.get("name"),
     code: formData.get("code"),
     price: Number(formData.get("price")),
+    stock: Number(formData.get("stock") || 1),
     imageUrl: formData.get("imageUrl") || media.bannerPerson,
+    palluImageUrl: formData.get("palluImageUrl") || "",
+    borderImageUrl: formData.get("borderImageUrl") || "",
+    bodyImageUrl: formData.get("bodyImageUrl") || "",
     description: formData.get("description") || "",
+    fabric: formData.get("fabric") || "",
+    style: formData.get("style") || "",
+    zariType: formData.get("zariType") || "",
+    occasion: formData.get("occasion") || "",
+    length: formData.get("length") || "6.3 meters with blouse",
+    blouseStatus: formData.get("blouseStatus") || "Unstitched",
+    vendorId: formData.get("vendorId") || "",
+    vendorName: formData.get("vendorName") || "",
+    fallPico: parseBoolean(formData.get("fallPico")),
+    customBlouseStitching: parseBoolean(formData.get("customBlouseStitching")),
     material: parseList(formData.get("material")),
     design: parseList(formData.get("design")),
     border: parseList(formData.get("border")),
@@ -57,8 +75,22 @@ export async function PUT(request) {
     name: formData.get("name"),
     code,
     price: Number(formData.get("price")),
+    stock: Number(formData.get("stock") || 1),
     imageUrl: formData.get("imageUrl") || media.bannerPerson,
+    palluImageUrl: formData.get("palluImageUrl") || "",
+    borderImageUrl: formData.get("borderImageUrl") || "",
+    bodyImageUrl: formData.get("bodyImageUrl") || "",
     description: formData.get("description") || "",
+    fabric: formData.get("fabric") || "",
+    style: formData.get("style") || "",
+    zariType: formData.get("zariType") || "",
+    occasion: formData.get("occasion") || "",
+    length: formData.get("length") || "6.3 meters with blouse",
+    blouseStatus: formData.get("blouseStatus") || "Unstitched",
+    vendorId: formData.get("vendorId") || "",
+    vendorName: formData.get("vendorName") || "",
+    fallPico: parseBoolean(formData.get("fallPico")),
+    customBlouseStitching: parseBoolean(formData.get("customBlouseStitching")),
     material: parseList(formData.get("material")),
     design: parseList(formData.get("design")),
     border: parseList(formData.get("border")),

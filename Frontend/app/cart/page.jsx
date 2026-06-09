@@ -57,7 +57,7 @@ export default function CartPage() {
       delivery,
       items: cart,
       subtotal,
-      status: "Payment received",
+      status: "Order placed",
       paymentStatus: "Paid",
       payment
     };

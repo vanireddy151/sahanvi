@@ -7,15 +7,6 @@
       "static/chunks/main-app-bab598d7bd3e09cd.js",
       "static/chunks/app/_not-found/page-885d11f57447550f.js"
     ],
-    "/layout": [
-      "static/chunks/webpack-50d72e8955acea24.js",
-      "static/chunks/4bd1b696-c023c6e3521b1417.js",
-      "static/chunks/493-38dd501cd76b5ad2.js",
-      "static/chunks/main-app-bab598d7bd3e09cd.js",
-      "static/css/4cc2fbc188fa6511.css",
-      "static/css/f5d5c9c721d1f03a.css",
-      "static/chunks/app/layout-4eca25df73934bdf.js"
-    ],
     "/api/auth/login/route": [
       "static/chunks/webpack-50d72e8955acea24.js",
       "static/chunks/4bd1b696-c023c6e3521b1417.js",
@@ -51,6 +42,15 @@
       "static/chunks/main-app-bab598d7bd3e09cd.js",
       "static/chunks/app/api/sarees/route-3e8e08de66576439.js"
     ],
+    "/layout": [
+      "static/chunks/webpack-50d72e8955acea24.js",
+      "static/chunks/4bd1b696-c023c6e3521b1417.js",
+      "static/chunks/493-38dd501cd76b5ad2.js",
+      "static/chunks/main-app-bab598d7bd3e09cd.js",
+      "static/css/b133c8a95234dee5.css",
+      "static/css/f5d5c9c721d1f03a.css",
+      "static/chunks/app/layout-4eca25df73934bdf.js"
+    ],
     "/about/page": [
       "static/chunks/webpack-50d72e8955acea24.js",
       "static/chunks/4bd1b696-c023c6e3521b1417.js",
@@ -65,7 +65,7 @@
       "static/chunks/493-38dd501cd76b5ad2.js",
       "static/chunks/main-app-bab598d7bd3e09cd.js",
       "static/chunks/619-ba102abea3e3d0e4.js",
-      "static/chunks/app/admin/page-d73a746b6a6ad423.js"
+      "static/chunks/app/admin/page-3dd36099fd1d4421.js"
     ],
     "/cart/page": [
       "static/chunks/webpack-50d72e8955acea24.js",
@@ -73,7 +73,7 @@
       "static/chunks/493-38dd501cd76b5ad2.js",
       "static/chunks/main-app-bab598d7bd3e09cd.js",
       "static/chunks/619-ba102abea3e3d0e4.js",
-      "static/chunks/app/cart/page-46218c15d2a0aefe.js"
+      "static/chunks/app/cart/page-e43a0a6ce826b8e2.js"
     ],
     "/collections/page": [
       "static/chunks/webpack-50d72e8955acea24.js",
@@ -132,7 +132,7 @@
       "static/chunks/493-38dd501cd76b5ad2.js",
       "static/chunks/main-app-bab598d7bd3e09cd.js",
       "static/chunks/619-ba102abea3e3d0e4.js",
-      "static/chunks/app/profile/page-21e5ee55af25d957.js"
+      "static/chunks/app/profile/page-729933ad87aa22ca.js"
     ],
     "/return-exchange-policy/page": [
       "static/chunks/webpack-50d72e8955acea24.js",

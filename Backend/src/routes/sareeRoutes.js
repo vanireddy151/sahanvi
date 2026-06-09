@@ -19,6 +19,10 @@ function parseList(value) {
   return [];
 }
 
+function parseBoolean(value) {
+  return value === true || value === "true" || value === "on";
+}
+
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, path.join(__dirname, "../../uploads"));
@@ -66,8 +70,22 @@ router.post("/", upload.single("image"), async (req, res, next) => {
       name: req.body.name,
       code: req.body.code,
       price: Number(req.body.price),
+      stock: Number(req.body.stock || 1),
       imageUrl: req.body.imageUrl || `/uploads/${req.file.filename}`,
       description: req.body.description,
+      palluImageUrl: req.body.palluImageUrl || "",
+      borderImageUrl: req.body.borderImageUrl || "",
+      bodyImageUrl: req.body.bodyImageUrl || "",
+      fabric: req.body.fabric || "",
+      style: req.body.style || "",
+      zariType: req.body.zariType || "",
+      occasion: req.body.occasion || "",
+      length: req.body.length || "6.3 meters with blouse",
+      blouseStatus: req.body.blouseStatus || "Unstitched",
+      vendorId: req.body.vendorId || "",
+      vendorName: req.body.vendorName || "",
+      fallPico: parseBoolean(req.body.fallPico),
+      customBlouseStitching: parseBoolean(req.body.customBlouseStitching),
       material: parseList(req.body.material),
       design: parseList(req.body.design),
       border: parseList(req.body.border),
@@ -95,8 +113,22 @@ router.put("/", upload.single("image"), async (req, res, next) => {
       name: req.body.name,
       code,
       price: Number(req.body.price),
+      stock: Number(req.body.stock || 1),
       imageUrl: req.body.imageUrl || (req.file ? `/uploads/${req.file.filename}` : undefined),
       description: req.body.description,
+      palluImageUrl: req.body.palluImageUrl || "",
+      borderImageUrl: req.body.borderImageUrl || "",
+      bodyImageUrl: req.body.bodyImageUrl || "",
+      fabric: req.body.fabric || "",
+      style: req.body.style || "",
+      zariType: req.body.zariType || "",
+      occasion: req.body.occasion || "",
+      length: req.body.length || "6.3 meters with blouse",
+      blouseStatus: req.body.blouseStatus || "Unstitched",
+      vendorId: req.body.vendorId || "",
+      vendorName: req.body.vendorName || "",
+      fallPico: parseBoolean(req.body.fallPico),
+      customBlouseStitching: parseBoolean(req.body.customBlouseStitching),
       material: parseList(req.body.material),
       design: parseList(req.body.design),
       border: parseList(req.body.border),

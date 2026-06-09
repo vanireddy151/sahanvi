@@ -1,10 +1,10 @@
 {
-  "/_not-found/page": "/_not-found",
   "/api/auth/login/route": "/api/auth/login",
   "/api/auth/register/route": "/api/auth/register",
   "/api/inquiries/route": "/api/inquiries",
   "/api/payments/razorpay-order/route": "/api/payments/razorpay-order",
   "/api/sarees/route": "/api/sarees",
+  "/_not-found/page": "/_not-found",
   "/about/page": "/about",
   "/admin/page": "/admin",
   "/cart/page": "/cart",

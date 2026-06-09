@@ -130,7 +130,6 @@ export default function ProfilePage() {
                     <p>Order ID</p>
                     <h3>{order.id}</h3>
                   </div>
-                  <span>{order.status}</span>
                 </div>
 
                 <div className="order-items">

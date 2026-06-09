@@ -2210,6 +2210,41 @@ button {
   height: 18px;
 }
 
+.admin-service-options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin: 4px 0 10px;
+}
+
+.admin-service-options label {
+  display: flex;
+  grid-template-columns: none;
+  align-items: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 12px 14px;
+  border: 1px solid #eadbd0;
+  border-radius: 10px;
+  background: #fffaf6;
+  color: #3b2115;
+  font-family: Inter, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.admin-service-options input {
+  width: 17px;
+  height: 17px;
+  accent-color: #5a2f1d;
+}
+
+@media (max-width: 720px) {
+  .admin-service-options {
+    grid-template-columns: 1fr;
+  }
+}
+
 .admin-status {
   min-height: 22px;
   margin: 0;
