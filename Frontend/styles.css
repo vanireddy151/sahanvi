@@ -6151,6 +6151,10 @@ button {
 }
 
 @media (max-width: 960px) {
+  body.mobile-nav-open {
+    overflow: hidden;
+  }
+
   .site-header {
     height: 64px;
     position: fixed !important;
@@ -6175,8 +6179,9 @@ button {
     z-index: 2147483647 !important;
     width: 100vw !important;
     max-width: 100vw;
-    height: calc(100svh - 64px);
-    max-height: calc(100svh - 64px);
+    height: auto !important;
+    min-height: calc(100dvh - 64px);
+    max-height: none;
     display: none !important;
     flex: none;
     flex-direction: column !important;
@@ -6185,7 +6190,7 @@ button {
     gap: 0 !important;
     overflow-x: hidden;
     overflow-y: auto;
-    padding: 16px 16px 34px !important;
+    padding: 18px 16px max(34px, env(safe-area-inset-bottom)) !important;
     background: #fffdf9 !important;
     border-top: 1px solid #eee4dc;
     box-shadow: none;
@@ -6196,6 +6201,10 @@ button {
 
   .nav-links.next-open {
     display: flex !important;
+  }
+
+  body.mobile-nav-open .nav-links.next-open {
+    min-height: calc(100dvh - 64px);
   }
 
   .nav-links > a,
@@ -6271,9 +6280,14 @@ button {
 
   .nav-links {
     top: 62px !important;
-    height: calc(100svh - 62px);
-    max-height: calc(100svh - 62px);
+    height: auto !important;
+    min-height: calc(100dvh - 62px);
+    max-height: none;
     padding: 16px 16px 32px !important;
+  }
+
+  body.mobile-nav-open .nav-links.next-open {
+    min-height: calc(100dvh - 62px);
   }
 
   .home-page .editorial-hero {

@@ -120,6 +120,14 @@ export default function Header() {
     };
   }, []);
 
+  useEffect(() => {
+    document.body.classList.toggle("mobile-nav-open", menuOpen && !isDesktop);
+
+    return () => {
+      document.body.classList.remove("mobile-nav-open");
+    };
+  }, [menuOpen, isDesktop]);
+
   const activeDropdown = mounted && isDesktop && openMenu && menus[openMenu]
     ? createPortal(
         <div
