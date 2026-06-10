@@ -122,11 +122,13 @@ export default function Header() {
 
   useEffect(() => {
     document.body.classList.toggle("mobile-nav-open", menuOpen && !isDesktop);
+    document.body.classList.toggle("mobile-nav-expanded", menuOpen && !isDesktop && Boolean(openMenu));
 
     return () => {
       document.body.classList.remove("mobile-nav-open");
+      document.body.classList.remove("mobile-nav-expanded");
     };
-  }, [menuOpen, isDesktop]);
+  }, [menuOpen, isDesktop, openMenu]);
 
   const activeDropdown = mounted && isDesktop && openMenu && menus[openMenu]
     ? createPortal(
@@ -156,7 +158,7 @@ export default function Header() {
           <img src={media.logo} alt="Sahanvi by Swapnavani" />
         </Link>
 
-        <nav className={`nav-links ${menuOpen ? "next-open" : ""}`}>
+        <nav className={`nav-links ${menuOpen ? "next-open" : ""} ${openMenu ? "has-open-submenu" : ""}`}>
           {Object.entries(menus).map(([name, items]) => (
             <div
               className={`nav-item dropdown ${openMenu === name ? "is-open" : ""}`}
