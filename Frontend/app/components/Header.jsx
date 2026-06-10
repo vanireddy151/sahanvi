@@ -207,7 +207,19 @@ export default function Header() {
             </div>
           </div>
           <Link className="icon-button cart-button" href="/cart" aria-label="Cart"><Icon name="cart" /></Link>
-          <button className="icon-button menu-button" type="button" aria-label="Menu" onClick={() => setMenuOpen(!menuOpen)}>
+          <button
+            className="icon-button menu-button"
+            type="button"
+            aria-label="Menu"
+            aria-expanded={menuOpen}
+            onClick={() => {
+              clearDropdownClose();
+              setMenuOpen((current) => {
+                if (current) setOpenMenu("");
+                return !current;
+              });
+            }}
+          >
             ☰
           </button>
         </div>
