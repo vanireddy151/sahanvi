@@ -6153,6 +6153,8 @@ button {
 @media (max-width: 960px) {
   .site-header {
     height: 64px;
+    z-index: 2147483600;
+    isolation: isolate;
     overflow: visible;
   }
 
@@ -6161,6 +6163,7 @@ button {
     top: 64px !important;
     left: 0 !important;
     right: 0 !important;
+    z-index: 2147483601 !important;
     width: 100vw !important;
     max-width: 100vw;
     max-height: calc(100vh - 64px);
@@ -6173,10 +6176,11 @@ button {
     overflow-x: hidden;
     overflow-y: auto;
     padding: 10px 18px 20px !important;
-    background: #fffdf9;
+    background: #fffdf9 !important;
     border-top: 1px solid #eee4dc;
-    box-shadow: 0 24px 54px rgba(0, 0, 0, 0.14);
+    box-shadow: 0 24px 54px rgba(0, 0, 0, 0.18);
     white-space: normal !important;
+    isolation: isolate;
   }
 
   .nav-links.next-open {
@@ -6194,11 +6198,16 @@ button {
   }
 
   .nav-item {
+    position: relative;
+    z-index: 1;
     width: 100%;
   }
 
   .dropdown-menu {
+    position: static !important;
+    z-index: 1;
     width: 100%;
+    background: #fff8f1;
   }
 
   .dropdown::after {
@@ -6262,7 +6271,7 @@ button {
     position: relative;
     top: auto;
     left: auto;
-    width: min(64vw, 252px);
+    width: min(70vw, 277px);
     height: auto;
     max-height: none;
     aspect-ratio: 9 / 16;
@@ -6276,6 +6285,6 @@ button {
   }
 
   .home-page .hero-video-card {
-    width: min(62vw, 232px);
+    width: min(68vw, 255px);
   }
 }
