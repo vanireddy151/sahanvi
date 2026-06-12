@@ -6306,7 +6306,7 @@ button {
     align-content: start;
     align-items: start;
     gap: 0;
-    padding: 12px 0 0;
+    padding: 12px 0 22px;
   }
 
   .home-page .hero-flower-mark {
