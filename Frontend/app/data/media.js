@@ -22,6 +22,7 @@ export const media = {
   flower: cloudName ? directFlower : "/assets/sahanvi-flower-transparent.png",
   bannerPerson: cloudName ? directBannerPerson : "/assets/sahanvi-banner-person.jpeg",
   bannerPerson2: cloudName ? directBannerPerson2 : "/assets/sahanvi-banner-person-2.jpeg",
+  homeSliderImage: "/assets/home-slider-construction.png",
   kalamkariSaree: directKalamkariSaree || (cloudName ? directBannerPerson2 : "/assets/sahanvi-banner-person-2.jpeg"),
   paithaniYellowSaree: directPaithaniYellowSaree || (cloudName ? directBannerPerson2 : "/assets/sahanvi-banner-person-2.jpeg"),
   storyVideo: cloudName ? directStoryVideo : "/assets/sahanvi-story-video.mov"

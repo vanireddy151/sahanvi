@@ -9,7 +9,7 @@ const categoryLinks = ["Kanjivaram Silks", "Gadwal Pattu", "Pochampally", "Organ
 
 export default function HomePage() {
   return (
-    <div className="next-page home-page" style={{ "--home-bg-image": `url("${media.bannerPerson2}")` }}>
+    <div className="next-page home-page" style={{ "--home-bg-image": `url("${media.homeSliderImage}")` }}>
       <Header />
       <main>
         <section className="hero editorial-hero">
@@ -19,7 +19,7 @@ export default function HomePage() {
             <a className="hero-button" href="/collections">Explore Collection</a>
           </div>
           <div className="hero-media">
-            <img className="hero-back-image active" src={media.bannerPerson} alt="Sahanvi saree" />
+            <img className="hero-back-image active" src={media.homeSliderImage} alt="Sahanvi home slider" />
             <HeroVideo src={media.storyVideo} />
           </div>
         </section>
