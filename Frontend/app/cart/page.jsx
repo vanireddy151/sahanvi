@@ -118,12 +118,31 @@ export default function CartPage() {
         theme: {
           color: "#5a2f1d"
         },
-        handler(paymentResponse) {
-          savePaidOrder(delivery, {
-            razorpayOrderId: paymentResponse.razorpay_order_id,
-            razorpayPaymentId: paymentResponse.razorpay_payment_id,
-            razorpaySignature: paymentResponse.razorpay_signature
-          });
+        async handler(paymentResponse) {
+          setPaymentStatus("Verifying payment...");
+          try {
+            const verifyResponse = await fetch("/api/payments/verify", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                razorpay_order_id: paymentResponse.razorpay_order_id,
+                razorpay_payment_id: paymentResponse.razorpay_payment_id,
+                razorpay_signature: paymentResponse.razorpay_signature,
+                delivery,
+                items: cart
+              })
+            });
+            const verifyData = await verifyResponse.json();
+            if (!verifyResponse.ok) throw new Error(verifyData.error || "Payment verification failed.");
+
+            savePaidOrder(delivery, {
+              razorpayOrderId: paymentResponse.razorpay_order_id,
+              razorpayPaymentId: paymentResponse.razorpay_payment_id,
+              razorpaySignature: paymentResponse.razorpay_signature
+            });
+          } catch (error) {
+            setPaymentStatus(error.message || "We could not verify this payment. Please contact support before retrying.");
+          }
         },
         modal: {
           ondismiss() {

@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { connectDB } from "../../../lib/db";
 import Saree from "../../../models/Saree";
 import { media } from "../../data/media";
+import { requireAdmin } from "../../../lib/auth";
 
 export async function GET() {
   await connectDB();
@@ -28,6 +29,10 @@ function parseBoolean(value) {
 }
 
 export async function POST(request) {
+  if (!requireAdmin(request)) {
+    return NextResponse.json({ message: "Admin sign-in required." }, { status: 401 });
+  }
+
   await connectDB();
   const formData = await request.formData();
   const saree = await Saree.create({
@@ -65,6 +70,10 @@ export async function POST(request) {
 }
 
 export async function PUT(request) {
+  if (!requireAdmin(request)) {
+    return NextResponse.json({ message: "Admin sign-in required." }, { status: 401 });
+  }
+
   await connectDB();
   const formData = await request.formData();
   const id = formData.get("id") || formData.get("_id");

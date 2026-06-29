@@ -2,6 +2,7 @@ const express = require("express");
 const User = require("../models/User");
 const { hashPassword, verifyPassword } = require("../utils/password");
 const { signToken } = require("../utils/token");
+const { getAuthUser } = require("../middleware/auth");
 
 const router = express.Router();
 
@@ -57,6 +58,26 @@ router.post("/login", async (req, res, next) => {
       user: publicUser(user),
       token: signToken({ id: user._id, role: user.role })
     });
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.get("/me", async (req, res, next) => {
+  try {
+    const tokenUser = getAuthUser(req);
+    if (!tokenUser) {
+      res.status(401).json({ message: "Not signed in." });
+      return;
+    }
+
+    const user = await User.findById(tokenUser.id);
+    if (!user) {
+      res.status(401).json({ message: "Not signed in." });
+      return;
+    }
+
+    res.json({ user: publicUser(user) });
   } catch (error) {
     next(error);
   }

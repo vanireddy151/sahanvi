@@ -102,14 +102,38 @@ export default function AdminPage() {
   const [status, setStatus] = useState("");
 
   useEffect(() => {
-    const auth = JSON.parse(localStorage.getItem("sahanvi-auth") || "null");
-    const phone = String(auth?.user?.phone || "").replace(/\D/g, "");
-    setAllowed(auth?.user?.role === "admin" || ["9704888933", "9949779227", "9014011885"].includes(phone));
+    const adminSession = JSON.parse(localStorage.getItem("sahanvi-admin-session") || "null");
+
+    if (!adminSession?.token) {
+      setAllowed(false);
+      setAuthReady(true);
+      window.location.href = "/admin/login";
+      return;
+    }
+
+    fetch(apiUrl("/api/auth/me"), {
+      headers: { Authorization: `Bearer ${adminSession.token}` }
+    })
+      .then((response) => (response.ok ? response.json() : null))
+      .then((data) => {
+        const isAdmin = data?.user?.role === "admin";
+        setAllowed(isAdmin);
+        setAuthReady(true);
+        if (!isAdmin) {
+          localStorage.removeItem("sahanvi-admin-session");
+          window.location.href = "/admin/login";
+        }
+      })
+      .catch(() => {
+        setAllowed(false);
+        setAuthReady(true);
+        window.location.href = "/admin/login";
+      });
+
     setSarees(JSON.parse(localStorage.getItem("sahanvi-admin-sarees") || "[]").map(normalizeSaree));
     setOrders(JSON.parse(localStorage.getItem("sahanvi-orders") || "[]"));
     setReturns(JSON.parse(localStorage.getItem("sahanvi-return-requests") || "[]"));
     setInquiries(JSON.parse(localStorage.getItem("sahanvi-inquiries") || "[]"));
-    setAuthReady(true);
 
     fetch(apiUrl("/api/sarees"))
       .then((response) => response.ok ? response.json() : [])
@@ -225,6 +249,7 @@ export default function AdminPage() {
       uploadedAt: editingId ? sarees.find((item) => item.id === editingId)?.uploadedAt : new Date().toISOString(),
       updatedAt: new Date().toISOString()
     };
+    const adminSession = JSON.parse(localStorage.getItem("sahanvi-admin-session") || "null");
     let savedSaree = normalizeSaree(nextSaree);
 
     try {
@@ -234,14 +259,26 @@ export default function AdminPage() {
       });
       const response = await fetch(apiUrl("/api/sarees"), {
         method: editingId ? "PUT" : "POST",
+        headers: adminSession?.token ? { Authorization: `Bearer ${adminSession.token}` } : undefined,
         body: formData
       });
 
+      if (response.status === 401) {
+        setStatus("Your admin session expired. Please sign in again.");
+        localStorage.removeItem("sahanvi-admin-session");
+        window.location.href = "/admin/login";
+        return;
+      }
+
       if (response.ok) {
         savedSaree = normalizeSaree(await response.json());
+      } else {
+        setStatus("Could not save to the server. Please try again.");
+        return;
       }
     } catch {
-      setStatus("Saved in admin. Backend upload will sync when server is available.");
+      setStatus("Could not reach the server. Please try again.");
+      return;
     }
 
     const nextSarees = editingId

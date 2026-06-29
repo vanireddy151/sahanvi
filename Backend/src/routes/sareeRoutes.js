@@ -2,6 +2,7 @@ const path = require("path");
 const express = require("express");
 const multer = require("multer");
 const Saree = require("../models/Saree");
+const { requireAdmin } = require("../middleware/auth");
 
 const router = express.Router();
 
@@ -57,7 +58,7 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-router.post("/", upload.single("image"), async (req, res, next) => {
+router.post("/", requireAdmin, upload.single("image"), async (req, res, next) => {
   try {
     if (!req.file && !req.body.imageUrl) {
       res.status(400).json({ message: "Saree image is required." });
@@ -103,7 +104,7 @@ router.post("/", upload.single("image"), async (req, res, next) => {
   }
 });
 
-router.put("/", upload.single("image"), async (req, res, next) => {
+router.put("/", requireAdmin, upload.single("image"), async (req, res, next) => {
   try {
     const id = req.body.id || req.body._id;
     const code = req.body.code;

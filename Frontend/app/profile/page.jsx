@@ -23,9 +23,44 @@ export default function ProfilePage() {
 
   useEffect(() => {
     const currentAuth = JSON.parse(localStorage.getItem("sahanvi-auth") || "null");
-    const allOrders = JSON.parse(localStorage.getItem("sahanvi-orders") || "[]");
+    const localOrders = JSON.parse(localStorage.getItem("sahanvi-orders") || "[]");
     setAuth(currentAuth);
-    setOrders(allOrders);
+    setOrders(localOrders);
+
+    const phone = currentAuth?.user?.phone;
+    if (!phone) return;
+
+    fetch(`/api/orders?phone=${encodeURIComponent(phone)}`)
+      .then((response) => (response.ok ? response.json() : []))
+      .then((dbOrders) => {
+        if (!Array.isArray(dbOrders) || !dbOrders.length) return;
+
+        const normalized = dbOrders.map((order) => ({
+          id: order._id,
+          createdAt: order.createdAt,
+          delivery: {
+            name: order.customerName,
+            email: order.customerEmail,
+            phone: order.customerPhone,
+            address: order.address
+          },
+          items: order.items,
+          subtotal: order.subtotal,
+          status: order.status,
+          paymentStatus: "Paid",
+          payment: {
+            razorpayOrderId: order.razorpayOrderId,
+            razorpayPaymentId: order.razorpayPaymentId,
+            razorpaySignature: order.razorpaySignature
+          }
+        }));
+
+        const dbPaymentIds = new Set(normalized.map((order) => order.payment.razorpayPaymentId));
+        const localOnly = localOrders.filter((order) => !dbPaymentIds.has(order.payment?.razorpayPaymentId));
+
+        setOrders([...normalized, ...localOnly]);
+      })
+      .catch(() => {});
   }, []);
 
   function submitReturn(event, orderId) {
