@@ -247,21 +247,6 @@ export default function Header() {
               >
                 {name}
               </button>
-              <div
-                className="dropdown-menu inline-dropdown-menu"
-                onMouseEnter={() => {
-                  if (isDesktop) openDropdown(name);
-                }}
-                onMouseLeave={() => {
-                  if (isDesktop) scheduleDropdownClose();
-                }}
-              >
-                {items.map((item) => (
-                  <Link key={item} href={`/${encodeURIComponent(item)}`} onClick={closeMenus}>
-                    {item}
-                  </Link>
-                ))}
-              </div>
             </div>
           ))}
           <Link href="/Sahanvi%20Vintage" onClick={closeMenus}>Sahanvi Vintage</Link>

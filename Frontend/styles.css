@@ -5069,9 +5069,6 @@ button {
     will-change: opacity, transform;
   }
 
-  body:has(.dropdown-portal-menu) .inline-dropdown-menu {
-    display: none !important;
-  }
 
   .dropdown-portal-menu {
     display: grid !important;
