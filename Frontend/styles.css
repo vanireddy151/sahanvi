@@ -5086,36 +5086,76 @@ button {
     transition: opacity 180ms ease, transform 180ms ease !important;
   }
 
-  .dropdown-portal-menu.is-compact {
-    min-width: 230px;
-    grid-template-columns: 1fr;
-  }
-
+  /* Full-viewport-width mega menu — Sacred Weaves style */
   .dropdown-portal-menu.dropdown-mega {
     display: flex !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100vw !important;
+    max-width: none !important;
+    transform: none !important;
+    border-radius: 0 0 10px 10px !important;
+    border-top: 1px solid var(--hairline);
+    padding: 28px clamp(32px, 6vw, 100px) 32px;
+    gap: 0;
     align-items: flex-start;
-    gap: 22px;
-    min-width: 560px;
-    max-width: 640px;
+    box-shadow: 0 24px 64px rgba(20, 10, 5, 0.14) !important;
   }
 
-  .dropdown-mega .dropdown-links {
+  /* Labeled text column */
+  .dropdown-mega .dropdown-col {
     flex: 1;
-    display: grid;
-    grid-template-columns: repeat(2, minmax(120px, 1fr));
-    gap: 4px;
-    padding-right: 16px;
+    padding: 0 clamp(14px, 2vw, 36px);
     border-right: 1px solid var(--hairline);
   }
 
-  .dropdown-mega.is-compact .dropdown-links {
-    grid-template-columns: 1fr;
+  .dropdown-mega .dropdown-col:first-child {
+    padding-left: 0;
   }
 
+  /* Column heading (SHOP BY TYPE etc.) */
+  .dropdown-col-heading {
+    display: block;
+    font: 600 10px/1 Inter, Arial, sans-serif;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--muted, #9c8677);
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--hairline);
+    white-space: nowrap;
+  }
+
+  /* Links inside a column — override .dropdown-menu a */
+  .dropdown-mega .dropdown-col a {
+    display: block !important;
+    min-height: 0 !important;
+    padding: 6px 0 !important;
+    font-size: 14px !important;
+    line-height: 1.35 !important;
+    border-radius: 0 !important;
+    background: none !important;
+    color: var(--ink) !important;
+    white-space: normal !important;
+  }
+
+  .dropdown-mega .dropdown-col a:hover {
+    color: var(--brick-dark, #5c2d0e) !important;
+    background: none !important;
+  }
+
+  /* Image tiles section */
   .dropdown-mega .dropdown-tiles {
     flex: 0 0 auto;
     display: flex;
-    gap: 10px;
+    gap: 12px;
+    padding-left: clamp(14px, 2vw, 36px);
+  }
+
+  /* Larger tiles in full-width context */
+  .dropdown-mega .dropdown-tiles .dropdown-tile {
+    width: 138px;
+    height: 176px;
   }
 
   .dropdown-portal-menu::before {

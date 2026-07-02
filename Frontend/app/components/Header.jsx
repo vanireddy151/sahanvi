@@ -55,6 +55,9 @@ function Icon({ name }) {
   );
 }
 
+const occasionLinks = ["Bridal", "Festive", "Casual Wear", "Party Wear", "Office Wear", "Gifting"];
+const priceLinks = ["Under ₹10,000", "₹10,000 – ₹20,000", "₹20,000 – ₹30,000", "₹30,000 – ₹50,000", "Above ₹50,000"];
+
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [openMenu, setOpenMenu] = useState("");
@@ -149,33 +152,54 @@ export default function Header() {
   const activeDropdown = mounted && isDesktop && openMenu && menus[openMenu]
     ? createPortal(
         <div
-          className={`dropdown-menu dropdown-portal-menu dropdown-mega is-portal-open ${openMenu === "Sarees" ? "is-compact" : ""}`}
+          className="dropdown-menu dropdown-portal-menu dropdown-mega is-portal-open"
           style={{
-            "--dropdown-left": `${dropdownPosition.left}px`,
+            "--dropdown-left": "0px",
             "--dropdown-top": `${dropdownPosition.top}px`
           }}
           onMouseEnter={() => openDropdown(openMenu)}
           onMouseLeave={scheduleDropdownClose}
         >
-          <div className="dropdown-links">
+          {/* Column 1 — saree types for this menu */}
+          <div className="dropdown-col">
+            <span className="dropdown-col-heading">Shop by Type</span>
             {menus[openMenu].map((item) => (
               <Link key={item} href={`/${encodeURIComponent(item)}`} onClick={closeMenus}>
                 {item}
               </Link>
             ))}
           </div>
-          <div className="dropdown-tiles">
-            {menus[openMenu].slice(0, 3).map((item, index) => (
-              <Link
-                key={item}
-                className="dropdown-tile"
-                href={`/${encodeURIComponent(item)}`}
-                onClick={closeMenus}
-              >
-                <img src={index % 2 ? media.bannerPerson2 : media.bannerPerson} alt={item} />
-                <span>{item}</span>
+
+          {/* Column 2 — occasions (static) */}
+          <div className="dropdown-col">
+            <span className="dropdown-col-heading">Shop by Occasion</span>
+            {occasionLinks.map((item) => (
+              <Link key={item} href={`/search?occasion=${encodeURIComponent(item)}`} onClick={closeMenus}>
+                {item}
               </Link>
             ))}
+          </div>
+
+          {/* Column 3 — price bands (static) */}
+          <div className="dropdown-col">
+            <span className="dropdown-col-heading">Shop by Price</span>
+            {priceLinks.map((item) => (
+              <Link key={item} href={`/search?price=${encodeURIComponent(item)}`} onClick={closeMenus}>
+                {item}
+              </Link>
+            ))}
+          </div>
+
+          {/* Image tiles */}
+          <div className="dropdown-tiles">
+            <Link className="dropdown-tile" href="/collections" onClick={closeMenus}>
+              <img src={media.bannerPerson} alt="New Collection" />
+              <span>New Collection</span>
+            </Link>
+            <Link className="dropdown-tile" href="/new-arrivals" onClick={closeMenus}>
+              <img src={media.bannerPerson2} alt="New Arrivals" />
+              <span>New Arrivals</span>
+            </Link>
           </div>
         </div>,
         document.body
