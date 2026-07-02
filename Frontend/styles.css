@@ -5100,19 +5100,18 @@ button {
     box-shadow: 0 24px 64px rgba(20, 10, 5, 0.14) !important;
   }
 
-  /* Compact group of text columns — left side */
+  /* Text columns group — expands to fill all space left of tiles */
   .dropdown-mega .dropdown-cols {
     display: flex;
     align-items: flex-start;
+    flex: 1;
     gap: 0;
-    flex: 0 0 auto;
   }
 
-  /* Each labeled column — fixed width, not stretched */
+  /* Each column shares the available width equally */
   .dropdown-mega .dropdown-col {
-    flex: 0 0 auto;
-    width: clamp(140px, 14vw, 200px);
-    padding: 0 clamp(20px, 2.5vw, 36px);
+    flex: 1;
+    padding: 0 clamp(20px, 2.5vw, 40px);
     border-right: 1px solid var(--hairline);
   }
 
