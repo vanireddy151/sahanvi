@@ -3,14 +3,30 @@
 import { useState } from "react";
 import { media } from "../data/media";
 
-export default function ProductCard({ image = media.bannerPerson, name, price = "₹21,020" }) {
+export default function ProductCard({
+  image = media.bannerPerson,
+  name,
+  price = "₹21,020",
+  palluImageUrl = "",
+  borderImageUrl = "",
+  bodyImageUrl = "",
+  fabric = "",
+  occasion = ""
+}) {
   const [isOpen, setIsOpen] = useState(false);
   const [checkoutOpen, setCheckoutOpen] = useState(false);
   const [otpSent, setOtpSent] = useState(false);
   const [otp, setOtp] = useState("");
+  const [activeImage, setActiveImage] = useState(image);
   const code = name.match(/S\d+$/)?.[0] || "";
   const sareeName = name.replace(/\sS\d+$/, "");
   const cartItem = { name: sareeName, code, price, image };
+  const gallery = [image, palluImageUrl, borderImageUrl, bodyImageUrl].filter(Boolean);
+
+  function openModal() {
+    setActiveImage(image);
+    setIsOpen(true);
+  }
 
   function getAuth() {
     try {
@@ -80,7 +96,7 @@ export default function ProductCard({ image = media.bannerPerson, name, price = 
   return (
     <>
       <article className="product-card">
-        <button className="product-card-trigger" type="button" onClick={() => setIsOpen(true)}>
+        <button className="product-card-trigger" type="button" onClick={openModal}>
           <span className="product-image">
             <img src={image} alt={sareeName} />
             <span className="product-badge">New Arrival</span>
@@ -96,26 +112,37 @@ export default function ProductCard({ image = media.bannerPerson, name, price = 
           <div className="product-modal-panel">
             <button className="product-modal-close" type="button" aria-label="Close product details" onClick={() => setIsOpen(false)}>×</button>
             <div className="product-modal-image">
-              <img src={image} alt={sareeName} />
+              <img src={activeImage} alt={sareeName} />
               <span className="product-badge">New Arrival</span>
             </div>
             <div className="product-modal-copy">
+              {gallery.length > 1 ? (
+                <div className="product-modal-thumbs">
+                  {gallery.map((thumb) => (
+                    <button
+                      key={thumb}
+                      type="button"
+                      className={`product-modal-thumb${thumb === activeImage ? " active" : ""}`}
+                      onClick={() => setActiveImage(thumb)}
+                      aria-label="View image"
+                    >
+                      <img src={thumb} alt="" />
+                    </button>
+                  ))}
+                </div>
+              ) : null}
               <p className="product-modal-kicker">Sahanvi New Arrival</p>
               <h2>{sareeName}</h2>
               <p className="product-modal-code">{code}</p>
               <p className="product-modal-price">{price}</p>
               <p className="product-modal-note">Handpicked saree with graceful detailing and timeless handloom-inspired elegance.</p>
               <dl className="product-detail-list">
-                <div><dt>Fabric</dt><dd>Silk blend with handloom-inspired finish</dd></div>
-                <div><dt>Occasion</dt><dd>Wedding, festive, gifting, and elegant celebrations</dd></div>
+                <div><dt>Fabric</dt><dd>{fabric || "Silk blend with handloom-inspired finish"}</dd></div>
+                <div><dt>Occasion</dt><dd>{occasion || "Wedding, festive, gifting, and elegant celebrations"}</dd></div>
                 <div><dt>Includes</dt><dd>Saree with blouse piece where applicable</dd></div>
                 <div><dt>Care</dt><dd>Dry clean recommended</dd></div>
               </dl>
-              <div className="product-service-points">
-                <span>Secure checkout</span>
-                <span>Carefully packed</span>
-                <span>Return request support</span>
-              </div>
+              <p className="product-service-points">Secure checkout &middot; Carefully packed &middot; Easy returns</p>
               <div className="product-modal-actions">
                 <button type="button" onClick={startCartCheckout}>Add to Cart</button>
                 <button type="button" onClick={addItemToWishlist}>Save Wishlist</button>

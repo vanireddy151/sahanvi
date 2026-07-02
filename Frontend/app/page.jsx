@@ -24,6 +24,37 @@ export default function HomePage() {
           </div>
         </section>
 
+        <section className="trust-strip" aria-label="Why shop with Sahanvi">
+          <div className="trust-item">
+            <span className="trust-item-mark">H</span>
+            <div className="trust-item-copy">
+              <h4>Handwoven Authenticity</h4>
+              <p>Genuine handloom craftsmanship in every weave</p>
+            </div>
+          </div>
+          <div className="trust-item">
+            <span className="trust-item-mark">B</span>
+            <div className="trust-item-copy">
+              <h4>Custom Blouse Stitching</h4>
+              <p>Tailored to your measurements on request</p>
+            </div>
+          </div>
+          <div className="trust-item">
+            <span className="trust-item-mark">S</span>
+            <div className="trust-item-copy">
+              <h4>Secure Shipping</h4>
+              <p>Carefully packed and delivered with care</p>
+            </div>
+          </div>
+          <div className="trust-item">
+            <span className="trust-item-mark">R</span>
+            <div className="trust-item-copy">
+              <h4>Easy Returns</h4>
+              <p>Hassle-free return and exchange support</p>
+            </div>
+          </div>
+        </section>
+
         <section className="collections" id="collections">
           <div className="collections-header">
             <div>

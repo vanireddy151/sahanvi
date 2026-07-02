@@ -93,6 +93,10 @@ export default function CollectionShop({ type }) {
         code: saree.code || "",
         price: saree.price ? `₹${Number(saree.price).toLocaleString("en-IN")}` : "₹0",
         image: saree.imageUrl || media.bannerPerson,
+        palluImageUrl: saree.palluImageUrl || "",
+        borderImageUrl: saree.borderImageUrl || "",
+        bodyImageUrl: saree.bodyImageUrl || "",
+        fabric: saree.fabric || "",
         colour: saree.colour || saree.bodyColour || "",
         design: toList(saree.design),
         occasion: saree.occasion || "",
@@ -357,6 +361,11 @@ export default function CollectionShop({ type }) {
                   name={product.name}
                   price={product.price}
                   image={product.image}
+                  palluImageUrl={product.palluImageUrl}
+                  borderImageUrl={product.borderImageUrl}
+                  bodyImageUrl={product.bodyImageUrl}
+                  fabric={product.fabric}
+                  occasion={Array.isArray(product.occasion) ? product.occasion.join(", ") : product.occasion}
                 />
               ))}
             </div>

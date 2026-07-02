@@ -29,6 +29,22 @@ function Icon({ name }) {
         <circle cx="9" cy="20" r="1.7" />
         <circle cx="18" cy="20" r="1.7" />
       </>
+    ),
+    facebook: <path d="M14 9h2.5V6.2h-2.5c-2 0-3.4 1.5-3.4 3.5V12H8v2.7h2.6V21h2.8v-6.3h2.4l.4-2.7h-2.8v-2c0-.6.5-1 1-1Z" />,
+    instagram: (
+      <>
+        <rect x="3.5" y="3.5" width="17" height="17" rx="4.5" />
+        <circle cx="12" cy="12" r="4" />
+        <circle cx="17.2" cy="6.8" r="1" />
+      </>
+    ),
+    whatsapp: <path d="M12 3.5a8.4 8.4 0 0 0-7.2 12.7L3.5 20.5l4.5-1.2A8.4 8.4 0 1 0 12 3.5Zm0 1.7a6.6 6.6 0 1 1-3.4 12.3l-.4-.2-2.4.6.6-2.3-.2-.4A6.6 6.6 0 0 1 12 5.2Zm-2.3 3.3c-.2 0-.5 0-.6.3-.2.3-.7.8-.7 1.7 0 1 .7 2 .8 2.1.1.1 1.5 2.4 3.7 3.3 1.8.7 2.1.6 2.5.5.4 0 1.2-.5 1.4-1 .2-.5.2-.9.1-1-.1-.1-.4-.2-.8-.4-.4-.2-1.2-.6-1.4-.7-.2-.1-.3-.1-.5.1-.1.2-.5.7-.7.8-.1.2-.3.2-.5.1-.7-.3-1.4-.8-2-1.5-.6-.6-1-1.2-1.1-1.4-.1-.2 0-.4.1-.5.2-.2.3-.4.4-.6.1-.2 0-.4 0-.5-.1-.2-.6-1.5-.8-1.9-.1-.3-.3-.3-.5-.3Z" />,
+    pinterest: <path d="M12 3.2A8.8 8.8 0 0 0 8.7 20c.4 0 .5-.2.5-.5l.1-1.9-.1-.1c-1.4-.3-2.3-1.5-2.3-3.1 0-2.9 2.1-5.4 5.5-5.4 3 0 4.6 1.8 4.6 4.3 0 3.2-1.4 5.5-3.4 5.5-1.1 0-1.9-.9-1.7-2 .4-1.6 1-3.3 1-4.4 0-1-.5-1.9-1.7-1.9-1.3 0-2.3 1.4-2.3 3.2 0 1.2.4 2 .4 2s-1.4 5.7-1.6 6.7c-.2.8-.1 1.8 0 2.5A8.8 8.8 0 0 0 12 3.2Z" />,
+    youtube: (
+      <>
+        <rect x="3" y="6.5" width="18" height="11" rx="3" />
+        <path d="m10.5 9.5 4.5 2.5-4.5 2.5Z" fill="#f8f4ef" />
+      </>
     )
   };
 
@@ -59,7 +75,7 @@ export default function Header() {
     clearDropdownClose();
     if (target && typeof window !== "undefined" && window.innerWidth > 960) {
       const rect = target.getBoundingClientRect();
-      const menuHalfWidth = name === "Sarees" ? 125 : 150;
+      const menuHalfWidth = 320;
       const viewportPadding = 18;
       const left = Math.min(
         Math.max(rect.left + rect.width / 2, viewportPadding + menuHalfWidth),
@@ -133,7 +149,7 @@ export default function Header() {
   const activeDropdown = mounted && isDesktop && openMenu && menus[openMenu]
     ? createPortal(
         <div
-          className={`dropdown-menu dropdown-portal-menu is-portal-open ${openMenu === "Sarees" ? "is-compact" : ""}`}
+          className={`dropdown-menu dropdown-portal-menu dropdown-mega is-portal-open ${openMenu === "Sarees" ? "is-compact" : ""}`}
           style={{
             "--dropdown-left": `${dropdownPosition.left}px`,
             "--dropdown-top": `${dropdownPosition.top}px`
@@ -141,11 +157,26 @@ export default function Header() {
           onMouseEnter={() => openDropdown(openMenu)}
           onMouseLeave={scheduleDropdownClose}
         >
-          {menus[openMenu].map((item) => (
-            <Link key={item} href={`/${encodeURIComponent(item)}`} onClick={closeMenus}>
-              {item}
-            </Link>
-          ))}
+          <div className="dropdown-links">
+            {menus[openMenu].map((item) => (
+              <Link key={item} href={`/${encodeURIComponent(item)}`} onClick={closeMenus}>
+                {item}
+              </Link>
+            ))}
+          </div>
+          <div className="dropdown-tiles">
+            {menus[openMenu].slice(0, 3).map((item, index) => (
+              <Link
+                key={item}
+                className="dropdown-tile"
+                href={`/${encodeURIComponent(item)}`}
+                onClick={closeMenus}
+              >
+                <img src={index % 2 ? media.bannerPerson2 : media.bannerPerson} alt={item} />
+                <span>{item}</span>
+              </Link>
+            ))}
+          </div>
         </div>,
         document.body
       )
@@ -153,6 +184,16 @@ export default function Header() {
 
   return (
     <>
+      <div className="announcement-bar">
+        <div className="social-bar">
+          <a className="social-bar-icon" href="#" aria-label="Facebook"><Icon name="facebook" /></a>
+          <a className="social-bar-icon" href="#" aria-label="YouTube"><Icon name="youtube" /></a>
+          <a className="social-bar-icon" href="#" aria-label="Instagram"><Icon name="instagram" /></a>
+          <a className="social-bar-icon" href="#" aria-label="WhatsApp"><Icon name="whatsapp" /></a>
+          <a className="social-bar-icon" href="#" aria-label="Pinterest"><Icon name="pinterest" /></a>
+        </div>
+        <p className="announcement-text">Pan-India Shipping &middot; Custom Blouse Stitching Available &middot; Easy Returns</p>
+      </div>
       <header className="site-header">
         <Link className="brand logo-link" href="/">
           <img src={media.logo} alt="Sahanvi by Swapnavani" />
