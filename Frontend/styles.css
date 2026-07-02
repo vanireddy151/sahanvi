@@ -5089,6 +5089,8 @@ button {
   /* Full-viewport-width mega menu — Sacred Weaves style */
   .dropdown-portal-menu.dropdown-mega {
     display: flex !important;
+    justify-content: space-between;
+    align-items: flex-start;
     left: 0 !important;
     right: 0 !important;
     width: 100vw !important;
@@ -5097,15 +5099,23 @@ button {
     border-radius: 0 0 10px 10px !important;
     border-top: 1px solid var(--hairline);
     padding: 28px clamp(32px, 6vw, 100px) 32px;
-    gap: 0;
-    align-items: flex-start;
+    gap: 32px;
     box-shadow: 0 24px 64px rgba(20, 10, 5, 0.14) !important;
   }
 
-  /* Labeled text column */
+  /* Compact group of text columns — left side */
+  .dropdown-mega .dropdown-cols {
+    display: flex;
+    align-items: flex-start;
+    gap: 0;
+    flex: 0 0 auto;
+  }
+
+  /* Each labeled column — fixed width, not stretched */
   .dropdown-mega .dropdown-col {
-    flex: 1;
-    padding: 0 clamp(14px, 2vw, 36px);
+    flex: 0 0 auto;
+    width: clamp(140px, 14vw, 200px);
+    padding: 0 clamp(20px, 2.5vw, 36px);
     border-right: 1px solid var(--hairline);
   }
 
@@ -5113,7 +5123,11 @@ button {
     padding-left: 0;
   }
 
-  /* Column heading (SHOP BY TYPE etc.) */
+  .dropdown-mega .dropdown-col:last-child {
+    border-right: none;
+  }
+
+  /* Column heading — SHOP BY TYPE etc. */
   .dropdown-col-heading {
     display: block;
     font: 600 10px/1 Inter, Arial, sans-serif;
@@ -5144,18 +5158,18 @@ button {
     background: none !important;
   }
 
-  /* Image tiles section */
+  /* Image tiles — right side, auto-pushed by justify-content: space-between */
   .dropdown-mega .dropdown-tiles {
     flex: 0 0 auto;
     display: flex;
     gap: 12px;
-    padding-left: clamp(14px, 2vw, 36px);
+    align-self: flex-start;
   }
 
   /* Larger tiles in full-width context */
   .dropdown-mega .dropdown-tiles .dropdown-tile {
-    width: 138px;
-    height: 176px;
+    width: 148px;
+    height: 188px;
   }
 
   .dropdown-portal-menu::before {

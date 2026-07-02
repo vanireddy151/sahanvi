@@ -160,37 +160,37 @@ export default function Header() {
           onMouseEnter={() => openDropdown(openMenu)}
           onMouseLeave={scheduleDropdownClose}
         >
-          {/* Column 1 — saree types for this menu */}
-          <div className="dropdown-col">
-            <span className="dropdown-col-heading">Shop by Type</span>
-            {menus[openMenu].map((item) => (
-              <Link key={item} href={`/${encodeURIComponent(item)}`} onClick={closeMenus}>
-                {item}
-              </Link>
-            ))}
+          {/* Text columns — compact group, not stretched */}
+          <div className="dropdown-cols">
+            <div className="dropdown-col">
+              <span className="dropdown-col-heading">Shop by Type</span>
+              {menus[openMenu].map((item) => (
+                <Link key={item} href={`/${encodeURIComponent(item)}`} onClick={closeMenus}>
+                  {item}
+                </Link>
+              ))}
+            </div>
+
+            <div className="dropdown-col">
+              <span className="dropdown-col-heading">Shop by Occasion</span>
+              {occasionLinks.map((item) => (
+                <Link key={item} href={`/search?occasion=${encodeURIComponent(item)}`} onClick={closeMenus}>
+                  {item}
+                </Link>
+              ))}
+            </div>
+
+            <div className="dropdown-col">
+              <span className="dropdown-col-heading">Shop by Price</span>
+              {priceLinks.map((item) => (
+                <Link key={item} href={`/search?price=${encodeURIComponent(item)}`} onClick={closeMenus}>
+                  {item}
+                </Link>
+              ))}
+            </div>
           </div>
 
-          {/* Column 2 — occasions (static) */}
-          <div className="dropdown-col">
-            <span className="dropdown-col-heading">Shop by Occasion</span>
-            {occasionLinks.map((item) => (
-              <Link key={item} href={`/search?occasion=${encodeURIComponent(item)}`} onClick={closeMenus}>
-                {item}
-              </Link>
-            ))}
-          </div>
-
-          {/* Column 3 — price bands (static) */}
-          <div className="dropdown-col">
-            <span className="dropdown-col-heading">Shop by Price</span>
-            {priceLinks.map((item) => (
-              <Link key={item} href={`/search?price=${encodeURIComponent(item)}`} onClick={closeMenus}>
-                {item}
-              </Link>
-            ))}
-          </div>
-
-          {/* Image tiles */}
+          {/* Image tiles — pushed to the right */}
           <div className="dropdown-tiles">
             <Link className="dropdown-tile" href="/collections" onClick={closeMenus}>
               <img src={media.bannerPerson} alt="New Collection" />
