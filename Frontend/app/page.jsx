@@ -19,7 +19,7 @@ export default function HomePage() {
             <a className="hero-button" href="/collections">Explore Collection</a>
           </div>
           <div className="hero-media">
-            <img className="hero-back-image active" src={media.homeSliderImage} alt="Sahanvi home slider" />
+            <img className="hero-back-image active" src={media.homeSliderImage} alt="Banaras silk saree — Sahanvi Collection" />
             <HeroVideo src={media.storyVideo} />
           </div>
         </section>
