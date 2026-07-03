@@ -5267,6 +5267,7 @@ button {
     display: flex;
     gap: 12px;
     align-self: flex-start;
+    margin-right: clamp(24px, 4vw, 64px);
   }
 
   /* Larger tiles in full-width context */
