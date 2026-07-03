@@ -19,6 +19,8 @@ export default function CartPage() {
   }, []);
 
   const subtotal = cart.reduce((sum, item) => sum + priceNumber(item.price), 0);
+  const gst = Math.round(subtotal * 0.05);
+  const total = subtotal + gst;
 
   function removeItem(code) {
     const nextCart = cart.filter((item) => item.code !== code);
@@ -57,6 +59,8 @@ export default function CartPage() {
       delivery,
       items: cart,
       subtotal,
+      gst,
+      total,
       status: "Order placed",
       paymentStatus: "Paid",
       payment
@@ -88,7 +92,7 @@ export default function CartPage() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          amount: subtotal,
+          amount: total,
           receipt: `SH-${Date.now()}`,
           notes: {
             customerName: delivery.name,
@@ -203,6 +207,8 @@ export default function CartPage() {
               <div className="order-summary-box">
                 <div><span>Items</span><strong>{cart.length}</strong></div>
                 <div><span>Subtotal</span><strong>₹{subtotal.toLocaleString("en-IN")}</strong></div>
+                <div><span>GST (5%)</span><strong>₹{gst.toLocaleString("en-IN")}</strong></div>
+                <div className="order-total-row"><span>Total</span><strong>₹{total.toLocaleString("en-IN")}</strong></div>
                 <p>Secure online payment is powered by Razorpay.</p>
               </div>
               {!auth?.user ? (
