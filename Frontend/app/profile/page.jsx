@@ -61,7 +61,7 @@ export default function ProfilePage() {
       ? `email=${encodeURIComponent(email)}`
       : `phone=${encodeURIComponent(phone)}`;
 
-    fetch(`/api/orders?${query}`)
+    fetch(apiUrl(`/api/payments/orders?${query}`))
       .then((response) => (response.ok ? response.json() : []))
       .then((dbOrders) => {
         if (!Array.isArray(dbOrders) || !dbOrders.length) return;

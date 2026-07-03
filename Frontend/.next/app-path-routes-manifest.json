@@ -1,11 +1,14 @@
 {
   "/api/auth/login/route": "/api/auth/login",
+  "/api/auth/me/route": "/api/auth/me",
   "/api/auth/register/route": "/api/auth/register",
   "/api/inquiries/route": "/api/inquiries",
+  "/api/orders/route": "/api/orders",
   "/api/payments/razorpay-order/route": "/api/payments/razorpay-order",
+  "/api/payments/verify/route": "/api/payments/verify",
   "/api/sarees/route": "/api/sarees",
-  "/_not-found/page": "/_not-found",
   "/about/page": "/about",
+  "/admin/login/page": "/admin/login",
   "/admin/page": "/admin",
   "/cart/page": "/cart",
   "/collections/page": "/collections",
@@ -15,12 +18,13 @@
   "/page": "/",
   "/privacy-policy/page": "/privacy-policy",
   "/profile/page": "/profile",
-  "/return-exchange-policy/page": "/return-exchange-policy",
   "/search/page": "/search",
   "/shipping-payments/page": "/shipping-payments",
+  "/return-exchange-policy/page": "/return-exchange-policy",
   "/signup/page": "/signup",
   "/terms-conditions/page": "/terms-conditions",
   "/wishlist/page": "/wishlist",
   "/[type]/page": "/[type]",
-  "/collection/[type]/page": "/collection/[type]"
+  "/collection/[type]/page": "/collection/[type]",
+  "/_not-found/page": "/_not-found"
 }

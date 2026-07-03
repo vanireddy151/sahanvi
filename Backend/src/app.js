@@ -4,6 +4,7 @@ const path = require("path");
 const sareeRoutes = require("./routes/sareeRoutes");
 const authRoutes = require("./routes/authRoutes");
 const inquiryRoutes = require("./routes/inquiryRoutes");
+const paymentRoutes = require("./routes/paymentRoutes");
 
 const app = express();
 
@@ -28,6 +29,7 @@ app.get("/api/health", (req, res) => {
 app.use("/api/sarees", sareeRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/inquiries", inquiryRoutes);
+app.use("/api/payments", paymentRoutes);
 
 app.use((error, req, res, next) => {
   res.status(500).json({

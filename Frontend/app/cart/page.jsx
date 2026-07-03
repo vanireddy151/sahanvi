@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import { apiUrl } from "../lib/api";
 
 function priceNumber(value) {
   return Number(String(value || "").replace(/[^\d.]/g, "")) || 0;
@@ -88,7 +89,7 @@ export default function CartPage() {
 
     try {
       await loadRazorpayCheckout();
-      const response = await fetch("/api/payments/razorpay-order", {
+      const response = await fetch(apiUrl("/api/payments/razorpay-order"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -125,7 +126,7 @@ export default function CartPage() {
         async handler(paymentResponse) {
           setPaymentStatus("Verifying payment...");
           try {
-            const verifyResponse = await fetch("/api/payments/verify", {
+            const verifyResponse = await fetch(apiUrl("/api/payments/verify"), {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({
