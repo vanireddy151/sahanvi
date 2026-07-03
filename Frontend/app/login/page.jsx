@@ -64,6 +64,7 @@ export default function LoginPage() {
             <label>
               <span>Password</span>
               <input name="password" type="password" placeholder="Your password" required />
+              <a className="forgot-password-link" href="/forgot-password">Forgot password?</a>
             </label>
             <button className="checkout-primary" type="submit" disabled={loading}>
               {loading ? "Signing in..." : "Sign In"}

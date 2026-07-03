@@ -3879,6 +3879,79 @@ button {
   font: 600 14px/1.4 Inter, Arial, sans-serif;
 }
 
+.forgot-password-link {
+  display: block;
+  margin-top: 6px;
+  font: 13px/1 Inter, Arial, sans-serif;
+  color: var(--brick, #5a2f1d);
+  text-decoration: none;
+  text-align: right;
+}
+.forgot-password-link:hover { text-decoration: underline; }
+
+.auth-page {
+  min-height: calc(100vh - 82px);
+  display: grid;
+  place-items: center;
+  padding: 52px 20px 80px;
+}
+
+.auth-card {
+  width: min(520px, 100%);
+  background: var(--paper, #fdf8f4);
+  border: 1px solid var(--hairline, #e8ddd6);
+  border-radius: 14px;
+  padding: 44px 48px;
+}
+
+.auth-card h1 {
+  margin: 0 0 8px;
+  font: 700 28px/1.1 "Cormorant Garamond", Georgia, serif;
+  color: var(--ink, #2a1a0e);
+}
+
+.auth-subtitle {
+  margin: 0 0 28px;
+  color: var(--muted, #9c8677);
+  font: 15px/1.6 Inter, Arial, sans-serif;
+}
+
+.auth-error {
+  margin: 0;
+  padding: 10px 14px;
+  background: #fef2f0;
+  border: 1px solid #f5c6be;
+  border-radius: 6px;
+  color: #b33;
+  font: 13px/1.5 Inter, Arial, sans-serif;
+}
+
+.auth-success {
+  margin-top: 20px;
+}
+
+.auth-success p {
+  margin: 0 0 24px;
+  color: var(--muted, #9c8677);
+  font: 15px/1.6 Inter, Arial, sans-serif;
+}
+
+.auth-switch {
+  margin: 8px 0 0;
+  font: 13px/1 Inter, Arial, sans-serif;
+  color: var(--muted, #9c8677);
+}
+
+.auth-switch a {
+  color: var(--brick, #5a2f1d);
+  text-decoration: none;
+}
+.auth-switch a:hover { text-decoration: underline; }
+
+@media (max-width: 640px) {
+  .auth-card { padding: 32px 20px; }
+}
+
 .site-footer {
   display: grid;
   grid-template-columns: minmax(300px, 1.35fr) minmax(160px, 0.62fr) minmax(230px, 0.8fr) minmax(310px, 1fr);
