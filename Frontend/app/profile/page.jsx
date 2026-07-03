@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import { apiUrl } from "../lib/api";
 
 const returnReasons = [
   "Damaged product",
@@ -21,16 +22,46 @@ export default function ProfilePage() {
   const [orders, setOrders] = useState([]);
   const [returnOpen, setReturnOpen] = useState("");
 
+  function signOut() {
+    localStorage.removeItem("sahanvi-auth");
+    localStorage.removeItem("sahanvi-customer-profile");
+    localStorage.removeItem("sahanvi-admin-session");
+    window.location.href = "/login";
+  }
+
   useEffect(() => {
     const currentAuth = JSON.parse(localStorage.getItem("sahanvi-auth") || "null");
     const localOrders = JSON.parse(localStorage.getItem("sahanvi-orders") || "[]");
+
+    if (!currentAuth?.token) {
+      window.location.href = "/login";
+      return;
+    }
+
+    // Verify token is still valid
+    fetch(apiUrl("/api/auth/me"), {
+      headers: { Authorization: `Bearer ${currentAuth.token}` }
+    })
+      .then((res) => {
+        if (!res.ok) {
+          localStorage.removeItem("sahanvi-auth");
+          window.location.href = "/login";
+        }
+      })
+      .catch(() => {});
+
     setAuth(currentAuth);
     setOrders(localOrders);
 
     const phone = currentAuth?.user?.phone;
-    if (!phone) return;
+    const email = currentAuth?.user?.email;
+    if (!phone && !email) return;
 
-    fetch(`/api/orders?phone=${encodeURIComponent(phone)}`)
+    const query = email
+      ? `email=${encodeURIComponent(email)}`
+      : `phone=${encodeURIComponent(phone)}`;
+
+    fetch(`/api/orders?${query}`)
       .then((response) => (response.ok ? response.json() : []))
       .then((dbOrders) => {
         if (!Array.isArray(dbOrders) || !dbOrders.length) return;
@@ -115,6 +146,11 @@ export default function ProfilePage() {
           <p className="listing-kicker">Customer Profile</p>
           <h1>Welcome, {auth.user.name || "Customer"}</h1>
           <p>Track your orders, delivery information, and return requests in one place.</p>
+          <div className="profile-user-meta">
+            {auth.user.email && <span>{auth.user.email}</span>}
+            {auth.user.phone && <span>{auth.user.phone}</span>}
+            <button className="text-action" type="button" onClick={signOut}>Sign Out</button>
+          </div>
           <div className="profile-summary">
             <article>
               <span>{orders.length}</span>

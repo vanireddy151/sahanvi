@@ -62,6 +62,7 @@ export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [openMenu, setOpenMenu] = useState("");
   const [isAdmin, setIsAdmin] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isDesktop, setIsDesktop] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [dropdownPosition, setDropdownPosition] = useState({ left: 0, top: 70 });
@@ -130,8 +131,8 @@ export default function Header() {
     window.addEventListener("resize", syncMode);
 
     const auth = JSON.parse(localStorage.getItem("sahanvi-auth") || "null");
-    const phone = String(auth?.user?.phone || "").replace(/\D/g, "");
-    setIsAdmin(auth?.user?.role === "admin" || ["9704888933", "9949779227", "9014011885"].includes(phone));
+    setIsLoggedIn(Boolean(auth?.user));
+    setIsAdmin(auth?.user?.role === "admin");
 
     return () => {
       window.removeEventListener("resize", syncMode);
@@ -259,11 +260,29 @@ export default function Header() {
           <div className="profile-menu">
             <Link className="icon-button login-button" href="/signup" aria-label="Profile"><Icon name="user" /></Link>
             <div className="profile-dropdown">
-              <Link href="/profile">My Profile</Link>
-              <Link href="/profile#orders">My Orders</Link>
-              <Link href="/signup">Sign Up</Link>
-              <Link href="/login">Sign In</Link>
-              {isAdmin && <Link href="/admin">Admin Panel</Link>}
+              {isLoggedIn ? (
+                <>
+                  <Link href="/profile">My Profile</Link>
+                  <Link href="/profile#orders">My Orders</Link>
+                  {isAdmin && <Link href="/admin">Admin Panel</Link>}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      localStorage.removeItem("sahanvi-auth");
+                      localStorage.removeItem("sahanvi-customer-profile");
+                      localStorage.removeItem("sahanvi-admin-session");
+                      window.location.href = "/login";
+                    }}
+                  >
+                    Sign Out
+                  </button>
+                </>
+              ) : (
+                <>
+                  <Link href="/login">Sign In</Link>
+                  <Link href="/signup">Create Account</Link>
+                </>
+              )}
             </div>
           </div>
           <Link className="icon-button cart-button" href="/cart" aria-label="Cart"><Icon name="cart" /></Link>

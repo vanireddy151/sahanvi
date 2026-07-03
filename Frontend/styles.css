@@ -1453,6 +1453,29 @@ button {
   margin-top: 28px;
 }
 
+.profile-user-meta {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-top: 14px;
+  flex-wrap: wrap;
+}
+
+.profile-user-meta span {
+  font: 14px/1 Inter, Arial, sans-serif;
+  color: #6a5d55;
+}
+
+.profile-user-meta .text-action {
+  font: 14px/1 Inter, Arial, sans-serif;
+  color: var(--brick-dark, #5c2d0e);
+  text-decoration: underline;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+}
+
 .profile-layout {
   display: grid;
   grid-template-columns: minmax(280px, 360px) minmax(0, 1fr);
