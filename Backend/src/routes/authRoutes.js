@@ -120,8 +120,12 @@ router.post("/forgot-password", async (req, res, next) => {
     const frontendUrl = process.env.FRONTEND_URL || "https://sahanvi-puce.vercel.app";
     const resetLink = `${frontendUrl}/reset-password?token=${rawToken}`;
 
+    // Respond immediately — don't block on SMTP
+    res.json({ message: "If that email is registered, a reset link has been sent." });
+
+    // Send email in background after responding
     const transporter = makeTransporter();
-    await transporter.sendMail({
+    transporter.sendMail({
       from: `"Sahanvi Handloom" <${process.env.EMAIL_USER}>`,
       to: user.email,
       subject: "Reset your Sahanvi password",
@@ -138,9 +142,7 @@ router.post("/forgot-password", async (req, res, next) => {
           <p style="color:#9c8677;font-size:12px;">Sahanvi Handloom Sarees &mdash; Cherished Traditions, Timeless Elegance</p>
         </div>
       `
-    });
-
-    res.json({ message: "If that email is registered, a reset link has been sent." });
+    }).catch((err) => console.error("Reset email send failed:", err));
   } catch (error) {
     next(error);
   }

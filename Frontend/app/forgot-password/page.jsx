@@ -15,17 +15,25 @@ export default function ForgotPasswordPage() {
     event.preventDefault();
     setLoading(true);
     setStatus("");
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 12000);
     try {
       const response = await fetch(apiUrl("/api/auth/forgot-password"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email })
+        body: JSON.stringify({ email }),
+        signal: controller.signal
       });
       const data = await response.json();
       if (!response.ok) throw new Error(data.message || "Something went wrong.");
       setDone(true);
     } catch (error) {
-      setStatus(error.message || "Unable to send reset email. Please try again.");
+      const msg = error.name === "AbortError"
+        ? "Request timed out. The server may be waking up — please try again in a moment."
+        : error.message || "Unable to send reset email. Please try again.";
+      setStatus(msg);
+    } finally {
+      clearTimeout(timeout);
     } finally {
       setLoading(false);
     }
