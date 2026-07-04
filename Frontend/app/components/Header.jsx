@@ -218,10 +218,10 @@ export default function Header() {
     <>
       <div className="announcement-bar">
         <div className="social-bar">
-          <a className="social-bar-icon" href="#" aria-label="Facebook"><Icon name="facebook" /></a>
+          <a className="social-bar-icon" href="https://www.facebook.com/people/Sahanvi-BySwapnavani/61582255929673/" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><Icon name="facebook" /></a>
           <a className="social-bar-icon" href="#" aria-label="YouTube"><Icon name="youtube" /></a>
-          <a className="social-bar-icon" href="#" aria-label="Instagram"><Icon name="instagram" /></a>
-          <a className="social-bar-icon" href="#" aria-label="WhatsApp"><Icon name="whatsapp" /></a>
+          <a className="social-bar-icon" href="https://www.instagram.com/sahanvibyswapnavani/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><Icon name="instagram" /></a>
+          <a className="social-bar-icon" href="https://chat.whatsapp.com/FkYxepCjCd0Bon2kS2eMZB" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><Icon name="whatsapp" /></a>
           <a className="social-bar-icon" href="#" aria-label="Pinterest"><Icon name="pinterest" /></a>
         </div>
         <p className="announcement-text">Pan-India Shipping &middot; Custom Blouse Stitching Available &middot; Easy Returns</p>
