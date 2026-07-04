@@ -248,6 +248,17 @@ export default function Header() {
               >
                 {name}
               </button>
+
+              {/* Mobile-only inline submenu */}
+              {!isDesktop && openMenu === name ? (
+                <div className="mobile-submenu">
+                  {items.map((item) => (
+                    <Link key={item} href={`/collection/${encodeURIComponent(item)}`} onClick={closeMenus}>
+                      {item}
+                    </Link>
+                  ))}
+                </div>
+              ) : null}
             </div>
           ))}
           <Link href="/Sahanvi%20Vintage" onClick={closeMenus}>Sahanvi Vintage</Link>
