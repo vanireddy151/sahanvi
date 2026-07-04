@@ -5423,7 +5423,7 @@ button {
   /* Full-viewport-width mega menu — Sacred Weaves style */
   .dropdown-portal-menu.dropdown-mega {
     display: flex !important;
-    justify-content: space-between;
+    justify-content: center;
     align-items: flex-start;
     left: 0 !important;
     right: 0 !important;
@@ -5436,7 +5436,7 @@ button {
     border-left: none !important;
     border-right: none !important;
     padding: 32px clamp(40px, 7vw, 120px) 36px;
-    gap: 32px;
+    gap: 64px;
     background: #f5f4f2 !important;
     box-shadow: 0 8px 32px rgba(0,0,0,0.09) !important;
   }
@@ -5446,8 +5446,8 @@ button {
     display: flex;
     align-items: flex-start;
     justify-content: flex-start;
-    flex: 1;
-    gap: clamp(40px, 6vw, 100px);
+    flex: 0 0 auto;
+    gap: clamp(40px, 5vw, 80px);
   }
 
   /* Each column */
