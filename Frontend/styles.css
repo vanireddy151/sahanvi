@@ -5509,12 +5509,13 @@ button {
   }
 
   .dropdown-mega .dropdown-tiles .dropdown-tile img {
-    width: 100%;
-    height: 176px;
-    object-fit: cover;
-    object-position: center top;
-    display: block;
-    transition: transform 220ms ease;
+    width: 100% !important;
+    height: 176px !important;
+    flex-shrink: 0 !important;
+    object-fit: cover !important;
+    object-position: center top !important;
+    display: block !important;
+    transition: transform 220ms ease !important;
   }
 
   .dropdown-mega .dropdown-tiles .dropdown-tile:hover img {
