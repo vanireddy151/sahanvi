@@ -19,6 +19,7 @@ Thumbs.db
 # Build output
 dist/
 build/
+Frontend/.next/
 
 # Frontend specific (React/Vite)
 Frontend/node_modules/
