@@ -28,7 +28,8 @@ const publicUser = (user) => ({
 
 router.post("/register", async (req, res, next) => {
   try {
-    const { name, email, phone = "", password } = req.body;
+    const { name, phone = "", password } = req.body;
+    const email = String(req.body.email || "").trim().toLowerCase();
 
     if (!name || !email || !password) {
       res.status(400).json({ message: "Name, email, and password are required." });
@@ -37,9 +38,9 @@ router.post("/register", async (req, res, next) => {
 
     const passwordFields = hashPassword(password);
     const user = await User.create({
-      name,
+      name: String(name).trim(),
       email,
-      phone,
+      phone: String(phone).trim(),
       ...passwordFields
     });
 

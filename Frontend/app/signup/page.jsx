@@ -23,8 +23,8 @@ export default function SignupPage() {
     setStatus("");
     const data = Object.fromEntries(new FormData(event.currentTarget).entries());
 
-    if (data.password !== data.confirmPassword) {
-      setStatus("Passwords do not match.");
+    if (data.password.trim() !== data.confirmPassword.trim()) {
+      setStatus("Passwords do not match. Please type the same password in both fields.");
       return;
     }
     if (data.password.length < 8) {
@@ -85,11 +85,11 @@ export default function SignupPage() {
             </label>
             <label>
               <span>Password</span>
-              <input name="password" type="password" placeholder="Minimum 8 characters" required />
+              <input name="password" type="password" placeholder="Minimum 8 characters" autoComplete="new-password" required />
             </label>
             <label>
               <span>Confirm Password</span>
-              <input name="confirmPassword" type="password" placeholder="Re-enter password" required />
+              <input name="confirmPassword" type="password" placeholder="Re-enter password" autoComplete="new-password" required />
             </label>
             <button className="checkout-primary" type="submit" disabled={loading}>
               {loading ? "Creating account..." : "Create Account"}
