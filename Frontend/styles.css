@@ -2143,12 +2143,12 @@ button {
   flex: 0 0 auto;
   border: 1px solid var(--hairline);
   border-radius: 999px;
-  padding: 4px 10px;
+  padding: 6px 14px;
   color: var(--muted);
   background: transparent;
   cursor: pointer;
   font-family: Inter, Arial, sans-serif;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 500;
   transition: color 0.2s ease, border-color 0.2s ease;
 }
@@ -2383,7 +2383,7 @@ button {
   margin: 0;
   color: #201715;
   font-family: Inter, Arial, sans-serif;
-  font-size: 15px;
+  font-size: 20px;
   font-weight: 600;
   line-height: 1.2;
 }
@@ -2439,12 +2439,12 @@ button {
 .collection-tabs button {
   border: 0;
   border-bottom: 2px solid transparent;
-  padding: 0 6px 10px;
+  padding: 0 10px 12px;
   color: #16110d;
   background: transparent;
   cursor: pointer;
   font-family: Inter, Arial, sans-serif;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 500;
   white-space: nowrap;
 }
@@ -2464,12 +2464,12 @@ button {
 .collection-tab-option {
   border: 1px solid var(--hairline);
   border-radius: 999px;
-  padding: 4px 9px;
+  padding: 5px 12px;
   color: var(--muted);
   background: transparent;
   cursor: pointer;
   font-family: Inter, Arial, sans-serif;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 500;
   transition: color 0.2s ease, border-color 0.2s ease;
 }
@@ -6370,7 +6370,7 @@ button {
   }
 
   .collection-page .collection-toolbar h2 {
-    font-size: 14px;
+    font-size: 16px;
     line-height: 1.2;
   }
 
