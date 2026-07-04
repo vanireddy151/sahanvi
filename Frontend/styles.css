@@ -2143,12 +2143,12 @@ button {
   flex: 0 0 auto;
   border: 1px solid var(--hairline);
   border-radius: 999px;
-  padding: 6px 14px;
+  padding: 7px 16px;
   color: var(--muted);
   background: transparent;
   cursor: pointer;
   font-family: Inter, Arial, sans-serif;
-  font-size: 13px;
+  font-size: 16px;
   font-weight: 500;
   transition: color 0.2s ease, border-color 0.2s ease;
 }
@@ -2376,7 +2376,7 @@ button {
 .collection-toolbar p {
   margin: 0 0 3px;
   color: #7a6b61;
-  font: 600 11px/1.4 Inter, Arial, sans-serif;
+  font: 600 14px/1.4 Inter, Arial, sans-serif;
 }
 
 .collection-toolbar h2 {
@@ -2393,7 +2393,7 @@ button {
   display: grid;
   gap: 4px;
   color: #5a4a40;
-  font: 600 11px/1.2 Inter, Arial, sans-serif;
+  font: 600 14px/1.2 Inter, Arial, sans-serif;
 }
 
 .collection-toolbar-controls {
@@ -2405,13 +2405,13 @@ button {
 }
 
 .collection-toolbar select {
-  min-height: 32px;
+  min-height: 36px;
   border: 1px solid #d9cfc6;
-  padding: 5px 8px;
+  padding: 6px 10px;
   color: #3b2518;
   background: #fff;
   font-family: Inter, Arial, sans-serif;
-  font-size: 12px;
+  font-size: 15px;
 }
 
 .collection-search {
@@ -2420,13 +2420,13 @@ button {
 
 .collection-search input {
   width: 100%;
-  min-height: 32px;
+  min-height: 36px;
   border: 1px solid #d9cfc6;
-  padding: 5px 10px;
+  padding: 6px 12px;
   color: #3b2518;
   background: #fff;
   font-family: Inter, Arial, sans-serif;
-  font-size: 12px;
+  font-size: 15px;
 }
 
 .collection-search input:focus,
