@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { media } from "../data/media";
 
 export default function ProductCard({
@@ -14,18 +14,37 @@ export default function ProductCard({
   occasion = ""
 }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [splashPhase, setSplashPhase] = useState("gone"); // gone → visible → sliding → gone
   const [checkoutOpen, setCheckoutOpen] = useState(false);
   const [otpSent, setOtpSent] = useState(false);
   const [otp, setOtp] = useState("");
   const [activeImage, setActiveImage] = useState(image);
+  const splashTimers = useRef([]);
   const code = name.match(/S\d+$/)?.[0] || "";
   const sareeName = name.replace(/\sS\d+$/, "");
   const cartItem = { name: sareeName, code, price, image };
   const gallery = [image, palluImageUrl, borderImageUrl, bodyImageUrl].filter(Boolean);
 
+  function clearSplashTimers() {
+    splashTimers.current.forEach(clearTimeout);
+    splashTimers.current = [];
+  }
+
   function openModal() {
     setActiveImage(image);
     setIsOpen(true);
+    setSplashPhase("visible");
+    clearSplashTimers();
+    splashTimers.current = [
+      setTimeout(() => setSplashPhase("sliding"), 4400),
+      setTimeout(() => setSplashPhase("gone"), 5100)
+    ];
+  }
+
+  function skipProductSplash() {
+    clearSplashTimers();
+    setSplashPhase("sliding");
+    splashTimers.current = [setTimeout(() => setSplashPhase("gone"), 600)];
   }
 
   function getAuth() {
@@ -105,6 +124,26 @@ export default function ProductCard({
           <span className="product-price">{price}</span>
         </button>
       </article>
+
+      {splashPhase !== "gone" ? (
+        <div className={`product-splash product-splash--${splashPhase}`}>
+          <img className="product-splash-bg" src={image} alt={sareeName} />
+          <div className="product-splash-overlay" />
+          <div className="product-splash-copy">
+            <p className="product-splash-kicker">Sahanvi New Arrival</p>
+            <h2 className="product-splash-title">{sareeName}</h2>
+            <p className="product-splash-code">{code}</p>
+            <p className="product-splash-price">{price}</p>
+            {fabric ? <p className="product-splash-detail">{fabric}</p> : null}
+          </div>
+          <button className="collection-splash-skip" type="button" onClick={skipProductSplash}>
+            Skip intro
+          </button>
+          <div className="collection-splash-bar">
+            <div className="collection-splash-bar-fill" />
+          </div>
+        </div>
+      ) : null}
 
       {isOpen ? (
         <div className="product-modal" role="dialog" aria-modal="true" aria-label={`${sareeName} details`}>
