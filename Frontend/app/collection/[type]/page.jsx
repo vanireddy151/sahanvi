@@ -1,6 +1,7 @@
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import CollectionShop from "../../components/CollectionShop";
+import CollectionSplash from "../../components/CollectionSplash";
 import { media } from "../../data/media";
 import { allMenuItems } from "../../data/navigation";
 
@@ -46,6 +47,7 @@ export default async function CollectionPage({ params }) {
 
   return (
     <div className="next-page">
+      <CollectionSplash image={heroImage} type={type} description={description} />
       <Header />
       <main className="collection-page">
         <section className="collection-hero">
