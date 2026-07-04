@@ -25,10 +25,16 @@ export default function CollectionSplash({ image, type, description }) {
     return clearTimers;
   }, []);
 
-  function slideUp() {
+  function slideUp(scrollToProducts = false) {
     clearTimers();
     setPhase("sliding");
-    timers.current = [setTimeout(() => setPhase("gone"), 700)];
+    timers.current = [setTimeout(() => {
+      setPhase("gone");
+      if (scrollToProducts) {
+        const target = document.getElementById("collection-products");
+        if (target) target.scrollIntoView({ behavior: "smooth" });
+      }
+    }, 700)];
   }
 
   if (phase === "gone") return null;
@@ -41,7 +47,7 @@ export default function CollectionSplash({ image, type, description }) {
         <p className="collection-splash-kicker">Sahanvi Collection</p>
         <h1 className="collection-splash-title">{type}</h1>
         <p className="collection-splash-desc">{description}</p>
-        <button className="collection-splash-shopnow" type="button" onClick={slideUp}>
+        <button className="collection-splash-shopnow" type="button" onClick={() => slideUp(true)}>
           Shop Now
         </button>
       </div>
