@@ -28,13 +28,11 @@ export default function CollectionSplash({ image, type, description }) {
   function slideUp(scrollToProducts = false) {
     clearTimers();
     setPhase("sliding");
-    timers.current = [setTimeout(() => {
-      setPhase("gone");
-      if (scrollToProducts) {
-        const target = document.getElementById("collection-products");
-        if (target) target.scrollIntoView({ behavior: "smooth" });
-      }
-    }, 700)];
+    if (scrollToProducts) {
+      const target = document.getElementById("collection-products");
+      if (target) target.scrollIntoView({ behavior: "instant" });
+    }
+    timers.current = [setTimeout(() => setPhase("gone"), 700)];
   }
 
   if (phase === "gone") return null;
