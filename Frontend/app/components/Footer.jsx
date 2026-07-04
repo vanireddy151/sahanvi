@@ -1,5 +1,13 @@
+"use client";
+
 import Link from "next/link";
 import { media } from "../data/media";
+
+function markNavClick() {
+  if (typeof sessionStorage !== "undefined") {
+    sessionStorage.setItem("sahanvi-nav-click", "1");
+  }
+}
 
 export default function Footer() {
   return (
@@ -13,9 +21,9 @@ export default function Footer() {
       <div className="footer-column">
         <h2>Explore</h2>
         <Link href="/new-arrivals">New Arrivals</Link>
-        <Link href="/Kanjivaram%20Silks">Kanjivaram Silks</Link>
-        <Link href="/Pochampally">Pochampally</Link>
-        <Link href="/Gadwal%20Pattu">Gadwal</Link>
+        <Link href="/Kanjivaram%20Silks" onClick={markNavClick}>Kanjivaram Silks</Link>
+        <Link href="/Pochampally" onClick={markNavClick}>Pochampally</Link>
+        <Link href="/Gadwal%20Pattu" onClick={markNavClick}>Gadwal</Link>
         <Link href="/about">About Us</Link>
       </div>
       <div className="footer-column">
