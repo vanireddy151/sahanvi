@@ -120,7 +120,8 @@ export default function ProductCard({
             <img src={image} alt={sareeName} />
             <span className="product-badge">New Arrival</span>
           </span>
-          <span className="product-card-title">{sareeName} {code}</span>
+          <span className="product-card-title">{sareeName}</span>
+          {code ? <span className="product-card-code">{code}</span> : null}
           <span className="product-price">{price}</span>
         </button>
       </article>

@@ -1026,6 +1026,14 @@ button {
   text-overflow: ellipsis;
 }
 
+.product-card-code {
+  display: block;
+  margin: 1px 0 3px;
+  color: var(--muted, #9c8677);
+  font: 400 11px/1 Inter, Arial, sans-serif;
+  letter-spacing: 0.04em;
+}
+
 .product-price {
   display: block;
   margin: 0;
