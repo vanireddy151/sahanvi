@@ -12,6 +12,12 @@ export default function CollectionSplash({ image, type, description }) {
   }
 
   useEffect(() => {
+    // Skip splash when navigating from the site's own nav menu
+    if (typeof sessionStorage !== "undefined" && sessionStorage.getItem("sahanvi-nav-click")) {
+      sessionStorage.removeItem("sahanvi-nav-click");
+      setPhase("gone");
+      return;
+    }
     timers.current = [
       setTimeout(() => setPhase("sliding"), 4400),
       setTimeout(() => setPhase("gone"), 5100)

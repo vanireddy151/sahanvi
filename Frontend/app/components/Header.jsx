@@ -108,6 +108,13 @@ export default function Header() {
     setOpenMenu("");
   }
 
+  function closeMenusFromNav() {
+    if (typeof sessionStorage !== "undefined") {
+      sessionStorage.setItem("sahanvi-nav-click", "1");
+    }
+    closeMenus();
+  }
+
   function toggleDropdown(name, target) {
     clearDropdownClose();
 
@@ -166,7 +173,7 @@ export default function Header() {
             <div className="dropdown-col">
               <span className="dropdown-col-heading">Shop by Type</span>
               {menus[openMenu].map((item) => (
-                <Link key={item} href={`/${encodeURIComponent(item)}`} onClick={closeMenus}>
+                <Link key={item} href={`/${encodeURIComponent(item)}`} onClick={closeMenusFromNav}>
                   {item}
                 </Link>
               ))}
@@ -253,7 +260,7 @@ export default function Header() {
               {!isDesktop && openMenu === name ? (
                 <div className="mobile-submenu">
                   {items.map((item) => (
-                    <Link key={item} href={`/collection/${encodeURIComponent(item)}`} onClick={closeMenus}>
+                    <Link key={item} href={`/collection/${encodeURIComponent(item)}`} onClick={closeMenusFromNav}>
                       {item}
                     </Link>
                   ))}
