@@ -34,7 +34,6 @@ export default function ForgotPasswordPage() {
       setStatus(msg);
     } finally {
       clearTimeout(timeout);
-    } finally {
       setLoading(false);
     }
   }
