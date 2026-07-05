@@ -2138,7 +2138,7 @@ button {
 }
 
 .collection-products {
-  padding: 16px clamp(22px, 4vw, 54px) 78px;
+  padding: 42px clamp(22px, 4vw, 54px) 78px;
 }
 
 .collection-results {
