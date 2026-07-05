@@ -55,8 +55,8 @@ function Icon({ name }) {
   );
 }
 
-const occasionLinks = ["Bridal", "Festive", "Casual Wear", "Party Wear", "Office Wear", "Gifting"];
-const priceLinks = ["Under ₹10,000", "₹10,000 – ₹20,000", "₹20,000 – ₹30,000", "₹30,000 – ₹50,000", "Above ₹50,000"];
+const occasionLinks = ["Bridal", "Festive"];
+const priceLinks = ["₹10,000 – ₹20,000", "₹20,000 – ₹30,000", "₹30,000 – ₹50,000", "Above ₹50,000"];
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
