@@ -39,7 +39,7 @@ function sendVerificationEmail(user, rawToken) {
   const verifyLink = `${frontendUrl}/verify-email?token=${rawToken}`;
 
   return resend.emails.send({
-    from: "Sahanvi Handloom <onboarding@resend.dev>",
+    from: "Sahanvi Handloom <no-reply@sahanvi.com>",
     to: user.email,
     subject: "Verify your Sahanvi account",
     html: `
