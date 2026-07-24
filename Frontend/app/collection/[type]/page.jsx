@@ -50,7 +50,7 @@ export default async function CollectionPage({ params }) {
       <CollectionSplash image={heroImage} type={type} description={description} />
       <Header />
       <main className="collection-page">
-        <section className={`collection-hero${type === "Sahanvi Vintage" ? " collection-hero-no-overlay" : ""}`}>
+        <section className="collection-hero">
           <div className="collection-copy">
             <p className="collection-kicker">Sahanvi Collection</p>
             <h1 className="collection-title">{type}</h1>

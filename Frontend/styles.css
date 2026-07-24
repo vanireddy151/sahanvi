@@ -2027,16 +2027,6 @@ button {
   background: rgba(20, 14, 11, 0.18);
 }
 
-.collection-hero-no-overlay {
-  background:
-    url("https://res.cloudinary.com/djgftgg1d/image/upload/v1780300399/sahanvi-banner-person_cesgfp.jpg") center 48% / cover no-repeat,
-    #2c2927;
-}
-
-.collection-hero-no-overlay::before {
-  background: transparent;
-}
-
 .breadcrumb {
   margin: 0 0 18px;
   color: #8c8782;
