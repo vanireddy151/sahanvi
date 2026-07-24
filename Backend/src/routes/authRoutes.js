@@ -35,7 +35,7 @@ function createVerificationToken() {
 }
 
 function sendVerificationEmail(user, rawToken) {
-  const frontendUrl = process.env.FRONTEND_URL || "https://sahanvi-puce.vercel.app";
+  const frontendUrl = process.env.FRONTEND_URL || "https://www.sahanvi.com";
   const verifyLink = `${frontendUrl}/verify-email?token=${rawToken}`;
 
   return resend.emails.send({
@@ -222,7 +222,7 @@ router.post("/forgot-password", async (req, res, next) => {
     user.resetPasswordExpires = new Date(Date.now() + 3600000); // 1 hour
     await user.save();
 
-    const frontendUrl = process.env.FRONTEND_URL || "https://sahanvi-puce.vercel.app";
+    const frontendUrl = process.env.FRONTEND_URL || "https://www.sahanvi.com";
     const resetLink = `${frontendUrl}/reset-password?token=${rawToken}`;
 
     // Respond immediately — don't block on SMTP
