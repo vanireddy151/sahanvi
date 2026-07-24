@@ -17,10 +17,14 @@ function movePendingItemToCart() {
 export default function LoginPage() {
   const [status, setStatus] = useState("");
   const [loading, setLoading] = useState(false);
+  const [unverifiedEmail, setUnverifiedEmail] = useState("");
+  const [resendStatus, setResendStatus] = useState("");
 
   async function signIn(event) {
     event.preventDefault();
     setStatus("");
+    setUnverifiedEmail("");
+    setResendStatus("");
     setLoading(true);
     const { email, password } = Object.fromEntries(new FormData(event.currentTarget).entries());
 
@@ -34,6 +38,7 @@ export default function LoginPage() {
 
       if (!response.ok) {
         setStatus(data.message || "Invalid email or password.");
+        if (data.unverified) setUnverifiedEmail(email);
         setLoading(false);
         return;
       }
@@ -46,6 +51,21 @@ export default function LoginPage() {
     } catch {
       setStatus("Unable to connect. Please try again.");
       setLoading(false);
+    }
+  }
+
+  async function resendVerification() {
+    setResendStatus("Sending…");
+    try {
+      const response = await fetch(apiUrl("/api/auth/resend-verification"), {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: unverifiedEmail })
+      });
+      const data = await response.json();
+      setResendStatus(data.message || "Verification email sent.");
+    } catch {
+      setResendStatus("Unable to connect. Please try again.");
     }
   }
 
@@ -72,6 +92,15 @@ export default function LoginPage() {
             <p className="member-copy">New customer? <a href="/signup">Create an account</a></p>
           </form>
           {status && <p className="auth-status">{status}</p>}
+          {unverifiedEmail && (
+            <p className="auth-status">
+              {resendStatus || (
+                <button type="button" className="forgot-password-link" onClick={resendVerification}>
+                  Resend verification email
+                </button>
+              )}
+            </p>
+          )}
         </section>
       </main>
     </div>

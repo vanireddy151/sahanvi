@@ -33,7 +33,10 @@ const userSchema = new mongoose.Schema(
       default: "customer"
     },
     resetPasswordToken: { type: String },
-    resetPasswordExpires: { type: Date }
+    resetPasswordExpires: { type: Date },
+    emailVerified: { type: Boolean, default: true },
+    verificationToken: { type: String },
+    verificationExpires: { type: Date }
   },
   { timestamps: true }
 );
