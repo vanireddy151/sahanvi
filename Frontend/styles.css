@@ -6999,3 +6999,106 @@ button {
     width: min(90vw, 360px);
   }
 }
+
+/* Mobile header redesign: hamburger left, centered logo, search + cart right */
+@media (max-width: 960px) {
+  .header-actions {
+    display: contents;
+  }
+
+  .menu-button {
+    order: -2;
+    margin-left: 0;
+  }
+
+  .brand {
+    order: -1;
+    margin: 0 auto;
+  }
+
+  .currency {
+    display: none !important;
+  }
+
+  .profile-menu {
+    display: none !important;
+  }
+
+  .search-button {
+    display: grid !important;
+  }
+
+  /* Mobile slide-out nav panel — redesigned to match a Tulsi-style menu */
+  .nav-links button.mobile-nav-close {
+    display: grid;
+    place-items: center;
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 34px;
+    height: 34px;
+    min-height: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: #f4f0ea;
+    color: #241912;
+    font-size: 15px;
+    line-height: 1;
+    text-align: center;
+    cursor: pointer;
+    z-index: 1;
+  }
+
+  .nav-links button.mobile-nav-close::after {
+    content: none;
+  }
+
+  .nav-links {
+    padding-top: 60px !important;
+  }
+
+  .nav-links > a,
+  .nav-links button {
+    border-bottom: 1px solid #eee4dc;
+  }
+
+  .nav-links button::after {
+    content: "";
+    width: 8px;
+    height: 8px;
+    margin-left: auto;
+    border-right: 1.6px solid #8b6a58;
+    border-bottom: 1.6px solid #8b6a58;
+    transform: rotate(45deg);
+    transition: transform 0.2s ease;
+  }
+
+  .nav-links button[aria-expanded="true"]::after {
+    content: "";
+    transform: rotate(-135deg);
+  }
+
+  .mobile-nav-auth {
+    display: flex;
+    flex-direction: column;
+    margin-top: 8px;
+  }
+
+  .mobile-nav-auth a,
+  .mobile-nav-auth button {
+    width: 100%;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    border: 0;
+    border-bottom: 1px solid #eee4dc;
+    color: #1f120c;
+    text-align: left;
+    font-size: 17px;
+    font-family: Georgia, "Times New Roman", serif;
+    background: transparent;
+    cursor: pointer;
+  }
+}

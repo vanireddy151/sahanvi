@@ -115,6 +115,13 @@ export default function Header() {
     closeMenus();
   }
 
+  function signOut() {
+    localStorage.removeItem("sahanvi-auth");
+    localStorage.removeItem("sahanvi-customer-profile");
+    localStorage.removeItem("sahanvi-admin-session");
+    window.location.href = "/login";
+  }
+
   function toggleDropdown(name, target) {
     clearDropdownClose();
 
@@ -232,6 +239,9 @@ export default function Header() {
         </Link>
 
         <nav className={`nav-links ${menuOpen ? "next-open" : ""} ${openMenu ? "has-open-submenu" : ""}`}>
+          <button type="button" className="mobile-nav-close" aria-label="Close menu" onClick={closeMenus}>
+            ✕
+          </button>
           {Object.entries(menus).map(([name, items]) => (
             <div
               className={`nav-item dropdown ${openMenu === name ? "is-open" : ""}`}
@@ -269,12 +279,30 @@ export default function Header() {
             </div>
           ))}
           <Link href="/Sahanvi%20Vintage" onClick={closeMenusFromNav}>Sahanvi Vintage</Link>
+
+          {!isDesktop && (
+            <div className="mobile-nav-auth">
+              {isLoggedIn ? (
+                <>
+                  <Link href="/profile" onClick={closeMenus}>My Profile</Link>
+                  <Link href="/profile#orders" onClick={closeMenus}>My Orders</Link>
+                  {isAdmin && <Link href="/admin" onClick={closeMenus}>Admin Panel</Link>}
+                  <button type="button" onClick={signOut}>Sign Out</button>
+                </>
+              ) : (
+                <>
+                  <Link href="/login" onClick={closeMenus}>Login</Link>
+                  <Link href="/signup" onClick={closeMenus}>Create Account</Link>
+                </>
+              )}
+            </div>
+          )}
         </nav>
 
         <div className="header-actions">
           <button className="currency" type="button">INR</button>
-          <Link className="icon-button" href="/search" aria-label="Search"><Icon name="search" /></Link>
-          <Link className="icon-button" href="/wishlist" aria-label="Wishlist"><Icon name="heart" /></Link>
+          <Link className="icon-button search-button" href="/search" aria-label="Search"><Icon name="search" /></Link>
+          <Link className="icon-button wishlist-button" href="/wishlist" aria-label="Wishlist"><Icon name="heart" /></Link>
           <div className="profile-menu">
             <Link className="icon-button login-button" href="/signup" aria-label="Profile"><Icon name="user" /></Link>
             <div className="profile-dropdown">
@@ -283,15 +311,7 @@ export default function Header() {
                   <Link href="/profile">My Profile</Link>
                   <Link href="/profile#orders">My Orders</Link>
                   {isAdmin && <Link href="/admin">Admin Panel</Link>}
-                  <button
-                    type="button"
-                    onClick={() => {
-                      localStorage.removeItem("sahanvi-auth");
-                      localStorage.removeItem("sahanvi-customer-profile");
-                      localStorage.removeItem("sahanvi-admin-session");
-                      window.location.href = "/login";
-                    }}
-                  >
+                  <button type="button" onClick={signOut}>
                     Sign Out
                   </button>
                 </>
