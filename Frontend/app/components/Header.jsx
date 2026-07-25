@@ -268,7 +268,7 @@ export default function Header() {
               ) : null}
             </div>
           ))}
-          <Link href="/Sahanvi%20Vintage" onClick={closeMenus}>Sahanvi Vintage</Link>
+          <Link href="/Sahanvi%20Vintage" onClick={closeMenusFromNav}>Sahanvi Vintage</Link>
         </nav>
 
         <div className="header-actions">
