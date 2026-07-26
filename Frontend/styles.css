@@ -966,6 +966,7 @@ button {
 .product-image {
   position: relative;
   display: block;
+  width: 100%;
   aspect-ratio: 1 / 1.04;
   overflow: hidden;
   background: #eee8df;
@@ -1044,6 +1045,83 @@ button {
   margin: 0;
   color: var(--muted);
   font: 600 12px/1.3 Inter, Arial, sans-serif;
+}
+
+.product-discount-badge {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  padding: 5px 12px;
+  color: #fff;
+  background: #1c7a41;
+  font-family: Inter, Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  border-radius: 3px;
+}
+
+.product-quick-add {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 34px;
+  height: 34px;
+  border: 0;
+  display: grid;
+  place-items: center;
+  color: #2d2d2d;
+  background: #fff;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.16);
+}
+
+.product-quick-add svg {
+  width: 17px;
+  height: 17px;
+}
+
+.product-image-overlay {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 28px 14px 12px;
+  background: linear-gradient(180deg, rgba(20, 12, 8, 0) 0%, rgba(20, 12, 8, 0.7) 100%);
+}
+
+.product-overlay-title {
+  color: #fff;
+  font-family: Inter, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.product-overlay-desc {
+  color: rgba(255, 255, 255, 0.82);
+  font-family: Inter, Arial, sans-serif;
+  font-size: 11px;
+  line-height: 1.35;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.product-price-row {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.product-price-original {
+  color: var(--muted, #9c8677);
+  font: 500 11px/1.3 Inter, Arial, sans-serif;
+  text-decoration: line-through;
 }
 
 /* Product item splash intro — slides UP to reveal the modal */
@@ -7246,5 +7324,75 @@ button {
     width: 18px;
     height: 18px;
     accent-color: #5a2f1d;
+  }
+}
+
+.mobile-hero-banner {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  .home-page .hero-media {
+    display: none;
+  }
+
+  .home-page .mobile-hero-banner {
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 46vh;
+    min-height: 320px;
+    max-height: 460px;
+    overflow: hidden;
+  }
+
+  .home-page .mobile-hero-banner img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    object-position: center 20%;
+  }
+
+  .home-page .mobile-hero-banner-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(20, 8, 4, 0.3) 0%, rgba(20, 8, 4, 0.5) 100%);
+  }
+
+  .home-page .mobile-hero-banner-copy {
+    position: absolute;
+    left: 24px;
+    right: 24px;
+    top: 50%;
+    transform: translateY(-50%);
+    text-align: center;
+    color: #fff;
+  }
+
+  .home-page .mobile-hero-banner-copy p {
+    margin: 0 0 8px;
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-size: 17px;
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.88);
+  }
+
+  .home-page .mobile-hero-banner-copy h2 {
+    margin: 0;
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-size: clamp(24px, 7vw, 32px);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    line-height: 1.25;
+  }
+
+  .home-page .product-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  .home-page .product-card-title {
+    white-space: normal;
   }
 }

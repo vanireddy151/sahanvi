@@ -22,6 +22,15 @@ export default function HomePage() {
             <img className="hero-back-image active" src={media.homeSliderImage} alt="Banaras silk saree — Sahanvi Collection" />
             <HeroVideo src={media.storyVideo} />
           </div>
+
+          <div className="mobile-hero-banner">
+            <img src={media.homeSliderImage} alt="Sahanvi handloom sarees" />
+            <div className="mobile-hero-banner-overlay" />
+            <div className="mobile-hero-banner-copy">
+              <p>Every thread tells a story</p>
+              <h2>EVERY MOTIF CARRIES A LEGACY</h2>
+            </div>
+          </div>
         </section>
 
         <section className="trust-strip" aria-label="Why shop with Sahanvi">

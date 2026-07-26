@@ -3,6 +3,13 @@
 import { useState, useEffect, useRef } from "react";
 import { media } from "../data/media";
 
+function originalPriceFor(priceStr) {
+  const numeric = Number(String(priceStr).replace(/[^\d]/g, ""));
+  if (!numeric) return "";
+  const original = Math.round((numeric / 0.95) / 10) * 10;
+  return `₹${original.toLocaleString("en-IN")}`;
+}
+
 export default function ProductCard({
   image = media.bannerPerson,
   name,
@@ -72,6 +79,18 @@ export default function ProductCard({
     alert("Saved to wishlist.");
   }
 
+  function handleTriggerKeyDown(event) {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      openModal();
+    }
+  }
+
+  function quickAdd(event) {
+    event.stopPropagation();
+    startCartCheckout();
+  }
+
   function startCartCheckout() {
     const auth = getAuth();
     if (auth?.user) {
@@ -115,15 +134,29 @@ export default function ProductCard({
   return (
     <>
       <article className="product-card">
-        <button className="product-card-trigger" type="button" onClick={openModal}>
+        <div className="product-card-trigger" role="button" tabIndex={0} onClick={openModal} onKeyDown={handleTriggerKeyDown}>
           <span className="product-image">
             <img src={image} alt={sareeName} />
-            <span className="product-badge">New Arrival</span>
+            <span className="product-discount-badge">5% Off</span>
+            <button type="button" className="product-quick-add" aria-label={`Add ${sareeName} to cart`} onClick={quickAdd}>
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M6 6h15l-1.8 8.5H8.2L6 3H3" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                <circle cx="9" cy="20" r="1.7" fill="none" stroke="currentColor" strokeWidth="2" />
+                <circle cx="18" cy="20" r="1.7" fill="none" stroke="currentColor" strokeWidth="2" />
+              </svg>
+            </button>
+            <span className="product-image-overlay">
+              <span className="product-overlay-title">{sareeName}</span>
+              <span className="product-overlay-desc">Woven with graceful detailing and timeless handloom-inspired elegance.</span>
+            </span>
           </span>
           <span className="product-card-title">{sareeName}</span>
           {code ? <span className="product-card-code">{code}</span> : null}
-          <span className="product-price">{price}</span>
-        </button>
+          <span className="product-price-row">
+            <span className="product-price">{price}</span>
+            <span className="product-price-original">{originalPriceFor(price)}</span>
+          </span>
+        </div>
       </article>
 
       {splashPhase !== "gone" ? (
