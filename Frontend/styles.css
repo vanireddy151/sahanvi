@@ -7102,3 +7102,145 @@ button {
     cursor: pointer;
   }
 }
+
+/* Mobile "Featured / Filter" bottom bar for collection listing pages */
+.mobile-shop-bar,
+.mobile-sort-sheet,
+.mobile-sheet-backdrop,
+.mobile-sheet-close {
+  display: none;
+}
+
+.filter-heading-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+@media (max-width: 960px) {
+  .collection-page .collection-products {
+    padding-bottom: 84px;
+  }
+
+  .mobile-shop-bar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2147483000;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background: #fff;
+    border-top: 1px solid #e8ddd6;
+    padding-bottom: env(safe-area-inset-bottom);
+    box-shadow: 0 -6px 20px rgba(20, 11, 6, 0.08);
+  }
+
+  .mobile-shop-bar button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 52px;
+    border: 0;
+    background: transparent;
+    color: #3b2518;
+    font: 600 15px/1 Inter, Arial, sans-serif;
+    cursor: pointer;
+  }
+
+  .mobile-shop-bar button svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .mobile-shop-bar button:first-child {
+    border-right: 1px solid #eee4dc;
+  }
+
+  .mobile-shop-bar button.active {
+    color: var(--brick, #5a2f1d);
+  }
+
+  .mobile-sheet-backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 2147482998;
+    background: rgba(20, 11, 6, 0.42);
+  }
+
+  .mobile-sheet-close {
+    display: grid;
+    place-items: center;
+    width: 30px;
+    height: 30px;
+    border: 0;
+    border-radius: 50%;
+    background: #f4f0ea;
+    color: #241912;
+    font-size: 14px;
+    line-height: 1;
+    cursor: pointer;
+  }
+
+  .collection-page .collection-filters {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: auto;
+    z-index: 2147482999;
+    width: 100%;
+    max-height: 80vh;
+    overflow-y: auto;
+    border-radius: 16px 16px 0 0;
+    transform: translateY(100%);
+    transition: transform 0.28s ease;
+  }
+
+  .collection-page .collection-filters.is-open {
+    transform: translateY(0);
+  }
+
+  .mobile-sort-sheet {
+    display: block;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2147482999;
+    width: 100%;
+    background: #fff;
+    border-radius: 16px 16px 0 0;
+    transform: translateY(100%);
+    transition: transform 0.28s ease;
+  }
+
+  .mobile-sort-sheet.is-open {
+    transform: translateY(0);
+  }
+
+  .mobile-sort-options {
+    display: grid;
+    gap: 4px;
+    padding: 8px 20px 24px;
+  }
+
+  .mobile-sort-option {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 46px;
+    color: #3b2518;
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-size: 18px;
+    cursor: pointer;
+  }
+
+  .mobile-sort-option input {
+    width: 18px;
+    height: 18px;
+    accent-color: #5a2f1d;
+  }
+}

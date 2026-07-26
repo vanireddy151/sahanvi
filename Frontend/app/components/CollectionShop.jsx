@@ -34,6 +34,13 @@ const filterDefinitions = [
 const collectionChips = ["Wedding Ready", "Pure Silk", "Festive Drapes", "Zari Border", "Most Loved"];
 const tabNames = ["Design", "Colour", "Occasion", "Material", "Weave"];
 
+const sortOptions = [
+  ["newest", "Newest First"],
+  ["price-low", "Price: Low to High"],
+  ["price-high", "Price: High to Low"],
+  ["popular", "Most Loved"]
+];
+
 const productTemplates = [
   { code: "S763878", price: "₹21,020", colour: "Cream", design: "Buttas", occasion: "Wedding", material: "Pure Silk", weave: "Kanjeevaram", tags: ["Wedding Ready", "Pure Silk", "Most Loved"], image: media.bannerPerson },
   { code: "S842176", price: "₹18,950", colour: "Grey", design: "Zari Border", occasion: "Festive", material: "Soft Silk Tissue", weave: "Korvai", tags: ["Pure Silk", "Zari Border"], image: media.bannerPerson2 },
@@ -69,6 +76,7 @@ export default function CollectionShop({ type }) {
   const [activeTab, setActiveTab] = useState("Design");
   const [activeTabOption, setActiveTabOption] = useState("");
   const [sortBy, setSortBy] = useState("newest");
+  const [mobileSheet, setMobileSheet] = useState("");
 
   useEffect(() => {
     const savedSarees = JSON.parse(localStorage.getItem("sahanvi-admin-sarees") || "[]");
@@ -236,11 +244,17 @@ export default function CollectionShop({ type }) {
           </button>
         ))}
       </div>
+      {mobileSheet ? (
+        <div className="mobile-sheet-backdrop" onClick={() => setMobileSheet("")} />
+      ) : null}
       <div className="collection-shop-layout">
-        <aside className="collection-filters" aria-label={`${type} filters`}>
+        <aside className={`collection-filters ${mobileSheet === "filter" ? "is-open" : ""}`} aria-label={`${type} filters`}>
           <div className="filter-heading">
             <h2>Filters</h2>
-            <button type="button" onClick={clearFilters}>Clear All</button>
+            <div className="filter-heading-actions">
+              <button type="button" onClick={clearFilters}>Clear All</button>
+              <button type="button" className="mobile-sheet-close" aria-label="Close filters" onClick={() => setMobileSheet("")}>✕</button>
+            </div>
           </div>
           <div className="filter-price">
             <input type="range" min="14860" max="43240" defaultValue="43240" aria-label="Price range" />
@@ -377,6 +391,50 @@ export default function CollectionShop({ type }) {
             </div>
           )}
         </div>
+      </div>
+
+      <div className={`mobile-sort-sheet ${mobileSheet === "sort" ? "is-open" : ""}`} aria-label="Sort options">
+        <div className="filter-heading">
+          <h2>Sort By</h2>
+          <button type="button" className="mobile-sheet-close" aria-label="Close sort options" onClick={() => setMobileSheet("")}>✕</button>
+        </div>
+        <div className="mobile-sort-options">
+          {sortOptions.map(([value, label]) => (
+            <label key={value} className="mobile-sort-option">
+              <input
+                type="radio"
+                name="mobile-sort"
+                checked={sortBy === value}
+                onChange={() => {
+                  setSortBy(value);
+                  setMobileSheet("");
+                }}
+              />
+              <span>{label}</span>
+            </label>
+          ))}
+        </div>
+      </div>
+
+      <div className="mobile-shop-bar">
+        <button
+          type="button"
+          className={mobileSheet === "sort" ? "active" : ""}
+          aria-pressed={mobileSheet === "sort"}
+          onClick={() => setMobileSheet((current) => (current === "sort" ? "" : "sort"))}
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8h12M9 14h6M11 20h2" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" /></svg>
+          Featured
+        </button>
+        <button
+          type="button"
+          className={mobileSheet === "filter" ? "active" : ""}
+          aria-pressed={mobileSheet === "filter"}
+          onClick={() => setMobileSheet((current) => (current === "filter" ? "" : "filter"))}
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16l-6 8v5l-4 2v-7L4 5Z" fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" /></svg>
+          Filter
+        </button>
       </div>
     </section>
   );
