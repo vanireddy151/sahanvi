@@ -7000,6 +7000,10 @@ button {
   }
 }
 
+.nav-links button.mobile-nav-close {
+  display: none;
+}
+
 /* Mobile header redesign: hamburger left, centered logo, search + cart right */
 @media (max-width: 960px) {
   .header-actions {
