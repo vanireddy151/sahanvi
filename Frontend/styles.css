@@ -5107,7 +5107,6 @@ button {
 /* Device compatibility pass: desktop, laptop, tablet, and mobile */
 @media (min-width: 1440px) {
   .collections,
-  .product-showcase,
   .listing-section,
   .collection-products,
   .cart-layout,
@@ -5764,9 +5763,12 @@ button {
   background: var(--cream);
 }
 
-.next-page > .site-footer,
-.home-page > .site-footer {
+.next-page > .site-footer {
   margin-top: clamp(44px, 5vw, 72px);
+}
+
+.home-page > .site-footer {
+  margin-top: 0;
 }
 
 @media (max-width: 960px) {
