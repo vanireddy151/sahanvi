@@ -145,10 +145,6 @@ export default function ProductCard({
                 <circle cx="18" cy="20" r="1.7" fill="none" stroke="currentColor" strokeWidth="2" />
               </svg>
             </button>
-            <span className="product-image-overlay">
-              <span className="product-overlay-title">{sareeName}</span>
-              <span className="product-overlay-desc">Woven with graceful detailing and timeless handloom-inspired elegance.</span>
-            </span>
           </span>
           <span className="product-card-title">{sareeName}</span>
           {code ? <span className="product-card-code">{code}</span> : null}
