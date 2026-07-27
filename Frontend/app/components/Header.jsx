@@ -234,6 +234,22 @@ export default function Header() {
         <p className="announcement-text">Pan-India Shipping &middot; Custom Blouse Stitching Available &middot; Easy Returns</p>
       </div>
       <header className="site-header">
+        <button
+          className="icon-button menu-button"
+          type="button"
+          aria-label="Menu"
+          aria-expanded={menuOpen}
+          onClick={() => {
+            clearDropdownClose();
+            setMenuOpen((current) => {
+              if (current) setOpenMenu("");
+              return !current;
+            });
+          }}
+        >
+          ☰
+        </button>
+
         <Link className="brand logo-link" href="/">
           <img src={media.logo} alt="Sahanvi by Swapnavani" />
         </Link>
@@ -280,7 +296,7 @@ export default function Header() {
           ))}
           <Link href="/Sahanvi%20Vintage" onClick={closeMenusFromNav}>Sahanvi Vintage</Link>
 
-          {!isDesktop && (
+          {mounted && !isDesktop && (
             <div className="mobile-nav-auth">
               {isLoggedIn ? (
                 <>
@@ -324,21 +340,6 @@ export default function Header() {
             </div>
           </div>
           <Link className="icon-button cart-button" href="/cart" aria-label="Cart"><Icon name="cart" /></Link>
-          <button
-            className="icon-button menu-button"
-            type="button"
-            aria-label="Menu"
-            aria-expanded={menuOpen}
-            onClick={() => {
-              clearDropdownClose();
-              setMenuOpen((current) => {
-                if (current) setOpenMenu("");
-                return !current;
-              });
-            }}
-          >
-            ☰
-          </button>
         </div>
       </header>
       {menuOpen ? <div className="mobile-nav-backdrop" onClick={closeMenus} /> : null}

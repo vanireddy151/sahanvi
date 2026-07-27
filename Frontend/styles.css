@@ -7056,18 +7056,27 @@ button {
 
 /* Mobile header redesign: hamburger left, centered logo, search + cart right */
 @media (max-width: 960px) {
-  .header-actions {
-    display: contents;
+  .site-header {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    column-gap: 8px;
   }
 
   .menu-button {
-    order: -2;
+    grid-column: 1;
+    justify-self: start;
     margin-left: 0;
   }
 
   .brand {
-    order: -1;
-    margin: 0 auto;
+    grid-column: 2;
+    justify-self: center;
+    margin: 0;
+  }
+
+  .header-actions {
+    grid-column: 3;
+    justify-self: end;
   }
 
   .currency {
