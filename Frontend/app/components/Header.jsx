@@ -341,6 +341,7 @@ export default function Header() {
           </button>
         </div>
       </header>
+      {menuOpen ? <div className="mobile-nav-backdrop" onClick={closeMenus} /> : null}
       {activeDropdown}
     </>
   );

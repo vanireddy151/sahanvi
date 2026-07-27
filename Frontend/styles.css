@@ -7396,3 +7396,24 @@ button {
     white-space: normal;
   }
 }
+
+.mobile-nav-backdrop {
+  display: none;
+}
+
+@media (max-width: 960px) {
+  .nav-links {
+    right: auto !important;
+    width: min(88vw, 400px) !important;
+    max-width: min(88vw, 400px) !important;
+    box-shadow: 12px 0 40px rgba(0, 0, 0, 0.18);
+  }
+
+  .mobile-nav-backdrop {
+    display: block;
+    position: fixed !important;
+    inset: 0 !important;
+    z-index: 2147483645 !important;
+    background: rgba(20, 11, 6, 0.42);
+  }
+}
