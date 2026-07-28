@@ -7373,6 +7373,11 @@ button {
     gap: 14px;
   }
 
+  .home-page .product-image {
+    aspect-ratio: 1 / 0.82;
+    min-height: 0;
+  }
+
   .home-page .product-card-title {
     white-space: normal;
   }
