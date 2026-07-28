@@ -7470,3 +7470,135 @@ button {
   width: 20px;
   height: 20px;
 }
+
+.order-dispatch-status {
+  text-align: right;
+}
+
+.order-dispatch-status p {
+  margin: 6px 0 0;
+  color: #5f5148;
+  font: 13px/1.4 Inter, Arial, sans-serif;
+}
+
+.dispatch-badge {
+  display: inline-grid;
+  place-items: center;
+  border-radius: 999px;
+  padding: 8px 14px;
+  font: 700 13px/1 Inter, Arial, sans-serif;
+}
+
+.dispatch-badge-done {
+  color: #fff;
+  background: #1c7a41;
+}
+
+.dispatch-badge-pending {
+  color: #8a6a52;
+  background: #f4ede4;
+}
+
+/* Admin: order dispatch tracking */
+.admin-order-card-block {
+  display: block;
+}
+
+.admin-order-card-row {
+  display: grid;
+  grid-template-columns: 86px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 18px;
+}
+
+.admin-order-explore {
+  margin-top: 10px;
+  border: 1px solid #d9cabc;
+  padding: 7px 14px;
+  color: #5a2f1d;
+  background: #fff;
+  border-radius: 999px;
+  font: 600 13px/1 Inter, Arial, sans-serif;
+  cursor: pointer;
+}
+
+.admin-order-explore:hover {
+  background: #f8f1e9;
+}
+
+.admin-order-details {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid #eadbd0;
+}
+
+.admin-order-details-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px 24px;
+  margin-bottom: 16px;
+}
+
+.admin-order-details-grid dt {
+  margin: 0 0 2px;
+  color: #9c8677;
+  font: 600 12px/1.2 Inter, Arial, sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.admin-order-details-grid dd {
+  margin: 0;
+  color: #2f1d13;
+  font: 15px/1.4 Inter, Arial, sans-serif;
+}
+
+.admin-dispatch-confirmed {
+  padding: 14px 16px;
+  border-radius: 12px;
+  background: #eef6ee;
+  color: #1c5c33;
+}
+
+.admin-dispatch-confirmed p {
+  margin: 4px 0 0;
+  color: #2b6b41;
+  font: 14px/1.4 Inter, Arial, sans-serif;
+}
+
+.admin-dispatch-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 12px;
+  align-items: end;
+}
+
+.admin-dispatch-form label {
+  display: grid;
+  gap: 6px;
+  color: #4f3526;
+  font: 600 13px/1.2 Inter, Arial, sans-serif;
+}
+
+.admin-dispatch-form input {
+  min-height: 42px;
+  border: 1px solid #d8cabe;
+  padding: 0 12px;
+  font: 15px/1.2 Inter, Arial, sans-serif;
+}
+
+.admin-dispatch-form button {
+  min-height: 42px;
+  white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+  .admin-order-card-row {
+    grid-template-columns: 72px minmax(0, 1fr);
+  }
+
+  .admin-order-details-grid,
+  .admin-dispatch-form {
+    grid-template-columns: 1fr;
+  }
+}

@@ -60,6 +60,23 @@ function toArray(value) {
     .filter(Boolean);
 }
 
+function normalizeOrder(order) {
+  return {
+    id: order.razorpayOrderId || order._id,
+    _id: order._id,
+    customer: { name: order.customerName, phone: order.customerPhone, email: order.customerEmail },
+    delivery: { address: order.address },
+    items: order.items || [],
+    status: order.status,
+    dispatchStatus: order.dispatchStatus || "pending",
+    courierName: order.courierName || "",
+    trackingNumber: order.trackingNumber || "",
+    dispatchedAt: order.dispatchedAt || "",
+    total: order.total,
+    createdAt: order.createdAt
+  };
+}
+
 function normalizeSaree(saree) {
   return {
     ...saree,
@@ -100,6 +117,10 @@ export default function AdminPage() {
   const [returns, setReturns] = useState([]);
   const [inquiries, setInquiries] = useState([]);
   const [status, setStatus] = useState("");
+  const [expandedOrderId, setExpandedOrderId] = useState("");
+  const [dispatchForm, setDispatchForm] = useState({ courierName: "", trackingNumber: "" });
+  const [dispatching, setDispatching] = useState(false);
+  const [dispatchStatusMessage, setDispatchStatusMessage] = useState("");
 
   useEffect(() => {
     const adminSession = JSON.parse(localStorage.getItem("sahanvi-admin-session") || "null");
@@ -145,6 +166,18 @@ export default function AdminPage() {
         }
       })
       .catch(() => {});
+
+    fetch(apiUrl("/api/payments/orders/all"), {
+      headers: { Authorization: `Bearer ${adminSession.token}` }
+    })
+      .then((response) => (response.ok ? response.json() : []))
+      .then((backendOrders) => {
+        if (!Array.isArray(backendOrders)) return;
+        const normalized = backendOrders.map(normalizeOrder);
+        const backendIds = new Set(normalized.map((order) => order.id));
+        setOrders((current) => [...normalized, ...current.filter((order) => !backendIds.has(order.id))]);
+      })
+      .catch(() => {});
   }, []);
 
   const typeOptions = form.category === "Sahanvi Vintage" ? ["Sahanvi Vintage"] : menus[form.category] || [];
@@ -181,9 +214,14 @@ export default function AdminPage() {
       (order.items || []).map((item) => ({
         ...item,
         orderId: order.id,
+        orderMongoId: order._id,
         customer: order.customer,
         delivery: order.delivery,
-        status: "Sold"
+        status: "Sold",
+        dispatchStatus: order.dispatchStatus || "pending",
+        courierName: order.courierName || "",
+        trackingNumber: order.trackingNumber || "",
+        dispatchedAt: order.dispatchedAt || ""
       }))
     );
     const manuallySold = sarees
@@ -239,6 +277,50 @@ export default function AdminPage() {
 
       return { ...current, [name]: next };
     });
+  }
+
+  function toggleExploreOrder(key) {
+    setExpandedOrderId((current) => (current === key ? "" : key));
+    setDispatchForm({ courierName: "", trackingNumber: "" });
+    setDispatchStatusMessage("");
+  }
+
+  async function markDispatched(orderMongoId) {
+    if (!orderMongoId) {
+      setDispatchStatusMessage("This order hasn't synced from the server yet — refresh and try again.");
+      return;
+    }
+    if (!dispatchForm.courierName.trim() || !dispatchForm.trackingNumber.trim()) {
+      setDispatchStatusMessage("Courier name and tracking number are both required.");
+      return;
+    }
+
+    setDispatching(true);
+    setDispatchStatusMessage("");
+    try {
+      const adminSession = JSON.parse(localStorage.getItem("sahanvi-admin-session") || "null");
+      const response = await fetch(apiUrl(`/api/payments/orders/${orderMongoId}/dispatch`), {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${adminSession?.token}`
+        },
+        body: JSON.stringify(dispatchForm)
+      });
+      const data = await response.json();
+      if (!response.ok) {
+        setDispatchStatusMessage(data.error || "Unable to mark this order as dispatched.");
+        setDispatching(false);
+        return;
+      }
+
+      setOrders((current) => current.map((order) => (order._id === orderMongoId ? normalizeOrder(data.order) : order)));
+      setDispatchStatusMessage("Order marked as dispatched. The customer has been emailed the tracking details.");
+    } catch {
+      setDispatchStatusMessage("Unable to connect. Please try again.");
+    } finally {
+      setDispatching(false);
+    }
   }
 
   async function submit(event) {
@@ -565,22 +647,83 @@ export default function AdminPage() {
             </div>
             {!soldItems.length ? (
               <div className="admin-empty">No sold sarees yet. Sold items will appear here after customers place orders.</div>
-            ) : soldItems.map((item, index) => (
-              <article className="admin-order-card" key={`${item.orderId}-${item.code || index}`}>
-                {item.image ? <img src={item.image} alt={item.name || "Sold saree"} /> : null}
-                <div>
-                  <h3>{item.name || "Sahanvi Saree"}</h3>
-                  <p>{item.code || item.orderId} · Order {item.orderId}</p>
-                  <p>{item.customer?.name} · {item.customer?.phone}</p>
-                  <p>{item.delivery?.address}</p>
-                </div>
-                <div>
-                  <strong>{item.status}</strong>
-                  <span>Sold</span>
-                  <span>₹{priceNumber(item.price).toLocaleString("en-IN")}</span>
-                </div>
-              </article>
-            ))}
+            ) : soldItems.map((item, index) => {
+              const key = `${item.orderId}-${item.code || index}`;
+              const isTrackable = item.orderId !== "Manual";
+              const isExpanded = expandedOrderId === key;
+              const isDispatched = item.dispatchStatus === "dispatched";
+
+              return (
+                <article className="admin-order-card admin-order-card-block" key={key}>
+                  <div className="admin-order-card-row">
+                    {item.image ? <img src={item.image} alt={item.name || "Sold saree"} /> : null}
+                    <div>
+                      <h3>{item.name || "Sahanvi Saree"}</h3>
+                      <p>{item.code || item.orderId} · Order {item.orderId}</p>
+                      <p>{item.customer?.name} · {item.customer?.phone}</p>
+                      <p>{item.delivery?.address}</p>
+                    </div>
+                    <div>
+                      <strong>{isDispatched ? "Dispatched" : item.status}</strong>
+                      <span>{isDispatched ? item.courierName : "Sold"}</span>
+                      <span>₹{priceNumber(item.price).toLocaleString("en-IN")}</span>
+                      {isTrackable ? (
+                        <button type="button" className="admin-order-explore" onClick={() => toggleExploreOrder(key)}>
+                          {isExpanded ? "Close" : "Explore Order"}
+                        </button>
+                      ) : null}
+                    </div>
+                  </div>
+
+                  {isExpanded ? (
+                    <div className="admin-order-details">
+                      <div className="admin-order-details-grid">
+                        <div><dt>Customer</dt><dd>{item.customer?.name || "—"}</dd></div>
+                        <div><dt>Email</dt><dd>{item.customer?.email || "—"}</dd></div>
+                        <div><dt>Phone</dt><dd>{item.customer?.phone || "—"}</dd></div>
+                        <div><dt>Delivery Address</dt><dd>{item.delivery?.address || "—"}</dd></div>
+                      </div>
+
+                      {isDispatched ? (
+                        <div className="admin-dispatch-confirmed">
+                          <strong>Dispatched</strong>
+                          <p>Courier: {item.courierName} · Tracking Number: {item.trackingNumber}</p>
+                          {item.dispatchedAt ? <p>Dispatched on {new Date(item.dispatchedAt).toLocaleString("en-IN")}</p> : null}
+                        </div>
+                      ) : (
+                        <div className="admin-dispatch-form">
+                          <label>
+                            <span>Courier Name</span>
+                            <input
+                              value={dispatchForm.courierName}
+                              onChange={(event) => setDispatchForm((current) => ({ ...current, courierName: event.target.value }))}
+                              placeholder="e.g. Blue Dart, Delhivery"
+                            />
+                          </label>
+                          <label>
+                            <span>Tracking Number</span>
+                            <input
+                              value={dispatchForm.trackingNumber}
+                              onChange={(event) => setDispatchForm((current) => ({ ...current, trackingNumber: event.target.value }))}
+                              placeholder="Courier tracking number"
+                            />
+                          </label>
+                          <button
+                            type="button"
+                            className="checkout-primary"
+                            disabled={dispatching}
+                            onClick={() => markDispatched(item.orderMongoId)}
+                          >
+                            {dispatching ? "Confirming…" : "Confirm Dispatch"}
+                          </button>
+                        </div>
+                      )}
+                      {dispatchStatusMessage ? <p className="admin-status">{dispatchStatusMessage}</p> : null}
+                    </div>
+                  ) : null}
+                </article>
+              );
+            })}
           </section> : null}
 
           {activeTab === "inquiries" ? <section className="admin-orders">

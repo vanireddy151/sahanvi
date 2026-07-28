@@ -78,6 +78,10 @@ export default function ProfilePage() {
           items: order.items,
           subtotal: order.subtotal,
           status: order.status,
+          dispatchStatus: order.dispatchStatus || "pending",
+          courierName: order.courierName || "",
+          trackingNumber: order.trackingNumber || "",
+          dispatchedAt: order.dispatchedAt || "",
           paymentStatus: "Paid",
           payment: {
             razorpayOrderId: order.razorpayOrderId,
@@ -200,6 +204,16 @@ export default function ProfilePage() {
                   <div>
                     <p>Order ID</p>
                     <h3>{order.id}</h3>
+                  </div>
+                  <div className="order-dispatch-status">
+                    {order.dispatchStatus === "dispatched" ? (
+                      <>
+                        <strong className="dispatch-badge dispatch-badge-done">Dispatched</strong>
+                        <p>Courier: {order.courierName} · Tracking Number: {order.trackingNumber}</p>
+                      </>
+                    ) : (
+                      <strong className="dispatch-badge dispatch-badge-pending">Processing</strong>
+                    )}
                   </div>
                 </div>
 

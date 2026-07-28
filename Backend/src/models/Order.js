@@ -14,7 +14,11 @@ const orderSchema = new mongoose.Schema(
     razorpayPaymentId: { type: String, required: true },
     razorpaySignature: { type: String, required: true },
     paymentStatus: { type: String, enum: ["paid"], default: "paid" },
-    status: { type: String, default: "Order placed" }
+    status: { type: String, default: "Order placed" },
+    dispatchStatus: { type: String, enum: ["pending", "dispatched"], default: "pending" },
+    courierName: { type: String, default: "" },
+    trackingNumber: { type: String, default: "" },
+    dispatchedAt: { type: Date }
   },
   { timestamps: true }
 );
