@@ -463,23 +463,29 @@ export default function AdminPage() {
                   <p>Add only the details available for this saree. Customer filter sections stay hidden until uploaded stock has values here.</p>
                 </div>
                 <div className="admin-option-grid">
-                  {stockDetailFields.map(([name, label, options]) => (
-                    <fieldset className="admin-option-group" key={name}>
-                      <legend>{label}</legend>
-                      <div>
-                        {options.map((option) => (
-                          <label key={option}>
-                            <input
-                              type="checkbox"
-                              checked={toArray(form[name]).includes(option)}
-                              onChange={() => toggleStockDetail(name, option)}
-                            />
-                            <span>{option}</span>
-                          </label>
-                        ))}
-                      </div>
-                    </fieldset>
-                  ))}
+                  {stockDetailFields.map(([name, label, options]) => {
+                    const selectedCount = toArray(form[name]).length;
+                    return (
+                      <details className="admin-option-group" key={name}>
+                        <summary>
+                          <span>{label}</span>
+                          {selectedCount > 0 ? <span className="admin-option-count">{selectedCount}</span> : null}
+                        </summary>
+                        <div>
+                          {options.map((option) => (
+                            <label key={option}>
+                              <input
+                                type="checkbox"
+                                checked={toArray(form[name]).includes(option)}
+                                onChange={() => toggleStockDetail(name, option)}
+                              />
+                              <span>{option}</span>
+                            </label>
+                          ))}
+                        </div>
+                      </details>
+                    );
+                  })}
                 </div>
               </div>
               <label><span>Description</span><textarea name="description" rows="4" value={form.description} onChange={updateField}></textarea></label>

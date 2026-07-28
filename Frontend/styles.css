@@ -3195,17 +3195,49 @@ button {
   background: rgba(255, 253, 249, 0.82);
 }
 
-.admin-option-group legend {
-  padding: 0 8px;
+.admin-option-group summary {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   color: #3b2012;
   font-size: 18px;
+  font-weight: 700;
+  list-style: none;
+  cursor: pointer;
+}
+
+.admin-option-group summary::-webkit-details-marker {
+  display: none;
+}
+
+.admin-option-group summary::after {
+  content: "⌄";
+  margin-left: auto;
+  color: #8a6a52;
+  font-size: 16px;
+}
+
+.admin-option-group[open] summary::after {
+  content: "⌃";
+}
+
+.admin-option-count {
+  display: inline-grid;
+  place-items: center;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 6px;
+  border-radius: 999px;
+  color: #fff;
+  background: #5a2f1d;
+  font-size: 12px;
   font-weight: 700;
 }
 
 .admin-option-group div {
   display: grid;
   gap: 10px;
-  margin-top: 8px;
+  margin-top: 12px;
 }
 
 .admin-option-group label {
