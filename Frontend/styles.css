@@ -4730,10 +4730,6 @@ button {
     align-self: flex-end;
   }
 
-  .collection-gallery {
-    grid-template-columns: 1fr;
-  }
-
   .listing-hero {
     min-height: auto;
     padding: 42px 24px;
@@ -5330,7 +5326,6 @@ button {
   }
 
   .product-grid,
-  .collection-gallery,
   .collection-product-grid {
     grid-template-columns: 1fr;
     gap: 22px;
@@ -7600,5 +7595,28 @@ button {
   .admin-order-details-grid,
   .admin-dispatch-form {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .collection-gallery {
+    display: flex;
+    grid-template-columns: none;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 16px;
+    margin-inline: -20px;
+    padding: 4px 20px 10px;
+    scrollbar-width: none;
+  }
+
+  .collection-gallery::-webkit-scrollbar {
+    display: none;
+  }
+
+  .collection-gallery .collection-card {
+    flex: 0 0 78vw;
+    max-width: 320px;
+    scroll-snap-align: start;
   }
 }
