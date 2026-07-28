@@ -1,6 +1,5 @@
 const express = require("express");
 const crypto = require("crypto");
-const nodemailer = require("nodemailer");
 const { Resend } = require("resend");
 const User = require("../models/User");
 const { hashPassword, verifyPassword } = require("../utils/password");
@@ -9,16 +8,6 @@ const { getAuthUser } = require("../middleware/auth");
 
 const router = express.Router();
 const resend = new Resend(process.env.RESEND_API_KEY);
-
-function makeTransporter() {
-  return nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS
-    }
-  });
-}
 
 const publicUser = (user) => ({
   id: user._id,
@@ -56,6 +45,30 @@ function sendVerificationEmail(user, rawToken) {
       </div>
     `
   }).catch((err) => console.error("Verification email send failed:", err));
+}
+
+function sendResetEmail(user, rawToken) {
+  const frontendUrl = process.env.FRONTEND_URL || "https://www.sahanvi.com";
+  const resetLink = `${frontendUrl}/reset-password?token=${rawToken}`;
+
+  return resend.emails.send({
+    from: "Sahanvi Handloom <no-reply@sahanvi.com>",
+    to: user.email,
+    subject: "Reset your Sahanvi password",
+    html: `
+      <div style="font-family:Georgia,serif;max-width:520px;margin:0 auto;color:#2a1a0e;">
+        <h2 style="color:#5a2f1d;">Password Reset Request</h2>
+        <p>Hello ${user.name},</p>
+        <p>We received a request to reset the password for your Sahanvi account. Click the link below to set a new password:</p>
+        <p style="margin:24px 0;">
+          <a href="${resetLink}" style="background:#5a2f1d;color:#fff;padding:12px 28px;border-radius:6px;text-decoration:none;font-family:Inter,sans-serif;">Reset Password</a>
+        </p>
+        <p style="color:#9c8677;font-size:13px;">This link expires in 1 hour. If you did not request a password reset, you can safely ignore this email.</p>
+        <hr style="border:none;border-top:1px solid #eadbd0;margin:24px 0;" />
+        <p style="color:#9c8677;font-size:12px;">Sahanvi Handloom Sarees &mdash; Cherished Traditions, Timeless Elegance</p>
+      </div>
+    `
+  }).catch((err) => console.error("Reset email send failed:", err));
 }
 
 router.post("/register", async (req, res, next) => {
@@ -222,32 +235,10 @@ router.post("/forgot-password", async (req, res, next) => {
     user.resetPasswordExpires = new Date(Date.now() + 3600000); // 1 hour
     await user.save();
 
-    const frontendUrl = process.env.FRONTEND_URL || "https://www.sahanvi.com";
-    const resetLink = `${frontendUrl}/reset-password?token=${rawToken}`;
-
-    // Respond immediately — don't block on SMTP
+    // Respond immediately — don't block on the email send
     res.json({ message: "If that email is registered, a reset link has been sent." });
 
-    // Send email in background after responding
-    const transporter = makeTransporter();
-    transporter.sendMail({
-      from: `"Sahanvi Handloom" <${process.env.EMAIL_USER}>`,
-      to: user.email,
-      subject: "Reset your Sahanvi password",
-      html: `
-        <div style="font-family:Georgia,serif;max-width:520px;margin:0 auto;color:#2a1a0e;">
-          <h2 style="color:#5a2f1d;">Password Reset Request</h2>
-          <p>Hello ${user.name},</p>
-          <p>We received a request to reset the password for your Sahanvi account. Click the link below to set a new password:</p>
-          <p style="margin:24px 0;">
-            <a href="${resetLink}" style="background:#5a2f1d;color:#fff;padding:12px 28px;border-radius:6px;text-decoration:none;font-family:Inter,sans-serif;">Reset Password</a>
-          </p>
-          <p style="color:#9c8677;font-size:13px;">This link expires in 1 hour. If you did not request a password reset, you can safely ignore this email.</p>
-          <hr style="border:none;border-top:1px solid #eadbd0;margin:24px 0;" />
-          <p style="color:#9c8677;font-size:12px;">Sahanvi Handloom Sarees &mdash; Cherished Traditions, Timeless Elegance</p>
-        </div>
-      `
-    }).catch((err) => console.error("Reset email send failed:", err));
+    sendResetEmail(user, rawToken);
   } catch (error) {
     next(error);
   }
