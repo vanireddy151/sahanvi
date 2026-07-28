@@ -46,6 +46,9 @@ export default function LoginPage() {
 
       localStorage.setItem("sahanvi-auth", JSON.stringify({ token: data.token, user: data.user }));
       localStorage.setItem("sahanvi-customer-profile", JSON.stringify(data.user));
+      if (data.user.role === "admin") {
+        localStorage.setItem("sahanvi-admin-session", JSON.stringify({ token: data.token, user: data.user }));
+      }
       const hasPendingCart = movePendingItemToCart();
       const returnTo = new URLSearchParams(window.location.search).get("returnTo");
       window.location.href = returnTo || (hasPendingCart ? "/cart" : data.user.role === "admin" ? "/admin" : "/profile");
