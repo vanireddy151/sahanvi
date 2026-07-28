@@ -4,6 +4,7 @@ import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import PasswordInput from "../components/PasswordInput";
 import { apiUrl } from "../lib/api";
 
 function ResetPasswordForm() {
@@ -64,8 +65,7 @@ function ResetPasswordForm() {
           <form className="otp-form" onSubmit={handleSubmit}>
             <label>
               <span>New Password</span>
-              <input
-                type="password"
+              <PasswordInput
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Minimum 8 characters"
@@ -75,8 +75,7 @@ function ResetPasswordForm() {
             </label>
             <label>
               <span>Confirm Password</span>
-              <input
-                type="password"
+              <PasswordInput
                 value={confirm}
                 onChange={(e) => setConfirm(e.target.value)}
                 placeholder="Repeat your password"

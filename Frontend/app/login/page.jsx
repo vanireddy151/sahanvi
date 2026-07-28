@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Header from "../components/Header";
+import PasswordInput from "../components/PasswordInput";
 import { apiUrl } from "../lib/api";
 
 function movePendingItemToCart() {
@@ -83,7 +84,7 @@ export default function LoginPage() {
             </label>
             <label>
               <span>Password</span>
-              <input name="password" type="password" placeholder="Your password" required />
+              <PasswordInput name="password" placeholder="Your password" required />
               <a className="forgot-password-link" href="/forgot-password">Forgot password?</a>
             </label>
             <button className="checkout-primary" type="submit" disabled={loading}>

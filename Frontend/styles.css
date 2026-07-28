@@ -7398,3 +7398,38 @@ button {
     background: rgba(20, 11, 6, 0.42);
   }
 }
+
+.password-input-wrap {
+  position: relative;
+  display: block;
+}
+
+.password-input-wrap input {
+  width: 100%;
+  padding-right: 44px;
+}
+
+.password-toggle {
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 32px;
+  height: 32px;
+  border: 0;
+  display: grid;
+  place-items: center;
+  color: #8a7d74;
+  background: transparent;
+  cursor: pointer;
+}
+
+.password-toggle:hover,
+.password-toggle:focus-visible {
+  color: #5a2f1d;
+}
+
+.password-toggle svg {
+  width: 20px;
+  height: 20px;
+}

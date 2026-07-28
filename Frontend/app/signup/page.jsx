@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Header from "../components/Header";
+import PasswordInput from "../components/PasswordInput";
 import { apiUrl } from "../lib/api";
 
 export default function SignupPage() {
@@ -79,11 +80,11 @@ export default function SignupPage() {
                 </label>
                 <label>
                   <span>Password</span>
-                  <input name="password" type="password" placeholder="Minimum 8 characters" autoComplete="new-password" required />
+                  <PasswordInput name="password" placeholder="Minimum 8 characters" autoComplete="new-password" required />
                 </label>
                 <label>
                   <span>Confirm Password</span>
-                  <input name="confirmPassword" type="password" placeholder="Re-enter password" autoComplete="new-password" required />
+                  <PasswordInput name="confirmPassword" placeholder="Re-enter password" autoComplete="new-password" required />
                 </label>
                 <button className="checkout-primary" type="submit" disabled={loading}>
                   {loading ? "Creating account..." : "Create Account"}
