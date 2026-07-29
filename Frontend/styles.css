@@ -850,7 +850,7 @@ button {
 .collection-image {
   position: relative;
   min-height: 0;
-  aspect-ratio: 1 / 1.04;
+  aspect-ratio: 1 / 0.75;
   overflow: hidden;
   background: #eee;
   border-radius: var(--card-radius);
