@@ -121,6 +121,11 @@ export default function AdminPage() {
   const [dispatchForm, setDispatchForm] = useState({ courierName: "", trackingNumber: "" });
   const [dispatching, setDispatching] = useState(false);
   const [dispatchStatusMessage, setDispatchStatusMessage] = useState("");
+  const [testimonials, setTestimonials] = useState([]);
+  const [testimonialFile, setTestimonialFile] = useState(null);
+  const [testimonialCaption, setTestimonialCaption] = useState("");
+  const [testimonialUploading, setTestimonialUploading] = useState(false);
+  const [testimonialStatus, setTestimonialStatus] = useState("");
 
   useEffect(() => {
     const adminSession = JSON.parse(localStorage.getItem("sahanvi-admin-session") || "null");
@@ -177,6 +182,11 @@ export default function AdminPage() {
         const backendIds = new Set(normalized.map((order) => order.id));
         setOrders((current) => [...normalized, ...current.filter((order) => !backendIds.has(order.id))]);
       })
+      .catch(() => {});
+
+    fetch(apiUrl("/api/testimonials"))
+      .then((response) => (response.ok ? response.json() : []))
+      .then((items) => setTestimonials(Array.isArray(items) ? items : []))
       .catch(() => {});
   }, []);
 
@@ -323,6 +333,62 @@ export default function AdminPage() {
     }
   }
 
+  async function uploadTestimonial(event) {
+    event.preventDefault();
+    if (!testimonialFile) {
+      setTestimonialStatus("Please choose an image to upload.");
+      return;
+    }
+
+    setTestimonialUploading(true);
+    setTestimonialStatus("");
+    try {
+      const adminSession = JSON.parse(localStorage.getItem("sahanvi-admin-session") || "null");
+      const formData = new FormData();
+      formData.append("image", testimonialFile);
+      formData.append("caption", testimonialCaption);
+
+      const response = await fetch(apiUrl("/api/testimonials"), {
+        method: "POST",
+        headers: { Authorization: `Bearer ${adminSession?.token}` },
+        body: formData
+      });
+      const data = await response.json();
+
+      if (!response.ok) {
+        setTestimonialStatus(data.message || "Unable to upload this image.");
+        setTestimonialUploading(false);
+        return;
+      }
+
+      setTestimonials((current) => [...current, data]);
+      setTestimonialFile(null);
+      setTestimonialCaption("");
+      event.target.reset();
+      setTestimonialStatus("Photo added to Happy Customers.");
+    } catch {
+      setTestimonialStatus("Unable to connect. Please try again.");
+    } finally {
+      setTestimonialUploading(false);
+    }
+  }
+
+  async function removeTestimonial(id) {
+    if (!window.confirm("Remove this photo from Happy Customers?")) return;
+
+    try {
+      const adminSession = JSON.parse(localStorage.getItem("sahanvi-admin-session") || "null");
+      const response = await fetch(apiUrl(`/api/testimonials/${id}`), {
+        method: "DELETE",
+        headers: { Authorization: `Bearer ${adminSession?.token}` }
+      });
+      if (!response.ok) return;
+      setTestimonials((current) => current.filter((item) => item._id !== id));
+    } catch {
+      setTestimonialStatus("Unable to remove this photo right now.");
+    }
+  }
+
   async function submit(event) {
     event.preventDefault();
     const nextSaree = {
@@ -457,7 +523,8 @@ export default function AdminPage() {
               ["upload", "Upload"],
               ["sold", "Sold Out"],
               ["available", "Available Stock"],
-              ["inquiries", "Inquiries"]
+              ["inquiries", "Inquiries"],
+              ["customers", "Happy Customers"]
             ].map(([key, label]) => (
               <button
                 aria-pressed={activeTab === key}
@@ -686,6 +753,49 @@ export default function AdminPage() {
                 </div>
               </article>
             ))}
+          </section> : null}
+
+          {activeTab === "customers" ? <section className="admin-orders admin-testimonials">
+            <div className="admin-section-heading">
+              <h2>Happy Customers</h2>
+              <p>Photos shown in the "Happy Customers" section on the home page.</p>
+            </div>
+
+            <form className="admin-testimonial-form" onSubmit={uploadTestimonial}>
+              <label>
+                <span>Photo</span>
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={(event) => setTestimonialFile(event.target.files?.[0] || null)}
+                  required
+                />
+              </label>
+              <label>
+                <span>Caption <small>(optional)</small></span>
+                <input
+                  value={testimonialCaption}
+                  onChange={(event) => setTestimonialCaption(event.target.value)}
+                  placeholder="e.g. A Sahanvi client in a Gadwal saree"
+                />
+              </label>
+              <button className="checkout-primary" type="submit" disabled={testimonialUploading}>
+                {testimonialUploading ? "Uploading…" : "Add Photo"}
+              </button>
+              {testimonialStatus ? <p className="admin-status">{testimonialStatus}</p> : null}
+            </form>
+
+            <div className="admin-testimonial-grid">
+              {!testimonials.length ? (
+                <div className="admin-empty">No photos added yet. Upload one above to show it on the home page.</div>
+              ) : testimonials.map((item) => (
+                <article className="admin-testimonial-card" key={item._id}>
+                  <img src={apiUrl(item.imageUrl)} alt={item.caption || "Happy customer"} />
+                  {item.caption ? <p>{item.caption}</p> : null}
+                  <button type="button" onClick={() => removeTestimonial(item._id)}>Remove</button>
+                </article>
+              ))}
+            </div>
           </section> : null}
         </main>
       )}

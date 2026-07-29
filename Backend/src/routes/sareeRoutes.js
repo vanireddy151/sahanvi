@@ -1,8 +1,7 @@
-const path = require("path");
 const express = require("express");
-const multer = require("multer");
 const Saree = require("../models/Saree");
 const { requireAdmin } = require("../middleware/auth");
+const upload = require("../middleware/upload");
 
 const router = express.Router();
 
@@ -23,31 +22,6 @@ function parseList(value) {
 function parseBoolean(value) {
   return value === true || value === "true" || value === "on";
 }
-
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, path.join(__dirname, "../../uploads"));
-  },
-  filename: (req, file, cb) => {
-    const safeName = file.originalname.replace(/[^a-z0-9.]/gi, "-").toLowerCase();
-    cb(null, `${Date.now()}-${safeName}`);
-  }
-});
-
-const upload = multer({
-  storage,
-  limits: {
-    fileSize: 8 * 1024 * 1024
-  },
-  fileFilter: (req, file, cb) => {
-    if (!file.mimetype.startsWith("image/")) {
-      cb(new Error("Only image uploads are allowed."));
-      return;
-    }
-
-    cb(null, true);
-  }
-});
 
 router.get("/", async (req, res, next) => {
   try {

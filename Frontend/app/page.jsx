@@ -4,10 +4,26 @@ import HeroVideo from "./components/HeroVideo";
 import ProductCard from "./components/ProductCard";
 import { media } from "./data/media";
 import { collectionItems, products } from "./data/products";
+import { apiUrl } from "./lib/api";
 
 const categoryLinks = ["Kanjivaram Silks", "Gadwal Pattu", "Pochampally", "Organza"];
 
-export default function HomePage() {
+export const revalidate = 60;
+
+async function getTestimonials() {
+  try {
+    const response = await fetch(apiUrl("/api/testimonials"), { next: { revalidate: 60 } });
+    if (!response.ok) return [];
+    const data = await response.json();
+    return Array.isArray(data) ? data : [];
+  } catch {
+    return [];
+  }
+}
+
+export default async function HomePage() {
+  const testimonials = await getTestimonials();
+
   return (
     <div className="next-page home-page" style={{ "--home-bg-image": `url("${media.homeSliderImage}")` }}>
       <Header />
@@ -95,6 +111,22 @@ export default function HomePage() {
             ))}
           </div>
         </section>
+
+        {testimonials.length ? (
+          <section className="happy-customers" id="happy-customers">
+            <div className="section-heading">
+              <h2>Happy Customers</h2>
+              <p>Real moments, real elegance from the Sahanvi family</p>
+            </div>
+            <div className="happy-customers-grid">
+              {testimonials.map((item) => (
+                <div className="happy-customer-card" key={item._id}>
+                  <img src={apiUrl(item.imageUrl)} alt={item.caption || "A Sahanvi client"} />
+                </div>
+              ))}
+            </div>
+          </section>
+        ) : null}
       </main>
       <Footer />
     </div>
