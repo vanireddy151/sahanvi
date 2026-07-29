@@ -3037,8 +3037,8 @@ button {
 .admin-hero h1 {
   max-width: 900px;
   color: #18110d;
-  font-size: clamp(34px, 3.7vw, 56px);
-  line-height: 0.98;
+  font-size: clamp(17px, 1.85vw, 28px);
+  line-height: 1.05;
 }
 
 .admin-metrics {
@@ -3061,7 +3061,7 @@ button {
 
 .admin-metrics span {
   color: #5a2f1d;
-  font-size: clamp(30px, 3vw, 42px);
+  font-size: clamp(15px, 1.5vw, 21px);
 }
 
 .admin-metrics p {
@@ -7644,19 +7644,32 @@ button {
   border-top: 1px solid var(--hairline);
 }
 
+.happy-customers-slider {
+  position: relative;
+}
+
 .happy-customers-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 28px;
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  gap: 24px;
+  padding: 4px 2px 14px;
+  scrollbar-width: none;
+}
+
+.happy-customers-grid::-webkit-scrollbar {
+  display: none;
 }
 
 .happy-customer-card {
   position: relative;
+  flex: 0 0 300px;
   aspect-ratio: 4 / 5;
   overflow: hidden;
   border-radius: var(--card-radius);
   background: #eee8df;
   box-shadow: 0 14px 34px rgba(67, 43, 31, 0.1);
+  scroll-snap-align: start;
 }
 
 .happy-customer-card img {
@@ -7667,9 +7680,47 @@ button {
   object-position: center top;
 }
 
+.happy-customers-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--hairline);
+  border-radius: 50%;
+  color: #3b2012;
+  background: #fff;
+  box-shadow: 0 10px 24px rgba(67, 43, 31, 0.16);
+  cursor: pointer;
+}
+
+.happy-customers-arrow svg {
+  width: 20px;
+  height: 20px;
+}
+
+.happy-customers-arrow-prev {
+  left: -22px;
+}
+
+.happy-customers-arrow-next {
+  right: -22px;
+}
+
 @media (max-width: 960px) {
-  .happy-customers-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  .happy-customer-card {
+    flex-basis: 260px;
+  }
+
+  .happy-customers-arrow-prev {
+    left: -14px;
+  }
+
+  .happy-customers-arrow-next {
+    right: -14px;
   }
 }
 
@@ -7678,14 +7729,27 @@ button {
     padding: 24px 18px 54px;
   }
 
-  .happy-customers-grid {
-    grid-template-columns: 1fr;
-    gap: 20px;
+  .happy-customer-card {
+    flex-basis: 78vw;
+    max-width: 320px;
   }
 
-  .happy-customer-card {
-    max-width: 360px;
-    margin: 0 auto;
+  .happy-customers-arrow {
+    width: 36px;
+    height: 36px;
+  }
+
+  .happy-customers-arrow svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .happy-customers-arrow-prev {
+    left: -6px;
+  }
+
+  .happy-customers-arrow-next {
+    right: -6px;
   }
 }
 

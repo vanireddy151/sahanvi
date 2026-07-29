@@ -365,7 +365,7 @@ export default function AdminPage() {
       setTestimonialFile(null);
       setTestimonialCaption("");
       event.target.reset();
-      setTestimonialStatus("Photo added to Happy Customers.");
+      setTestimonialStatus("Photo added to Client Diaries.");
     } catch {
       setTestimonialStatus("Unable to connect. Please try again.");
     } finally {
@@ -374,7 +374,7 @@ export default function AdminPage() {
   }
 
   async function removeTestimonial(id) {
-    if (!window.confirm("Remove this photo from Happy Customers?")) return;
+    if (!window.confirm("Remove this photo from Client Diaries?")) return;
 
     try {
       const adminSession = JSON.parse(localStorage.getItem("sahanvi-admin-session") || "null");
@@ -524,7 +524,7 @@ export default function AdminPage() {
               ["sold", "Sold Out"],
               ["available", "Available Stock"],
               ["inquiries", "Inquiries"],
-              ["customers", "Happy Customers"]
+              ["customers", "Client Diaries"]
             ].map(([key, label]) => (
               <button
                 aria-pressed={activeTab === key}
@@ -757,8 +757,8 @@ export default function AdminPage() {
 
           {activeTab === "customers" ? <section className="admin-orders admin-testimonials">
             <div className="admin-section-heading">
-              <h2>Happy Customers</h2>
-              <p>Photos shown in the "Happy Customers" section on the home page.</p>
+              <h2>Client Diaries</h2>
+              <p>Photos shown in the "Client Diaries" section on the home page.</p>
             </div>
 
             <form className="admin-testimonial-form" onSubmit={uploadTestimonial}>

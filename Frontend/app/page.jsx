@@ -2,6 +2,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import HeroVideo from "./components/HeroVideo";
 import ProductCard from "./components/ProductCard";
+import ClientDiariesSlider from "./components/ClientDiariesSlider";
 import { media } from "./data/media";
 import { collectionItems, products } from "./data/products";
 import { apiUrl } from "./lib/api";
@@ -115,16 +116,10 @@ export default async function HomePage() {
         {testimonials.length ? (
           <section className="happy-customers" id="happy-customers">
             <div className="section-heading">
-              <h2>Happy Customers</h2>
-              <p>Real moments, real elegance from the Sahanvi family</p>
+              <h2>Client Diaries</h2>
+              <p>Real moments, Real elegance.</p>
             </div>
-            <div className="happy-customers-grid">
-              {testimonials.map((item) => (
-                <div className="happy-customer-card" key={item._id}>
-                  <img src={apiUrl(item.imageUrl)} alt={item.caption || "A Sahanvi client"} />
-                </div>
-              ))}
-            </div>
+            <ClientDiariesSlider testimonials={testimonials} />
           </section>
         ) : null}
       </main>
