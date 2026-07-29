@@ -7632,6 +7632,7 @@ button {
 
   .collection-image {
     aspect-ratio: 1 / 1.11;
+    min-height: 0;
   }
 
   .collection-card h3 {
