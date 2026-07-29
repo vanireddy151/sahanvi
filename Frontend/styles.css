@@ -7846,3 +7846,14 @@ button {
     grid-template-columns: 1fr;
   }
 }
+
+/* The footer's 4-column base grid (min 300/160/230/310px + gaps) needs
+   ~1150px+ to fit without overflowing. The existing collapse only
+   fires at <=960px, leaving a gap through typical tablet-landscape
+   and small-laptop widths (e.g. 1024px) where it overflows sideways. */
+@media (min-width: 961px) and (max-width: 1279px) {
+  .site-footer {
+    grid-template-columns: repeat(2, minmax(260px, 1fr));
+    gap: 36px 60px;
+  }
+}
