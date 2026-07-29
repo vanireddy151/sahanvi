@@ -7613,26 +7613,30 @@ button {
 
 @media (max-width: 640px) {
   .collection-gallery {
-    display: flex;
-    grid-template-columns: none;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    gap: 0;
-    margin-inline: -20px;
-    padding: 4px 20px 10px;
-    scrollbar-width: none;
-  }
-
-  .collection-gallery::-webkit-scrollbar {
-    display: none;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+    overflow-x: visible;
+    scroll-snap-type: none;
+    margin-inline: 0;
+    padding: 0;
   }
 
   .collection-gallery .collection-card {
     box-sizing: border-box;
-    flex: 0 0 100%;
-    max-width: 480px;
-    padding-right: 16px;
-    scroll-snap-align: start;
+    flex: none;
+    max-width: none;
+    padding-right: 0;
+    scroll-snap-align: none;
+  }
+
+  .collection-image {
+    aspect-ratio: 1 / 1.11;
+  }
+
+  .collection-card h3 {
+    font-size: 15px;
+    white-space: normal;
   }
 }
 
