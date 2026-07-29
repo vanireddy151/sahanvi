@@ -647,83 +647,22 @@ export default function AdminPage() {
             </div>
             {!soldItems.length ? (
               <div className="admin-empty">No sold sarees yet. Sold items will appear here after customers place orders.</div>
-            ) : soldItems.map((item, index) => {
-              const key = `${item.orderId}-${item.code || index}`;
-              const isTrackable = item.orderId !== "Manual";
-              const isExpanded = expandedOrderId === key;
-              const isDispatched = item.dispatchStatus === "dispatched";
-
-              return (
-                <article className="admin-order-card admin-order-card-block" key={key}>
-                  <div className="admin-order-card-row">
-                    {item.image ? <img src={item.image} alt={item.name || "Sold saree"} /> : null}
-                    <div>
-                      <h3>{item.name || "Sahanvi Saree"}</h3>
-                      <p>{item.code || item.orderId} · Order {item.orderId}</p>
-                      <p>{item.customer?.name} · {item.customer?.phone}</p>
-                      <p>{item.delivery?.address}</p>
-                    </div>
-                    <div>
-                      <strong>{isDispatched ? "Dispatched" : item.status}</strong>
-                      <span>{isDispatched ? item.courierName : "Sold"}</span>
-                      <span>₹{priceNumber(item.price).toLocaleString("en-IN")}</span>
-                      {isTrackable ? (
-                        <button type="button" className="admin-order-explore" onClick={() => toggleExploreOrder(key)}>
-                          {isExpanded ? "Close" : "Explore Order"}
-                        </button>
-                      ) : null}
-                    </div>
-                  </div>
-
-                  {isExpanded ? (
-                    <div className="admin-order-details">
-                      <div className="admin-order-details-grid">
-                        <div><dt>Customer</dt><dd>{item.customer?.name || "—"}</dd></div>
-                        <div><dt>Email</dt><dd>{item.customer?.email || "—"}</dd></div>
-                        <div><dt>Phone</dt><dd>{item.customer?.phone || "—"}</dd></div>
-                        <div><dt>Delivery Address</dt><dd>{item.delivery?.address || "—"}</dd></div>
-                      </div>
-
-                      {isDispatched ? (
-                        <div className="admin-dispatch-confirmed">
-                          <strong>Dispatched</strong>
-                          <p>Courier: {item.courierName} · Tracking Number: {item.trackingNumber}</p>
-                          {item.dispatchedAt ? <p>Dispatched on {new Date(item.dispatchedAt).toLocaleString("en-IN")}</p> : null}
-                        </div>
-                      ) : (
-                        <div className="admin-dispatch-form">
-                          <label>
-                            <span>Courier Name</span>
-                            <input
-                              value={dispatchForm.courierName}
-                              onChange={(event) => setDispatchForm((current) => ({ ...current, courierName: event.target.value }))}
-                              placeholder="e.g. Blue Dart, Delhivery"
-                            />
-                          </label>
-                          <label>
-                            <span>Tracking Number</span>
-                            <input
-                              value={dispatchForm.trackingNumber}
-                              onChange={(event) => setDispatchForm((current) => ({ ...current, trackingNumber: event.target.value }))}
-                              placeholder="Courier tracking number"
-                            />
-                          </label>
-                          <button
-                            type="button"
-                            className="checkout-primary"
-                            disabled={dispatching}
-                            onClick={() => markDispatched(item.orderMongoId)}
-                          >
-                            {dispatching ? "Confirming…" : "Confirm Dispatch"}
-                          </button>
-                        </div>
-                      )}
-                      {dispatchStatusMessage ? <p className="admin-status">{dispatchStatusMessage}</p> : null}
-                    </div>
-                  ) : null}
-                </article>
-              );
-            })}
+            ) : soldItems.map((item, index) => (
+              <article className="admin-order-card" key={`${item.orderId}-${item.code || index}`}>
+                {item.image ? <img src={item.image} alt={item.name || "Sold saree"} /> : null}
+                <div>
+                  <h3>{item.name || "Sahanvi Saree"}</h3>
+                  <p>{item.code || item.orderId} · Order {item.orderId}</p>
+                  <p>{item.customer?.name} · {item.customer?.phone}</p>
+                  <p>{item.delivery?.address}</p>
+                </div>
+                <div>
+                  <strong>{item.status}</strong>
+                  <span>Sold</span>
+                  <span>₹{priceNumber(item.price).toLocaleString("en-IN")}</span>
+                </div>
+              </article>
+            ))}
           </section> : null}
 
           {activeTab === "inquiries" ? <section className="admin-orders">
