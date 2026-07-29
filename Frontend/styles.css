@@ -7401,12 +7401,25 @@ button {
   }
 
   .home-page .product-image {
-    aspect-ratio: 1 / 0.82;
+    aspect-ratio: 1 / 1.11;
     min-height: 0;
   }
 
   .home-page .product-card-title {
     white-space: normal;
+    font-size: 9.75px;
+  }
+
+  .home-page .product-card-code {
+    font-size: 8.25px;
+  }
+
+  .home-page .product-price {
+    font-size: 9px;
+  }
+
+  .home-page .product-price-original {
+    font-size: 8.25px;
   }
 }
 
@@ -7604,7 +7617,7 @@ button {
     grid-template-columns: none;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
-    gap: 16px;
+    gap: 0;
     margin-inline: -20px;
     padding: 4px 20px 10px;
     scrollbar-width: none;
@@ -7615,8 +7628,10 @@ button {
   }
 
   .collection-gallery .collection-card {
-    flex: 0 0 78vw;
-    max-width: 320px;
+    box-sizing: border-box;
+    flex: 0 0 100%;
+    max-width: 480px;
+    padding-right: 16px;
     scroll-snap-align: start;
   }
 }
