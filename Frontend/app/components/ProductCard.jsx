@@ -194,11 +194,7 @@ export default function ProductCard({
           <button className="product-modal-backdrop" type="button" aria-label="Close product details" onClick={() => setIsOpen(false)} />
           <div className="product-modal-panel">
             <button className="product-modal-close" type="button" aria-label="Close product details" onClick={() => setIsOpen(false)}>×</button>
-            <div className="product-modal-image">
-              <img src={activeImage} alt={sareeName} />
-              <span className="product-badge">New Arrival</span>
-            </div>
-            <div className="product-modal-copy">
+            <div className="product-modal-image-col">
               {gallery.length > 1 ? (
                 <div className="product-modal-thumbs">
                   {gallery.map((thumb) => (
@@ -214,6 +210,12 @@ export default function ProductCard({
                   ))}
                 </div>
               ) : null}
+              <div className="product-modal-image">
+                <img src={activeImage} alt={sareeName} />
+                <span className="product-badge">New Arrival</span>
+              </div>
+            </div>
+            <div className="product-modal-copy">
               <button type="button" className="product-modal-wishlist" onClick={addItemToWishlist} aria-label="Save to wishlist">
                 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 5.9c-1.5-1.8-4.2-1.7-5.8.1L12 9.1 9 6C7.4 4.2 4.7 4.1 3.2 5.9 1.6 7.8 2 10.6 3.8 12.3L12 20l8.2-7.7c1.8-1.7 2.2-4.5.6-6.4Z" fill="none" stroke="currentColor" strokeWidth="1.6" /></svg>
               </button>

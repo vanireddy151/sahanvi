@@ -1224,8 +1224,16 @@ button {
   cursor: pointer;
 }
 
+.product-modal-image-col {
+  display: flex;
+  gap: 10px;
+  min-width: 0;
+}
+
 .product-modal-image {
   position: relative;
+  flex: 1;
+  min-width: 0;
   min-height: 420px;
   overflow: hidden;
   background: #eaded2;
@@ -1234,8 +1242,10 @@ button {
 
 .product-modal-thumbs {
   display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
   gap: 8px;
-  margin: 0 0 18px;
+  margin: 0;
 }
 
 .product-modal-thumb {
@@ -1349,11 +1359,6 @@ button {
   height: 6px;
   border-radius: 50%;
   background: var(--gold, #b5913a);
-}
-
-.product-buy-now,
-.product-add-cart {
-  flex: 1 1 0;
 }
 
 .product-added-message {
@@ -3610,14 +3615,14 @@ button {
 .product-modal-actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 0;
 }
 
 .product-modal-actions a,
 .product-modal-actions button {
-  min-height: 44px;
+  min-height: 46px;
   border: 1px solid var(--brick-dark);
-  border-radius: 999px;
+  border-radius: 0;
   padding: 11px 18px;
   color: #fff;
   background: var(--brick-dark);
@@ -3629,6 +3634,19 @@ button {
 .product-modal-actions button:nth-child(n + 2) {
   color: var(--brick-dark);
   background: var(--paper);
+}
+
+.product-buy-now {
+  flex: 1.5 1 0;
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+}
+
+.product-add-cart {
+  flex: 1 1 0;
+  margin-left: -1px;
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
 }
 
 .order-summary-box {

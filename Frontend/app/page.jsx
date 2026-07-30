@@ -23,8 +23,38 @@ async function getTestimonials() {
   }
 }
 
+async function getNewArrivals() {
+  try {
+    const response = await fetch(apiUrl("/api/sarees"), { next: { revalidate: 60 } });
+    if (!response.ok) return [];
+    const sarees = await response.json();
+    if (!Array.isArray(sarees)) return [];
+
+    return sarees
+      .filter((saree) => saree.isNewArrival !== false)
+      .filter((saree) => !["sold", "hidden"].includes(String(saree.availability || "available").toLowerCase()))
+      .map((saree) => ({
+        name: saree.name || `Saree ${saree.code || ""}`.trim(),
+        code: saree.code || "",
+        price: saree.price ? `₹${Number(saree.price).toLocaleString("en-IN")}` : "₹0",
+        image: saree.imageUrl || media.bannerPerson,
+        palluImageUrl: saree.palluImageUrl || "",
+        borderImageUrl: saree.borderImageUrl || "",
+        bodyImageUrl: saree.bodyImageUrl || "",
+        fabric: saree.fabric || "",
+        occasion: saree.occasion || ""
+      }));
+  } catch {
+    return [];
+  }
+}
+
 export default async function HomePage() {
   const testimonials = await getTestimonials();
+  const stockArrivals = await getNewArrivals();
+  const newArrivals = stockArrivals.length
+    ? stockArrivals
+    : products.map(([name, price, image]) => ({ name, code: "", price, image, palluImageUrl: "", borderImageUrl: "", bodyImageUrl: "", fabric: "", occasion: "" }));
 
   return (
     <div className="next-page home-page" style={{ "--home-bg-image": `url("${media.homeSliderImage}")` }}>
@@ -108,8 +138,18 @@ export default async function HomePage() {
             <p>Handpicked sarees with timeless weaves and graceful details</p>
           </div>
           <div className="product-grid">
-            {products.map(([name, price, image]) => (
-              <ProductCard key={name} name={name} price={price} image={image} />
+            {newArrivals.map((item, index) => (
+              <ProductCard
+                key={`${item.name}-${index}`}
+                name={item.name}
+                price={item.price}
+                image={item.image}
+                palluImageUrl={item.palluImageUrl}
+                borderImageUrl={item.borderImageUrl}
+                bodyImageUrl={item.bodyImageUrl}
+                fabric={item.fabric}
+                occasion={item.occasion}
+              />
             ))}
           </div>
         </section>
