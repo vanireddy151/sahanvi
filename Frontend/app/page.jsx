@@ -3,6 +3,7 @@ import Footer from "./components/Footer";
 import HeroVideo from "./components/HeroVideo";
 import ProductCard from "./components/ProductCard";
 import ClientDiariesSlider from "./components/ClientDiariesSlider";
+import CollectionCardLink from "./components/CollectionCardLink";
 import { media } from "./data/media";
 import { collectionItems, products } from "./data/products";
 import { apiUrl } from "./lib/api";
@@ -90,13 +91,13 @@ export default async function HomePage() {
           </div>
           <div className="collection-gallery">
             {collectionItems.map(([name], index) => (
-              <a className="collection-card" href={`/${encodeURIComponent(categoryLinks[index % categoryLinks.length])}`} key={`${name}-${index}`}>
+              <CollectionCardLink className="collection-card" href={`/${encodeURIComponent(categoryLinks[index % categoryLinks.length])}`} key={`${name}-${index}`}>
                 <div className="collection-image">
                   <img src={index % 2 ? media.bannerPerson2 : media.bannerPerson} alt={name} />
                 </div>
                 <h3>{name.replace(/ S\d+$/, "")}</h3>
                 <p>{name.match(/S\d+$/)?.[0]}</p>
-              </a>
+              </CollectionCardLink>
             ))}
           </div>
         </section>
