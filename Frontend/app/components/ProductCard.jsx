@@ -26,6 +26,7 @@ export default function ProductCard({
   const [otpSent, setOtpSent] = useState(false);
   const [otp, setOtp] = useState("");
   const [activeImage, setActiveImage] = useState(image);
+  const [addedMessage, setAddedMessage] = useState("");
   const splashTimers = useRef([]);
   const code = name.match(/S\d+$/)?.[0] || "";
   const sareeName = name.replace(/\sS\d+$/, "");
@@ -40,6 +41,7 @@ export default function ProductCard({
   function openModal() {
     setActiveImage(image);
     setIsOpen(true);
+    setAddedMessage("");
     setSplashPhase("visible");
     clearSplashTimers();
     splashTimers.current = [
@@ -96,6 +98,18 @@ export default function ProductCard({
     if (auth?.user) {
       addItemToCart();
       window.location.href = "/cart";
+      return;
+    }
+
+    savePendingCartItem();
+    setCheckoutOpen(true);
+  }
+
+  function addToCartStay() {
+    const auth = getAuth();
+    if (auth?.user) {
+      addItemToCart();
+      setAddedMessage("Added to cart.");
       return;
     }
 
@@ -200,23 +214,41 @@ export default function ProductCard({
                   ))}
                 </div>
               ) : null}
+              <button type="button" className="product-modal-wishlist" onClick={addItemToWishlist} aria-label="Save to wishlist">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 5.9c-1.5-1.8-4.2-1.7-5.8.1L12 9.1 9 6C7.4 4.2 4.7 4.1 3.2 5.9 1.6 7.8 2 10.6 3.8 12.3L12 20l8.2-7.7c1.8-1.7 2.2-4.5.6-6.4Z" fill="none" stroke="currentColor" strokeWidth="1.6" /></svg>
+              </button>
               <p className="product-modal-kicker">Sahanvi New Arrival</p>
               <h2>{sareeName}</h2>
               <p className="product-modal-code">{code}</p>
-              <p className="product-modal-price">{price}</p>
+              <div className="product-modal-price-row">
+                <span className="product-modal-price">{price}</span>
+                <span className="product-modal-price-original">{originalPriceFor(price)}</span>
+                <span className="product-modal-discount">5% Off</span>
+              </div>
               <p className="product-modal-note">Handpicked saree with graceful detailing and timeless handloom-inspired elegance.</p>
+
+              <p className="product-modal-section-label">Specifications</p>
               <dl className="product-detail-list">
                 <div><dt>Fabric</dt><dd>{fabric || "Silk blend with handloom-inspired finish"}</dd></div>
                 <div><dt>Occasion</dt><dd>{occasion || "Wedding, festive, gifting, and elegant celebrations"}</dd></div>
                 <div><dt>Includes</dt><dd>Saree with blouse piece where applicable</dd></div>
                 <div><dt>Care</dt><dd>Dry clean recommended</dd></div>
               </dl>
+
+              <p className="product-modal-section-label">Delivery &amp; Shipping</p>
+              <ul className="product-delivery-info">
+                <li>Free shipping across India</li>
+                <li>Estimated delivery in 5&ndash;7 business days</li>
+                <li>Cash on delivery available on select pin codes</li>
+              </ul>
+
               <p className="product-service-points">Secure checkout &middot; Carefully packed &middot; Easy returns</p>
               <div className="product-modal-actions">
-                <button type="button" onClick={startCartCheckout}>Add to Cart</button>
-                <button type="button" onClick={addItemToWishlist}>Save Wishlist</button>
-                <a href="/cart">View Cart</a>
+                <button type="button" className="product-buy-now" onClick={startCartCheckout}>Buy it now</button>
+                <button type="button" className="product-add-cart" onClick={addToCartStay}>Add to Cart</button>
               </div>
+              {addedMessage ? <p className="product-added-message">{addedMessage}</p> : null}
+              <a className="product-modal-view-cart" href="/cart">View Cart</a>
             </div>
           </div>
         </div>
