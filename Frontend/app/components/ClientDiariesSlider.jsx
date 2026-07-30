@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { apiUrl } from "../lib/api";
+import { resolveImageUrl } from "../lib/api";
 
 export default function ClientDiariesSlider({ testimonials }) {
   const trackRef = useRef(null);
@@ -28,7 +28,7 @@ export default function ClientDiariesSlider({ testimonials }) {
       <div className="happy-customers-grid" ref={trackRef}>
         {testimonials.map((item) => (
           <div className="happy-customer-card" key={item._id}>
-            <img src={apiUrl(item.imageUrl)} alt={item.caption || "A Sahanvi client"} />
+            <img src={resolveImageUrl(item.imageUrl)} alt={item.caption || "A Sahanvi client"} />
           </div>
         ))}
       </div>

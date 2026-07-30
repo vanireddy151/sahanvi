@@ -1,7 +1,7 @@
 "use client";
 
 import Header from "../components/Header";
-import { apiUrl } from "../lib/api";
+import { apiUrl, resolveImageUrl } from "../lib/api";
 import { menus } from "../data/navigation";
 import { useEffect, useMemo, useState } from "react";
 
@@ -790,7 +790,7 @@ export default function AdminPage() {
                 <div className="admin-empty">No photos added yet. Upload one above to show it on the home page.</div>
               ) : testimonials.map((item) => (
                 <article className="admin-testimonial-card" key={item._id}>
-                  <img src={apiUrl(item.imageUrl)} alt={item.caption || "Happy customer"} />
+                  <img src={resolveImageUrl(item.imageUrl)} alt={item.caption || "Happy customer"} />
                   {item.caption ? <p>{item.caption}</p> : null}
                   <button type="button" onClick={() => removeTestimonial(item._id)}>Remove</button>
                 </article>

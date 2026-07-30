@@ -1,11 +1,23 @@
-const fs = require("fs");
-const path = require("path");
 const express = require("express");
 const Testimonial = require("../models/Testimonial");
 const { requireAdmin } = require("../middleware/auth");
-const upload = require("../middleware/upload");
+const uploadMemory = require("../middleware/uploadMemory");
+const cloudinary = require("../utils/cloudinary");
 
 const router = express.Router();
+
+function uploadToCloudinary(buffer) {
+  return new Promise((resolve, reject) => {
+    const stream = cloudinary.uploader.upload_stream(
+      { folder: "sahanvi/client-diaries" },
+      (error, result) => {
+        if (error) reject(error);
+        else resolve(result);
+      }
+    );
+    stream.end(buffer);
+  });
+}
 
 router.get("/", async (req, res, next) => {
   try {
@@ -16,15 +28,18 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-router.post("/", requireAdmin, upload.single("image"), async (req, res, next) => {
+router.post("/", requireAdmin, uploadMemory.single("image"), async (req, res, next) => {
   try {
     if (!req.file) {
       res.status(400).json({ message: "An image file is required." });
       return;
     }
 
+    const result = await uploadToCloudinary(req.file.buffer);
+
     const testimonial = await Testimonial.create({
-      imageUrl: `/uploads/${req.file.filename}`,
+      imageUrl: result.secure_url,
+      imagePublicId: result.public_id,
       caption: req.body.caption || ""
     });
 
@@ -42,9 +57,8 @@ router.delete("/:id", requireAdmin, async (req, res, next) => {
       return;
     }
 
-    if (testimonial.imageUrl.startsWith("/uploads/")) {
-      const filePath = path.join(__dirname, "../../uploads", path.basename(testimonial.imageUrl));
-      fs.unlink(filePath, () => {});
+    if (testimonial.imagePublicId) {
+      cloudinary.uploader.destroy(testimonial.imagePublicId).catch(() => {});
     }
 
     res.json({ message: "Testimonial removed." });
