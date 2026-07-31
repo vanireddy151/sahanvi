@@ -7380,12 +7380,45 @@ button {
     overflow: hidden;
   }
 
-  .home-page .mobile-hero-banner img {
+  .home-page .mobile-hero-track {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .home-page .mobile-hero-track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .home-page .mobile-hero-slide {
+    position: relative;
+    flex: 0 0 100%;
+    width: 100%;
+    height: 100%;
+    scroll-snap-align: start;
+  }
+
+  .home-page .mobile-hero-banner img,
+  .home-page .mobile-hero-banner video {
     width: 100%;
     height: 100%;
     display: block;
     object-fit: cover;
     object-position: center 20%;
+    background: #000;
+  }
+
+  .home-page .mobile-hero-banner .slider-dots {
+    bottom: 14px;
+  }
+
+  .home-page .mobile-hero-banner .slider-dots .active {
+    background: var(--gold, #b5913a);
   }
 
   .home-page .mobile-hero-banner-overlay {

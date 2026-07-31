@@ -1,6 +1,7 @@
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import HeroVideo from "./components/HeroVideo";
+import MobileHeroSlider from "./components/MobileHeroSlider";
 import ProductCard from "./components/ProductCard";
 import ClientDiariesSlider from "./components/ClientDiariesSlider";
 import CollectionCardLink from "./components/CollectionCardLink";
@@ -71,14 +72,12 @@ export default async function HomePage() {
             <HeroVideo src={media.storyVideo} />
           </div>
 
-          <div className="mobile-hero-banner">
-            <img src={media.homeSliderImage} alt="Sahanvi handloom sarees" />
-            <div className="mobile-hero-banner-overlay" />
-            <div className="mobile-hero-banner-copy">
-              <p>Every thread tells a story</p>
-              <h2>EVERY MOTIF CARRIES A LEGACY</h2>
-            </div>
-          </div>
+          <MobileHeroSlider
+            image={media.homeSliderImage}
+            kicker="Every thread tells a story"
+            title="EVERY MOTIF CARRIES A LEGACY"
+            videoSrc={media.mobileHeroVideo2}
+          />
         </section>
 
         <section className="trust-strip" aria-label="Why shop with Sahanvi">

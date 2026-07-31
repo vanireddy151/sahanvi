@@ -5,6 +5,7 @@ const directFlower = "https://res.cloudinary.com/djgftgg1d/image/upload/v1780300
 const directBannerPerson = "https://res.cloudinary.com/djgftgg1d/image/upload/v1780300399/sahanvi-banner-person_cesgfp.jpg";
 const directBannerPerson2 = "https://res.cloudinary.com/djgftgg1d/image/upload/v1780300400/sahanvi-banner-person-2_ajfxna.jpg";
 const directStoryVideo = "https://res.cloudinary.com/djgftgg1d/video/upload/v1780300416/sahanvi-story-video_qfphet.mov";
+const directMobileHeroVideo2 = "https://res.cloudinary.com/lbiyuajc/video/upload/c_limit,q_auto,vc_auto,w_800/v1785476497/sahanvi/hero/mobile-hero-slide-2.mp4";
 const directKalamkariSaree = "";
 const directPaithaniYellowSaree = "";
 
@@ -25,5 +26,6 @@ export const media = {
   homeSliderImage: "/assets/banaras-saree-slide.jpeg",
   kalamkariSaree: directKalamkariSaree || (cloudName ? directBannerPerson2 : "/assets/sahanvi-banner-person-2.jpeg"),
   paithaniYellowSaree: directPaithaniYellowSaree || (cloudName ? directBannerPerson2 : "/assets/sahanvi-banner-person-2.jpeg"),
-  storyVideo: cloudName ? directStoryVideo : "/assets/sahanvi-story-video.mov"
+  storyVideo: cloudName ? directStoryVideo : "/assets/sahanvi-story-video.mov",
+  mobileHeroVideo2: directMobileHeroVideo2
 };
