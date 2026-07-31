@@ -7398,16 +7398,15 @@ button {
     position: absolute;
     left: 24px;
     right: 24px;
-    top: 50%;
-    transform: translateY(-50%);
+    top: 14%;
     text-align: center;
     color: #fff;
   }
 
   .home-page .mobile-hero-banner-copy p {
-    margin: 0 0 8px;
+    margin: 0 0 4px;
     font-family: "Cormorant Garamond", Georgia, serif;
-    font-size: 17px;
+    font-size: 8.5px;
     font-style: italic;
     color: rgba(255, 255, 255, 0.88);
   }
@@ -7415,7 +7414,7 @@ button {
   .home-page .mobile-hero-banner-copy h2 {
     margin: 0;
     font-family: "Cormorant Garamond", Georgia, serif;
-    font-size: clamp(24px, 7vw, 32px);
+    font-size: clamp(12px, 3.5vw, 16px);
     font-weight: 700;
     letter-spacing: 0.04em;
     line-height: 1.25;
