@@ -73,10 +73,17 @@ export default async function HomePage() {
           </div>
 
           <MobileHeroSlider
-            image={media.homeSliderImage}
-            kicker="Every thread tells a story"
-            title="EVERY MOTIF CARRIES A LEGACY"
-            videoSrc={media.mobileHeroVideo2}
+            slides={[
+              { type: "video", src: media.storyVideo },
+              { type: "video", src: media.mobileHeroVideo2 },
+              {
+                type: "image",
+                src: media.homeSliderImage,
+                kicker: "Every thread tells a story",
+                title: "EVERY MOTIF CARRIES A LEGACY"
+              },
+              { type: "image", src: media.bannerPerson2 }
+            ]}
           />
         </section>
 
