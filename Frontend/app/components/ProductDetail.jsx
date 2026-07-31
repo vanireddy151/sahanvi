@@ -13,10 +13,11 @@ function originalPriceFor(priceStr) {
 
 export default function ProductDetail({ product }) {
   const { code, name: sareeName, price, image, palluImageUrl, borderImageUrl, bodyImageUrl, fabric, occasion } = product;
-  const [activeImage, setActiveImage] = useState(image);
+  const [activeIndex, setActiveIndex] = useState(0);
   const [addedMessage, setAddedMessage] = useState("");
   const cartItem = { name: sareeName, code, price, image };
-  const gallery = [image, palluImageUrl, borderImageUrl, bodyImageUrl].filter(Boolean);
+  const gallery = [image, palluImageUrl || image, borderImageUrl || image, bodyImageUrl || image];
+  const activeImage = gallery[activeIndex];
 
   const {
     checkoutOpen,
@@ -42,21 +43,19 @@ export default function ProductDetail({ product }) {
     <>
       <div className="product-detail-panel">
         <div className="product-modal-image-col">
-          {gallery.length > 1 ? (
-            <div className="product-modal-thumbs">
-              {gallery.map((thumb) => (
-                <button
-                  key={thumb}
-                  type="button"
-                  className={`product-modal-thumb${thumb === activeImage ? " active" : ""}`}
-                  onClick={() => setActiveImage(thumb)}
-                  aria-label="View image"
-                >
-                  <img src={thumb} alt="" />
-                </button>
-              ))}
-            </div>
-          ) : null}
+          <div className="product-modal-thumbs">
+            {gallery.map((thumb, index) => (
+              <button
+                key={index}
+                type="button"
+                className={`product-modal-thumb${index === activeIndex ? " active" : ""}`}
+                onClick={() => setActiveIndex(index)}
+                aria-label="View image"
+              >
+                <img src={thumb} alt="" />
+              </button>
+            ))}
+          </div>
           <div className="product-modal-image">
             <img src={activeImage} alt={sareeName} />
             <span className="product-badge">New Arrival</span>
