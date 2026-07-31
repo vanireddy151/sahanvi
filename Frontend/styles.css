@@ -1094,15 +1094,6 @@ button {
   text-decoration: line-through;
 }
 
-.product-modal {
-  position: fixed;
-  inset: 0;
-  z-index: 40;
-  display: grid;
-  place-items: center;
-  padding: 24px;
-}
-
 .product-modal-backdrop {
   position: absolute;
   inset: 0;
@@ -1111,17 +1102,27 @@ button {
   cursor: pointer;
 }
 
-.product-modal-panel {
+.product-detail-page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 28px clamp(20px, 4vw, 60px) 70px;
+}
+
+.product-detail-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 20px;
+  color: var(--brick-dark);
+  font: 700 13px/1.2 Inter, Arial, sans-serif;
+  text-decoration: none;
+}
+
+.product-detail-panel {
   position: relative;
-  z-index: 1;
-  width: min(920px, 100%);
   display: grid;
   grid-template-columns: minmax(260px, 0.88fr) minmax(300px, 1fr);
   gap: 34px;
-  padding: 22px;
-  background: var(--paper);
-  border-radius: var(--card-radius);
-  box-shadow: 0 28px 90px rgba(22, 13, 10, 0.22);
 }
 
 .product-modal-close {
@@ -5009,16 +5010,9 @@ button {
     font-size: 19px;
   }
 
-  .product-modal {
-    padding: 16px;
-  }
-
-  .product-modal-panel {
-    max-height: calc(100vh - 32px);
+  .product-detail-panel {
     grid-template-columns: 1fr;
     gap: 18px;
-    overflow: auto;
-    padding: 16px;
   }
 
   .product-modal-image {
@@ -5236,8 +5230,7 @@ button {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .product-modal-panel {
-    width: min(92vw, 760px);
+  .product-detail-panel {
     grid-template-columns: 0.9fr 1fr;
   }
 
@@ -5367,16 +5360,12 @@ button {
     font-size: 23px;
   }
 
-  .product-modal {
-    padding: 12px;
+  .product-detail-panel {
+    grid-template-columns: 1fr;
   }
 
-  .product-modal-panel {
-    width: 100%;
-    max-height: calc(100vh - 24px);
-    grid-template-columns: 1fr;
-    overflow: auto;
-    border-radius: 14px;
+  .product-detail-page {
+    padding: 18px 16px 50px;
   }
 
   .product-modal-image {
