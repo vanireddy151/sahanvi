@@ -205,11 +205,11 @@ export default function ProductCard({
                 <li>Cash on delivery available on select pin codes</li>
               </ul>
 
-              <p className="product-service-points">Secure checkout &middot; Carefully packed &middot; Easy returns</p>
               <div className="product-modal-actions">
                 <button type="button" className="product-buy-now" onClick={startCartCheckout}>Buy it now</button>
                 <button type="button" className="product-add-cart" onClick={addToCartStay}>Add to Cart</button>
               </div>
+              <p className="product-service-points">Secure checkout &middot; Carefully packed &middot; Easy returns</p>
               {addedMessage ? <p className="product-added-message">{addedMessage}</p> : null}
               <a className="product-modal-view-cart" href="/cart">View Cart</a>
             </div>
