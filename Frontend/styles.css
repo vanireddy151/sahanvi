@@ -1161,13 +1161,13 @@ button {
   display: flex;
   flex: 0 0 auto;
   flex-direction: column;
-  gap: 8px;
+  gap: 12px;
   margin: 0;
 }
 
 .product-modal-thumb {
-  width: 52px;
-  height: 64px;
+  width: 88px;
+  height: 108px;
   border: 1px solid var(--hairline);
   border-radius: 8px;
   padding: 0;
@@ -1276,6 +1276,13 @@ button {
   height: 6px;
   border-radius: 50%;
   background: var(--gold, #b5913a);
+}
+
+.product-return-policy {
+  margin: 10px 0 0;
+  max-width: 420px;
+  color: #4c403a;
+  font: 14px/1.4 Inter, Arial, sans-serif;
 }
 
 .product-added-message {
@@ -5019,6 +5026,11 @@ button {
     min-height: 310px;
   }
 
+  .product-modal-thumb {
+    width: 56px;
+    height: 70px;
+  }
+
   .product-modal-copy {
     padding: 0 2px 4px;
   }
@@ -5370,6 +5382,11 @@ button {
 
   .product-modal-image {
     min-height: 330px;
+  }
+
+  .product-modal-thumb {
+    width: 64px;
+    height: 78px;
   }
 
   .product-modal-copy {

@@ -91,6 +91,11 @@ export default function ProductDetail({ product }) {
             <li>Cash on delivery available on select pin codes</li>
           </ul>
 
+          <p className="product-modal-section-label">Return Policy</p>
+          <p className="product-return-policy">
+            Please note that once the falls or blouse is stitched, we will be unable to exchange the product.
+          </p>
+
           <div className="product-modal-actions">
             <button type="button" className="product-buy-now" onClick={startCartCheckout}>Buy it now</button>
             <button
