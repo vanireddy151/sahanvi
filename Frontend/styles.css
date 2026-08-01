@@ -1121,7 +1121,8 @@ button {
 .product-detail-panel {
   position: relative;
   display: grid;
-  grid-template-columns: minmax(260px, 0.88fr) minmax(300px, 1fr);
+  grid-template-columns: minmax(320px, 1.15fr) minmax(300px, 0.85fr);
+  align-items: start;
   gap: 34px;
 }
 
@@ -1151,7 +1152,7 @@ button {
   position: relative;
   flex: 1;
   min-width: 0;
-  min-height: 420px;
+  height: 640px;
   overflow: hidden;
   background: #eaded2;
   border-radius: var(--card-radius);
@@ -5023,7 +5024,7 @@ button {
   }
 
   .product-modal-image {
-    min-height: 310px;
+    height: 380px;
   }
 
   .product-modal-thumb {
@@ -5381,7 +5382,7 @@ button {
   }
 
   .product-modal-image {
-    min-height: 330px;
+    height: 420px;
   }
 
   .product-modal-thumb {
