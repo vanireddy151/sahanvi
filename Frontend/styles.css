@@ -1122,7 +1122,6 @@ button {
   position: relative;
   display: grid;
   grid-template-columns: minmax(340px, auto) minmax(380px, 1fr);
-  align-items: start;
   gap: 48px;
 }
 
@@ -1152,7 +1151,7 @@ button {
   position: relative;
   flex: 0 0 auto;
   width: 420px;
-  height: 640px;
+  min-height: 640px;
   overflow: hidden;
   background: #eaded2;
   border-radius: var(--card-radius);
@@ -3541,18 +3540,19 @@ button {
   display: flex;
   flex-wrap: wrap;
   gap: 0;
+  margin-top: 22px;
 }
 
 .product-modal-actions a,
 .product-modal-actions button {
-  min-height: 46px;
+  min-height: 23px;
   border: 1px solid var(--brick-dark);
   border-radius: 0;
-  padding: 11px 18px;
+  padding: 6px 9px;
   color: #fff;
   background: var(--brick-dark);
   cursor: pointer;
-  font: 800 14px/1 Inter, Arial, sans-serif;
+  font: 800 12px/1 Inter, Arial, sans-serif;
 }
 
 .product-modal-actions a,
