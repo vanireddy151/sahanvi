@@ -47,6 +47,20 @@ router.get("/", async (req, res, next) => {
   }
 });
 
+router.get("/code/:code", async (req, res, next) => {
+  try {
+    const saree = await Saree.findOne({ code: String(req.params.code || "").toUpperCase() });
+    if (!saree) {
+      res.status(404).json({ message: "Saree not found" });
+      return;
+    }
+
+    res.json(saree);
+  } catch (error) {
+    next(error);
+  }
+});
+
 router.post("/upload-image", requireAdmin, uploadMemory.single("image"), async (req, res, next) => {
   try {
     if (!req.file) {
