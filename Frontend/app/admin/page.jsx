@@ -122,6 +122,7 @@ export default function AdminPage() {
   const [dispatching, setDispatching] = useState(false);
   const [dispatchStatusMessage, setDispatchStatusMessage] = useState("");
   const [imageUploading, setImageUploading] = useState({});
+  const [imageErrors, setImageErrors] = useState({});
   const mainImageInputRef = useRef(null);
   const [testimonials, setTestimonials] = useState([]);
   const [testimonialFile, setTestimonialFile] = useState(null);
@@ -395,7 +396,7 @@ export default function AdminPage() {
     if (!file) return;
 
     setImageUploading((current) => ({ ...current, [field]: true }));
-    setStatus("");
+    setImageErrors((current) => ({ ...current, [field]: "" }));
     try {
       const adminSession = JSON.parse(localStorage.getItem("sahanvi-admin-session") || "null");
       const formData = new FormData();
@@ -408,21 +409,21 @@ export default function AdminPage() {
       });
 
       if (response.status === 401) {
-        setStatus("Your admin session expired. Please sign in again.");
+        setImageErrors((current) => ({ ...current, [field]: "Your admin session expired. Please sign in again." }));
         localStorage.removeItem("sahanvi-admin-session");
         window.location.href = "/admin/login";
         return;
       }
 
-      const data = await response.json();
+      const data = await response.json().catch(() => null);
       if (!response.ok) {
-        setStatus(data.message || `Unable to upload the ${label}.`);
+        setImageErrors((current) => ({ ...current, [field]: data?.message || `Unable to upload the ${label}.` }));
         return;
       }
 
       setForm((current) => ({ ...current, [field]: data.url }));
     } catch {
-      setStatus("Unable to connect. Please try again.");
+      setImageErrors((current) => ({ ...current, [field]: "Unable to connect. Please try again." }));
     } finally {
       setImageUploading((current) => ({ ...current, [field]: false }));
     }
@@ -430,6 +431,10 @@ export default function AdminPage() {
 
   async function submit(event) {
     event.preventDefault();
+    if (Object.values(imageUploading).some(Boolean)) {
+      setStatus("Please wait for the images to finish uploading.");
+      return;
+    }
     if (!form.imageUrl) {
       setStatus("Please upload the main saree image before saving.");
       mainImageInputRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
@@ -621,6 +626,7 @@ export default function AdminPage() {
                       onChange={(event) => uploadSareeImage(field, label, event.target.files?.[0])}
                     />
                     {imageUploading[field] ? <small>Uploading to Cloudinary…</small> : null}
+                    {imageErrors[field] ? <small className="admin-image-error">{imageErrors[field]}</small> : null}
                     {form[field] ? (
                       <img className="admin-image-preview" src={form[field]} alt={`${label} preview`} />
                     ) : null}
@@ -700,7 +706,9 @@ export default function AdminPage() {
               </div>
               <label><span>Description</span><textarea name="description" rows="4" value={form.description} onChange={updateField}></textarea></label>
               <div className="admin-form-actions">
-                <button className="checkout-primary" type="submit">{editingId ? "Update Saree" : "Upload Saree"}</button>
+                <button className="checkout-primary" type="submit" disabled={Object.values(imageUploading).some(Boolean)}>
+                  {Object.values(imageUploading).some(Boolean) ? "Uploading images…" : editingId ? "Update Saree" : "Upload Saree"}
+                </button>
                 {editingId ? <button type="button" onClick={() => { setEditingId(""); setForm(emptyForm); }}>Cancel Edit</button> : null}
               </div>
               <p className="admin-status">{status}</p>

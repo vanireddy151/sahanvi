@@ -2906,6 +2906,10 @@ button {
   font-style: normal;
 }
 
+.admin-image-field .admin-image-error {
+  color: #b3261e;
+}
+
 .admin-image-field input[type="file"] {
   padding: 10px;
 }
