@@ -3,7 +3,7 @@
 import Header from "../components/Header";
 import { apiUrl, resolveImageUrl } from "../lib/api";
 import { menus } from "../data/navigation";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 const emptyForm = {
   category: "Heritage Sarees",
@@ -122,6 +122,7 @@ export default function AdminPage() {
   const [dispatching, setDispatching] = useState(false);
   const [dispatchStatusMessage, setDispatchStatusMessage] = useState("");
   const [imageUploading, setImageUploading] = useState({});
+  const mainImageInputRef = useRef(null);
   const [testimonials, setTestimonials] = useState([]);
   const [testimonialFile, setTestimonialFile] = useState(null);
   const [testimonialCaption, setTestimonialCaption] = useState("");
@@ -431,6 +432,8 @@ export default function AdminPage() {
     event.preventDefault();
     if (!form.imageUrl) {
       setStatus("Please upload the main saree image before saving.");
+      mainImageInputRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+      mainImageInputRef.current?.focus();
       return;
     }
     const nextSaree = {
@@ -604,14 +607,15 @@ export default function AdminPage() {
                 <label><span>Price</span><input name="price" value={form.price} onChange={updateField} placeholder="21020" required /></label>
                 <label><span>Stock</span><input name="stock" type="number" min="0" value={form.stock} onChange={updateField} required /></label>
                 {[
-                  ["imageUrl", "Main Saree Image"],
-                  ["palluImageUrl", "Pallu Close-up"],
-                  ["borderImageUrl", "Border Close-up"],
-                  ["bodyImageUrl", "Body Close-up"]
-                ].map(([field, label]) => (
+                  ["imageUrl", "Main Saree Image", true],
+                  ["palluImageUrl", "Pallu Close-up", false],
+                  ["borderImageUrl", "Border Close-up", false],
+                  ["bodyImageUrl", "Body Close-up", false]
+                ].map(([field, label, isRequired]) => (
                   <label className="admin-image-field" key={field}>
-                    <span>{label}</span>
+                    <span>{label}{isRequired ? <em> (required)</em> : null}</span>
                     <input
+                      ref={field === "imageUrl" ? mainImageInputRef : undefined}
                       type="file"
                       accept="image/*"
                       onChange={(event) => uploadSareeImage(field, label, event.target.files?.[0])}

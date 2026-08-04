@@ -2900,6 +2900,12 @@ button {
   font: 800 12px/1 Inter, Arial, sans-serif;
 }
 
+.admin-image-field span em {
+  color: #b3261e;
+  font-size: 13px;
+  font-style: normal;
+}
+
 .admin-image-field input[type="file"] {
   padding: 10px;
 }
