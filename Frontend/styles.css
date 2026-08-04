@@ -2900,6 +2900,24 @@ button {
   font: 800 12px/1 Inter, Arial, sans-serif;
 }
 
+.admin-image-field input[type="file"] {
+  padding: 10px;
+}
+
+.admin-image-field small {
+  color: #8c5a3e;
+  font: 600 13px/1.2 Inter, Arial, sans-serif;
+}
+
+.admin-image-preview {
+  width: 100%;
+  max-width: 220px;
+  height: 140px;
+  object-fit: cover;
+  border: 1px solid #ddd8d3;
+  border-radius: 8px;
+}
+
 .admin-form-actions {
   display: flex;
   flex-wrap: wrap;

@@ -121,6 +121,7 @@ export default function AdminPage() {
   const [dispatchForm, setDispatchForm] = useState({ courierName: "", trackingNumber: "" });
   const [dispatching, setDispatching] = useState(false);
   const [dispatchStatusMessage, setDispatchStatusMessage] = useState("");
+  const [imageUploading, setImageUploading] = useState({});
   const [testimonials, setTestimonials] = useState([]);
   const [testimonialFile, setTestimonialFile] = useState(null);
   const [testimonialCaption, setTestimonialCaption] = useState("");
@@ -389,8 +390,49 @@ export default function AdminPage() {
     }
   }
 
+  async function uploadSareeImage(field, label, file) {
+    if (!file) return;
+
+    setImageUploading((current) => ({ ...current, [field]: true }));
+    setStatus("");
+    try {
+      const adminSession = JSON.parse(localStorage.getItem("sahanvi-admin-session") || "null");
+      const formData = new FormData();
+      formData.append("image", file);
+
+      const response = await fetch(apiUrl("/api/sarees/upload-image"), {
+        method: "POST",
+        headers: adminSession?.token ? { Authorization: `Bearer ${adminSession.token}` } : undefined,
+        body: formData
+      });
+
+      if (response.status === 401) {
+        setStatus("Your admin session expired. Please sign in again.");
+        localStorage.removeItem("sahanvi-admin-session");
+        window.location.href = "/admin/login";
+        return;
+      }
+
+      const data = await response.json();
+      if (!response.ok) {
+        setStatus(data.message || `Unable to upload the ${label}.`);
+        return;
+      }
+
+      setForm((current) => ({ ...current, [field]: data.url }));
+    } catch {
+      setStatus("Unable to connect. Please try again.");
+    } finally {
+      setImageUploading((current) => ({ ...current, [field]: false }));
+    }
+  }
+
   async function submit(event) {
     event.preventDefault();
+    if (!form.imageUrl) {
+      setStatus("Please upload the main saree image before saving.");
+      return;
+    }
     const nextSaree = {
       ...form,
       id: editingId || `SR-${Date.now()}`,
@@ -561,10 +603,25 @@ export default function AdminPage() {
                 <label><span>Code</span><input name="code" value={form.code} onChange={updateField} placeholder="S123456" required /></label>
                 <label><span>Price</span><input name="price" value={form.price} onChange={updateField} placeholder="21020" required /></label>
                 <label><span>Stock</span><input name="stock" type="number" min="0" value={form.stock} onChange={updateField} required /></label>
-                <label><span>Cloudinary Image URL</span><input name="imageUrl" type="url" value={form.imageUrl} onChange={updateField} placeholder="https://res.cloudinary.com/..." required /></label>
-                <label><span>Pallu Close-up URL</span><input name="palluImageUrl" type="url" value={form.palluImageUrl} onChange={updateField} placeholder="https://res.cloudinary.com/..." /></label>
-                <label><span>Border Close-up URL</span><input name="borderImageUrl" type="url" value={form.borderImageUrl} onChange={updateField} placeholder="https://res.cloudinary.com/..." /></label>
-                <label><span>Body Close-up URL</span><input name="bodyImageUrl" type="url" value={form.bodyImageUrl} onChange={updateField} placeholder="https://res.cloudinary.com/..." /></label>
+                {[
+                  ["imageUrl", "Main Saree Image"],
+                  ["palluImageUrl", "Pallu Close-up"],
+                  ["borderImageUrl", "Border Close-up"],
+                  ["bodyImageUrl", "Body Close-up"]
+                ].map(([field, label]) => (
+                  <label className="admin-image-field" key={field}>
+                    <span>{label}</span>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={(event) => uploadSareeImage(field, label, event.target.files?.[0])}
+                    />
+                    {imageUploading[field] ? <small>Uploading to Cloudinary…</small> : null}
+                    {form[field] ? (
+                      <img className="admin-image-preview" src={form[field]} alt={`${label} preview`} />
+                    ) : null}
+                  </label>
+                ))}
                 <label><span>Fabric</span><input name="fabric" value={form.fabric} onChange={updateField} placeholder="Silk, Cotton, Organza" /></label>
                 <label><span>Weave / Style</span><input name="style" value={form.style} onChange={updateField} placeholder="Banarasi, Kanjeevaram, Chikankari" /></label>
                 <label><span>Zari Type</span><input name="zariType" value={form.zariType} onChange={updateField} placeholder="Pure Gold, Tested, Silver" /></label>

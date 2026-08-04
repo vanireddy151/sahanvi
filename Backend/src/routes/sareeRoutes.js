@@ -2,8 +2,23 @@ const express = require("express");
 const Saree = require("../models/Saree");
 const { requireAdmin } = require("../middleware/auth");
 const upload = require("../middleware/upload");
+const uploadMemory = require("../middleware/uploadMemory");
+const cloudinary = require("../utils/cloudinary");
 
 const router = express.Router();
+
+function uploadToCloudinary(buffer) {
+  return new Promise((resolve, reject) => {
+    const stream = cloudinary.uploader.upload_stream(
+      { folder: "sahanvi/sarees" },
+      (error, result) => {
+        if (error) reject(error);
+        else resolve(result);
+      }
+    );
+    stream.end(buffer);
+  });
+}
 
 function parseList(value) {
   if (!value) return [];
@@ -27,6 +42,21 @@ router.get("/", async (req, res, next) => {
   try {
     const sarees = await Saree.find().sort({ createdAt: -1 });
     res.json(sarees);
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.post("/upload-image", requireAdmin, uploadMemory.single("image"), async (req, res, next) => {
+  try {
+    if (!req.file) {
+      res.status(400).json({ message: "An image file is required." });
+      return;
+    }
+
+    const result = await uploadToCloudinary(req.file.buffer);
+
+    res.status(201).json({ url: result.secure_url, publicId: result.public_id });
   } catch (error) {
     next(error);
   }
