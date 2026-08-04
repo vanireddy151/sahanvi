@@ -15,6 +15,7 @@ function originalPriceFor(priceStr) {
 export default function ProductCard({
   image = media.bannerPerson,
   name,
+  code: codeProp = "",
   price = "₹21,020",
   palluImageUrl = "",
   borderImageUrl = "",
@@ -23,8 +24,10 @@ export default function ProductCard({
   occasion = ""
 }) {
   const router = useRouter();
-  const code = name.match(/S\d+$/)?.[0] || "";
-  const sareeName = name.replace(/\sS\d+$/, "");
+  // Older call sites bake the code into the display name (e.g. static demo
+  // data); real sarees pass it explicitly since their names don't match that.
+  const code = codeProp || name.match(/S\d+$/)?.[0] || "";
+  const sareeName = codeProp ? name : name.replace(/\sS\d+$/, "");
   const cartItem = { name: sareeName, code, price, image };
 
   const { checkoutOpen, setCheckoutOpen, otpSent, otp, setOtp, startCartCheckout, sendOtp, verifyOtp, savePendingCartItem } =

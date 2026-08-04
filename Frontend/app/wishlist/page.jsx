@@ -38,7 +38,7 @@ export default function WishlistPage() {
           ) : (
             <div className="product-grid">
               {wishlist.map((item) => (
-                <ProductCard key={item.code || item.name} name={`${item.name} ${item.code}`.trim()} price={item.price} image={item.image} />
+                <ProductCard key={item.code || item.name} name={item.name} code={item.code} price={item.price} image={item.image} />
               ))}
             </div>
           )}

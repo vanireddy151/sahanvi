@@ -373,6 +373,7 @@ export default function CollectionShop({ type }) {
                 <ProductCard
                   key={product.code}
                   name={product.name}
+                  code={product.code}
                   price={product.price}
                   image={product.image}
                   palluImageUrl={product.palluImageUrl}

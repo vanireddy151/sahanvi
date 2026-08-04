@@ -148,6 +148,7 @@ export default async function HomePage() {
               <ProductCard
                 key={`${item.name}-${index}`}
                 name={item.name}
+                code={item.code}
                 price={item.price}
                 image={item.image}
                 palluImageUrl={item.palluImageUrl}
