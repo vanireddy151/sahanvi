@@ -2,6 +2,7 @@
 
 import Header from "../components/Header";
 import { apiUrl, resolveImageUrl } from "../lib/api";
+import { compressImage } from "../lib/imageCompression";
 import { menus } from "../data/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
 
@@ -122,6 +123,7 @@ export default function AdminPage() {
   const [dispatching, setDispatching] = useState(false);
   const [dispatchStatusMessage, setDispatchStatusMessage] = useState("");
   const [imageUploading, setImageUploading] = useState({});
+  const [imageStage, setImageStage] = useState({});
   const [imageErrors, setImageErrors] = useState({});
   const mainImageInputRef = useRef(null);
   const [testimonials, setTestimonials] = useState([]);
@@ -397,10 +399,14 @@ export default function AdminPage() {
 
     setImageUploading((current) => ({ ...current, [field]: true }));
     setImageErrors((current) => ({ ...current, [field]: "" }));
+    setImageStage((current) => ({ ...current, [field]: "compressing" }));
     try {
+      const compressedFile = await compressImage(file, { maxSizeMB: 5 });
+      setImageStage((current) => ({ ...current, [field]: "uploading" }));
+
       const adminSession = JSON.parse(localStorage.getItem("sahanvi-admin-session") || "null");
       const formData = new FormData();
-      formData.append("image", file);
+      formData.append("image", compressedFile);
 
       const response = await fetch(apiUrl("/api/sarees/upload-image"), {
         method: "POST",
@@ -625,7 +631,9 @@ export default function AdminPage() {
                       accept="image/*"
                       onChange={(event) => uploadSareeImage(field, label, event.target.files?.[0])}
                     />
-                    {imageUploading[field] ? <small>Uploading to Cloudinary…</small> : null}
+                    {imageUploading[field] ? (
+                      <small>{imageStage[field] === "compressing" ? "Compressing image…" : "Uploading to Cloudinary…"}</small>
+                    ) : null}
                     {imageErrors[field] ? <small className="admin-image-error">{imageErrors[field]}</small> : null}
                     {form[field] ? (
                       <img className="admin-image-preview" src={form[field]} alt={`${label} preview`} />
